@@ -6,21 +6,23 @@
 
 ## 1. ClickUp Statuses
 
-Seven visible statuses. These are the only statuses the Orchestrator uses. They map to existing CoE lifecycle statuses where possible.
+Nine live ClickUp statuses. Quorum orchestrates the first six. The final three are fully out of Orchestrator scope — no read, no write, ever.
 
-| # | Status | Orchestrator role |
+| # | Status (live ClickUp string) | Orchestrator role |
 |---|---|---|
 | 1 | Submitted | Intake Agent fires here |
-| 2 | Validation | Clarification, stall management, Demand Signal, CoE Pass 1 all happen here — tags carry the detail |
-| 3 | Product Review | CoE Pass 1 complete — hard gate for Head of Product go/no-go |
-| 4 | Define & Design | Requirements Agent and CoE Pass 2 fire here |
-| 5 | Delivery Ready | All gates passed — hard gate before handoff to scheduling |
-| 6 | Scheduled / Build | Human-controlled — Orchestrator does not act |
-| 7 | Closed | Terminal status — parked, rejected, duplicate, or released |
+| 2 | Triage | Optional deeper-dig stage. Frequently skipped in practice — tickets may move directly from Submitted/Validation to COE Review. The Orchestrator does not force a ticket through Triage. Demand Signal Agent may be invoked here on demand (see §4a). |
+| 3 | Validation | PM sanity check that the idea is valid to progress. Clarification and stall management happen here. Demand Signal Agent may be invoked here on demand (see §4a) — no longer mandatory. |
+| 4 | COE Review | CoE Pass 1 runs here — hard gate for Head of Product go/no-go (Gate 4, same role as the former "Product Review" name) |
+| 5 | Define & Design | Requirements Agent and CoE Pass 2 fire here |
+| 6 | Ready for Scheduling | All gates passed — hard gate before handoff (Gate 8, same role as the former "Delivery Ready" name) |
+| 7 | Scheduled | Orchestrator scope ends here. No further Orchestrator action. |
+| 8 | Build & Deploy | **Out of scope.** Orchestrator never reads or writes tickets at this status. |
+| 9 | Release & GTM | **Out of scope.** Orchestrator never reads or writes tickets at this status. |
 
-**Closed** is the single terminal status. All tickets that stop moving for any reason go to Closed. The reason is recorded in the final Orchestrator comment and in Supabase.
+**There is no terminal ClickUp status.** Closure (rejected, duplicate, parked, or otherwise stopped) is recorded via the tag `closed` — the ticket remains at its last live status. See §2 for the tag and §4a for closure handling. Any pipeline or dashboard view distinguishing live from dead tickets must filter on the `closed` tag, not on status.
 
-There is no separate Parked, Rejected, or Duplicate status. These are states within Closed, distinguished by tags and the closure comment.
+Exact live string capitalisation must be confirmed against the ClickUp API response (not the UI display) before any MCP write. Update this table with the confirmed literal strings if they differ from the Title Case shown above.
 
 ---
 
@@ -43,15 +45,16 @@ Tags are the state detail layer. The Orchestrator reads tags before taking any a
 | Tag | Added when | Removed when |
 |---|---|---|
 | `awaiting-info` | Orchestrator posts clarification questions | Submitter provides sufficient answers |
-| `stalled` | Day 3 working-day timer fires with no reply | Submitter provides answers or ticket is Closed |
+| `stalled` | Day 3 working-day timer fires with no reply | Submitter provides answers or ticket has `closed` tag |
 | `duplicate-suspected` | Intake Agent flags possible duplicate | Head of Product resolves the gate |
 | `bau-cr-signal` | Orchestrator identifies BAU/CR signal from Requirements output | Head of Product confirms (→ swap to `bau-cr`) or rejects (tag removed, standard path) |
 
-### Action tag — tells Head of Product something needs their decision
+### Action and terminal tags
 
 | Tag | Added when | Removed when |
 |---|---|---|
 | `human-review-required` | Any gate becomes active | Head of Product provides a decision and Orchestrator acts on it |
+| `closed` | Ticket is rejected, confirmed duplicate, parked, or otherwise terminated | Never automatically. Only if the Head of Product explicitly reopens the ticket. |
 
 ---
 
@@ -60,11 +63,12 @@ Tags are the state detail layer. The Orchestrator reads tags before taking any a
 Before taking any action on a ticket, the Orchestrator reads in this exact order:
 
 1. **ClickUp status** — which stage is the ticket in?
-2. **`human-review-required` tag** — if present, stop. Do nothing. Wait for Head of Product.
-3. **Progress tags** — what has already been completed? This determines what to do next.
-4. **State tags** — is `awaiting-info`, `stalled`, or `duplicate-suspected` active? This affects routing.
-5. **Most recent Orchestrator comment** — what was last done and when? Does the intended action duplicate it?
-6. **Supabase** (Phase 2) — working-day timer, chase count, last processed comment ID.
+2. **`closed` tag** — if present, stop. Closed tickets are never acted on regardless of status.
+3. **`human-review-required` tag** — if present, stop. Do nothing. Wait for Head of Product.
+4. **Progress tags** — what has already been completed? This determines what to do next.
+5. **State tags** — is `awaiting-info`, `stalled`, or `duplicate-suspected` active? This affects routing.
+6. **Most recent Orchestrator comment** — what was last done and when? Does the intended action duplicate it?
+7. **Supabase** (Phase 2) — working-day timer, chase count, last processed comment ID.
 
 ---
 
@@ -104,11 +108,11 @@ human-review-required removed, no coe-pass-1-complete?
   → Run CoE Pass 1 (6 personas: PM, Analyst, Commercial, Product Marketing, CSM, Contrarian)
   → Add coe-pass-1-complete
   → Add human-review-required
-  → Move status to Product Review
+  → Move status to COE Review
   → Stop. Wait.
 ```
 
-### Tickets in Product Review
+### Tickets in COE Review
 
 ```
 Has human-review-required?
@@ -117,8 +121,8 @@ Has human-review-required?
 human-review-required removed?
   → Head of Product has decided
   → If Go: move status to Define & Design, remove human-review-required
-  → If No-Go: move status to Closed, post closure comment
-  → If Validate Further: remain at Product Review, post follow-up request
+  → If No-Go: add tag `closed`, status unchanged, post closure comment
+  → If Validate Further: remain at COE Review, post follow-up request
 ```
 
 ### Tickets in Define & Design
@@ -136,7 +140,7 @@ No requirements-added?
 Has requirements-added, human-review-required removed, no coe-pass-2-complete?
   → Check bau-cr-signal tag
   → If bau-cr-signal: add human-review-required (Gate 6a — BAU/CR confirmation)
-      → Confirmed: remove bau-cr-signal, add bau-cr, move → Delivery Ready
+      → Confirmed: remove bau-cr-signal, add bau-cr, move → Ready for Scheduling
       → Rejected: remove bau-cr-signal, run CoE Pass 2
   → If no bau-cr-signal: Run CoE Pass 2 (all 13 personas)
       → Add coe-pass-2-complete
@@ -151,11 +155,11 @@ Has coe-pass-2-complete, human-review-required removed, no solution-added?
 
 Has solution-added (or Phase < 4), human-review-required removed?
   → Run Delivery Readiness check
-  → Pass: move status to Delivery Ready, add human-review-required (hard gate)
+  → Pass: move status to Ready for Scheduling, add human-review-required (hard gate)
   → Fail: add human-review-required with specific gaps listed
 ```
 
-### Tickets in Delivery Ready
+### Tickets in Ready for Scheduling
 
 ```
 Has human-review-required?
@@ -163,10 +167,34 @@ Has human-review-required?
 
 human-review-required removed?
   → Head of Product has approved
-  → Move status to Scheduled / Build
+  → Move status to Scheduled
   → Record handoff in Supabase
   → No further Orchestrator action on this ticket
 ```
+
+---
+
+## 4a. Demand Signal — optional invocation
+
+Demand Signal Agent (Mode A, Orchestrator-managed) is not a mandatory gate. It is invoked on demand by the Head of Product while a ticket is at Triage or Validation, using the same Mode A behaviour defined in DEMAND_SIGNAL_AGENT.md (output returns to Orchestrator, graded, presented for review, written back via T-07 only after approval).
+
+**If Demand Signal is never invoked:** CoE Pass 1 runs on ticket content and Requirements context alone. The Pass 1 council output must include an explicit line: "No demand signal evidence assessed for this ticket." This is not optional — silent proceeding without the declaration is a governance failure, same standard as the Lenses Not Represented rule for reduced CoE Pass 2 councils.
+
+**If Demand Signal is invoked and grades Low:** Gate 3 (hard gate) applies exactly as before — invoking it does not weaken the low-evidence escalation.
+
+**If Demand Signal is invoked and grades Medium or High:** proceeds as before via Gate 2 soft review and T-07 write-back.
+
+## 4b. Closure handling
+
+When any gate resolves in rejection, confirmed duplicate, or park (Gate 1, Gate 3 "do not proceed", Gate 4 No-Go, Gate 8 Reject, or any exception-flow closure), the Orchestrator:
+1. Adds the tag `closed`.
+2. Does NOT change ClickUp status — the ticket remains at its current status.
+3. Posts the appropriate T-16 (or T-10 for CoE Pass 1 No-Go) closure comment stating the reason.
+4. Records the closure in the audit log (Supabase `audit_log` and `workflow_runs`).
+
+**Reopening:** if the Head of Product removes the `closed` tag, the ticket is live again at whatever status it sits at. The Orchestrator re-applies the pre-action check (read status, read tags, read most recent comment) before taking any further action — it does not assume where the ticket "should" resume from.
+
+**Pre-action check addition:** every pre-action check (CLICKUP_STATE_MODEL.md §3, AGENT_ROUTING_RULES.md §2) must check the `closed` tag immediately after `human-review-required`. If `closed` is present, stop — the Orchestrator never acts on a closed ticket regardless of status.
 
 ---
 
@@ -185,28 +213,28 @@ Validation
   ├─ Stall Day 3 → add stalled
   ├─ Stall Day 9 → add human-review-required (park recommendation)
   ├─ Demand Signal graded → add human-review-required
-  └─ CoE Pass 1 complete → add coe-pass-1-complete + human-review-required → Product Review
+  └─ CoE Pass 1 complete → add coe-pass-1-complete + human-review-required → COE Review
 
-Product Review
+COE Review
   ├─ Go → Define & Design (remove human-review-required)
-  ├─ No-Go → Closed
-  └─ Validate Further → remain Product Review
+  ├─ No-Go → add `closed` tag
+  └─ Validate Further → remain COE Review
 
 Define & Design
   ├─ Requirements complete → add requirements-added + human-review-required (soft gate)
-  ├─ bau-cr confirmed → add human-review-required → Delivery Ready
+  ├─ bau-cr confirmed → add human-review-required → Ready for Scheduling
   ├─ CoE Pass 2 complete → add coe-pass-2-complete + human-review-required
   ├─ Solution Shaping complete (Phase 4) → add solution-added + human-review-required
-  └─ Rejected at any gate → Closed
+  └─ Rejected at any gate → add `closed` tag
 
-Delivery Ready
-  └─ Head of Product approves → Scheduled / Build (remove human-review-required)
+Ready for Scheduling
+  └─ Head of Product approves → Scheduled (remove human-review-required)
 
-Scheduled / Build
+Scheduled
   (Orchestrator does not act)
 
-Closed
-  (terminal — no further Orchestrator action)
+closed tag
+  (terminal tag — no further Orchestrator action)
 ```
 
 ---
@@ -262,10 +290,10 @@ See `SUPABASE_SCHEMA.md` for full Phase 2 schema.
 
 These must be done before the Claude Project is configured:
 
-- [ ] Confirm all 7 statuses exist on both AvailabilityInsight and InventoryInsight lists
-- [ ] Create all tags on both lists: `human-review-required`, `awaiting-info`, `stalled`, `duplicate-suspected`, `bau-cr-signal`, `bau-cr`, `coe-pass-1-complete`, `requirements-added`, `coe-pass-2-complete`, `solution-added`
+- [ ] Confirm all 9 live statuses exist and record their exact API string values (Submitted, Triage, Validation, COE Review, Define & Design, Ready for Scheduling, Scheduled, Build & Deploy, Release & GTM).
+- [ ] Create all tags on both lists: `closed`, `human-review-required`, `awaiting-info`, `stalled`, `duplicate-suspected`, `bau-cr-signal`, `bau-cr`, `coe-pass-1-complete`, `requirements-added`, `coe-pass-2-complete`, `solution-added`
 - [ ] Confirm ClickUp MCP supports tag add/remove write operations
-- [ ] Confirm `Closed` status exists on both lists
-- [ ] Confirm exact ClickUp status strings including numbering (e.g. "1. Submitted", "3. Product Review") — MCP status writes require exact match
+- [ ] Confirm `closed` tag exists on both in-scope lists.
+- [ ] Confirm exact ClickUp status strings including numbering (e.g. "Submitted", "COE Review") — MCP status writes require exact match
 
 - [ ] Identify 3–5 real test tickets for Phase 1 validation

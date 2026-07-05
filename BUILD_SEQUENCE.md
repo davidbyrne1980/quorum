@@ -39,8 +39,8 @@ No automation. No schedule. You control every action manually.
 
 **Steps:**
 
-1. [ ] Confirm all 7 ClickUp statuses exist on both lists
-2. [ ] Create all 9 tags on both lists (see `CLICKUP_STATE_MODEL.md` Section 9)
+1. [ ] Confirm all 9 live statuses exist and record their exact API string values (Submitted, Triage, Validation, COE Review, Define & Design, Ready for Scheduling, Scheduled, Build & Deploy, Release & GTM).
+2. [ ] Create all 10 tags on both lists (see `CLICKUP_STATE_MODEL.md` Section 9)
 3. [ ] Create Claude Project — add PDLC_ORCHESTRATOR_INSTRUCTIONS.md as Project Instructions
 4. [ ] Upload all knowledge files to Project Knowledge
 5. [ ] Connect ClickUp MCP and Confluence MCP to the project
@@ -167,10 +167,10 @@ A vague ticket at Submitted. Orchestrator should post clarification questions, a
 A ticket at Validation with `awaiting-info` and no reply for 3+ working days. Orchestrator should post Day 3 chase, add `stalled` tag.
 
 **Test 4 — Ticket ready for CoE Pass 1**
-A ticket at Validation with Demand Signal already graded. Orchestrator should run CoE Pass 1, add `coe-pass-1-complete`, add `human-review-required`, move to Product Review.
+A ticket at Validation with Demand Signal already graded. Orchestrator should run CoE Pass 1, add `coe-pass-1-complete`, add `human-review-required`, move to COE Review.
 
 **Test 5 — BAU/CR candidate**
-A ticket that describes a small change (1–3 day delivery, narrow scope). Orchestrator should flag for BAU/CR classification, add `bau-cr` if confirmed, route to Delivery Ready bypassing CoE Pass 2 and Solution Shaping.
+A ticket that describes a small change (1–3 day delivery, narrow scope). Orchestrator should flag for BAU/CR classification, add `bau-cr` if confirmed, route to Ready for Scheduling bypassing CoE Pass 2 and Solution Shaping.
 
 **Test 6 — Gate decision grammar:** Resolve a multi-way gate (Gate 4) with each of Go / No-Go / Validate Further via explicit decision. Confirm the Orchestrator never routes from tag absence alone and records the decision value.
 

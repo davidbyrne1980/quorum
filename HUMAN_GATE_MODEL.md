@@ -68,8 +68,8 @@ Questions are stored in Supabase as `pending_review`. T-00 comment posted to Cli
 
 | Decision | Orchestrator action |
 |---|---|
-| Confirmed duplicate — close | Move status → Closed. Post T-16 closure comment. |
-| Confirmed duplicate — merge | Record instruction. Human performs ClickUp merge. Move status → Closed on new ticket once merged. |
+| Confirmed duplicate — close | Add tag `closed`. Status unchanged. Post T-16 closure comment. |
+| Confirmed duplicate — merge | Record instruction. Human performs ClickUp merge. Add tag `closed` on the new ticket once merged. Status unchanged. Post T-16 closure comment. |
 | Link but keep separate | Add ClickUp link relationship. Remove `duplicate-suspected`. Continue intake → Validation. |
 | Not a duplicate — proceed | Remove `duplicate-suspected`. Continue intake → Validation. |
 
@@ -78,7 +78,7 @@ Questions are stored in Supabase as `pending_review`. T-00 comment posted to Cli
 ### Gate 2 — Demand Signal Review
 **Type:** Soft
 **Status:** Validation
-**Trigger:** Demand Signal Agent has completed its run.
+**Trigger:** Demand Signal Agent has completed its run (invoked on demand by the Head of Product — no longer a mandatory stage gate; see CLICKUP_STATE_MODEL.md §4a).
 **Comment template:** T-07 (on approval) or T-08 (if grade Low → escalates to Gate 3)
 
 **What the Head of Product receives:**
@@ -91,7 +91,7 @@ Questions are stored in Supabase as `pending_review`. T-00 comment posted to Cli
 |---|---|
 | Approve write-back | Write filtered summary to ClickUp (T-07). Remove `human-review-required`. Invoke CoE Pass 1. |
 | Request amendment | Hold. Head of Product specifies what to change. Re-present once updated. |
-| Reject ticket | Move status → Closed. Post T-16 closure comment. |
+| Reject ticket | Add tag `closed`. Status unchanged. Post T-16 closure comment. |
 
 ---
 
@@ -109,14 +109,14 @@ Questions are stored in Supabase as `pending_review`. T-00 comment posted to Cli
 | Decision | Orchestrator action |
 |---|---|
 | Proceed despite low evidence | Record decision. Note in ClickUp that progression is proceeding with acknowledged low demand signal. Remove `human-review-required`. Continue to CoE Pass 1. |
-| Do not proceed — close | Move status → Closed. Post T-16 closure comment. |
+| Do not proceed — close | Add tag `closed`. Status unchanged. Post T-16 closure comment. |
 | Request additional investigation | Invoke Demand Signal Agent with targeted prompt. Reset gate after re-run. |
 
 ---
 
 ### Gate 4 — CoE Pass 1 Go / No-Go
 **Type:** Hard
-**Status:** Product Review
+**Status:** COE Review
 **Trigger:** CoE Pass 1 (Early Challenge) has completed.
 **Comment template:** T-09
 
@@ -128,8 +128,8 @@ Questions are stored in Supabase as `pending_review`. T-00 comment posted to Cli
 | Decision | Orchestrator action |
 |---|---|
 | Approve (Go) | Move status → Define & Design. Remove `human-review-required`. Invoke Requirements Agent. |
-| Reject (No-Go) | Move status → Closed. Post T-10 closure comment with reason. |
-| Validate Further | Remain at Product Review. Post follow-up request. Reset gate once information received. |
+| Reject (No-Go) | Add tag `closed`. Status unchanged. Post T-10 closure comment with reason. |
+| Validate Further | Remain at COE Review. Post follow-up request. Reset gate once information received. |
 
 ---
 
@@ -151,13 +151,13 @@ Questions are stored in Supabase as `pending_review`. T-00 comment posted to Cli
 |---|---|
 | Approve — proceed to CoE Pass 2 | Record approved roster (as recommended, or as edited — edits validated against hard rules; violating removals are refused with the rule cited). Write requirements summary to ClickUp (T-13). Remove `human-review-required`. If not BAU/CR: invoke CoE Pass 2 with the approved roster and round count. If BAU/CR: proceed to Gate 6a. |
 | Request amendments | Hold. Head of Product specifies changes. Re-present once updated. |
-| Reject ticket | Move status → Closed. Post T-16 closure comment. |
+| Reject ticket | Add tag `closed`. Status unchanged. Post T-16 closure comment. |
 
 ---
 
-### Gate 6a — BAU/CR Delivery Ready Confirmation
+### Gate 6a — BAU/CR Ready for Scheduling Confirmation
 **Type:** Hard
-**Status:** Define & Design → Delivery Ready
+**Status:** Define & Design → Ready for Scheduling
 **Trigger:** Orchestrator has identified BAU/CR signal and Requirements review is approved.
 **Comment template:** T-14
 
@@ -168,7 +168,7 @@ Questions are stored in Supabase as `pending_review`. T-00 comment posted to Cli
 
 | Decision | Orchestrator action |
 |---|---|
-| Confirm BAU/CR | Remove `bau-cr-signal`. Add `bau-cr` (permanent). Move status → Delivery Ready. Add `human-review-required`. Proceed to Gate 8. |
+| Confirm BAU/CR | Remove `bau-cr-signal`. Add `bau-cr` (permanent). Move status → Ready for Scheduling. Add `human-review-required`. Proceed to Gate 8. |
 | Reject BAU/CR — treat as strategic | Remove `bau-cr-signal`. Do NOT add `bau-cr`. Remove `human-review-required`. Invoke CoE Pass 2. Continue standard path. |
 
 ---
@@ -190,7 +190,7 @@ Questions are stored in Supabase as `pending_review`. T-00 comment posted to Cli
 | Accept Source B | Record decision. Discard Source A. Continue. |
 | Request further investigation | Re-run relevant agent with targeted prompt. Reset gate. |
 | Accept ambiguity — proceed | Record decision. Continue with ambiguity noted. |
-| Reject ticket | Move status → Closed. Post T-16 closure comment. |
+| Reject ticket | Add tag `closed`. Status unchanged. Post T-16 closure comment. |
 
 ---
 
@@ -210,13 +210,13 @@ Questions are stored in Supabase as `pending_review`. T-00 comment posted to Cli
 |---|---|
 | Approve | Write CoE Pass 2 summary to ClickUp (T-11). Remove `human-review-required`. Phase 1/2/3: proceed to Delivery Readiness. Phase 4: invoke Solution Shaping Agent. |
 | Request amendments or further challenge | Hold. Re-run relevant personas if needed. Re-present. |
-| Reject ticket | Move status → Closed. Post T-16 closure comment. |
+| Reject ticket | Add tag `closed`. Status unchanged. Post T-16 closure comment. |
 
 ---
 
-### Gate 8 — Delivery Ready Approval
+### Gate 8 — Ready for Scheduling Approval
 **Type:** Hard
-**Status:** Delivery Ready
+**Status:** Ready for Scheduling
 **Trigger:** All upstream gates passed. Delivery Readiness check complete.
 **Comment template:** T-15
 
@@ -228,9 +228,9 @@ Questions are stored in Supabase as `pending_review`. T-00 comment posted to Cli
 
 | Decision | Orchestrator action |
 |---|---|
-| Approve — move to Scheduled / Build | Move status → Scheduled / Build. Remove `human-review-required`. Record in Supabase. Orchestrator hands off. |
-| Hold — not ready to schedule | Remain at Delivery Ready. Record reason. Wait for Head of Product to re-engage. |
-| Reject | Move status → Closed. Post T-16 closure comment. |
+| Approve — move to Scheduled | Move status → Scheduled. Remove `human-review-required`. Record in Supabase. Orchestrator hands off. |
+| Hold — not ready to schedule | Remain at Ready for Scheduling. Record reason. Wait for Head of Product to re-engage. |
+| Reject | Add tag `closed`. Status unchanged. Post T-16 closure comment. |
 
 ---
 
@@ -248,7 +248,7 @@ Questions are stored in Supabase as `pending_review`. T-00 comment posted to Cli
 
 | Decision | Orchestrator action |
 |---|---|
-| Close ticket | Move status → Closed. Post T-16 closure comment: closed due to no response. Remove `awaiting-info`, `stalled`. |
+| Close ticket | Add tag `closed`. Status unchanged. Post T-16 closure comment: closed due to no response. Remove `awaiting-info`, `stalled`. |
 | Grant extension | Reset stall timer in Supabase. Post comment confirming extension. Remove `human-review-required`. Continue monitoring. |
 | Take over submitter communication | Post a comment recording this. Continue monitoring. Timer continues unless reset. |
 
@@ -265,7 +265,7 @@ Questions are stored in Supabase as `pending_review`. T-00 comment posted to Cli
 | Re-run with different prompt | Re-run with narrower or adjusted prompt. Gate resets after re-run. |
 | Proceed without agent output | Record decision. Note gap in Orchestrator comment. Continue with caveat visible in ClickUp. |
 | Halt ticket | Hold at current status. No further action until Head of Product re-engages. |
-| Reject ticket | Move status → Closed. Post T-16 closure comment. |
+| Reject ticket | Add tag `closed`. Status unchanged. Post T-16 closure comment. |
 
 ---
 
@@ -307,7 +307,7 @@ Validation
 [CoE Pass 1 runs]
       │
       ▼
-Product Review
+COE Review
       │
 [Gate 4 — CoE Pass 1 Go/No-Go — Hard]
       │
@@ -316,7 +316,7 @@ Define & Design
       │
 [Gate 5 — Requirements soft review]
       │
-      ├─ BAU/CR → [Gate 6a — Hard] → Delivery Ready
+      ├─ BAU/CR → [Gate 6a — Hard] → Ready for Scheduling
       │
       └─ Strategic → [CoE Pass 2 runs]
                           │
@@ -324,11 +324,11 @@ Define & Design
                           │
                     [Solution Shaping — Phase 4]
                           │
-                    Delivery Ready
+                    Ready for Scheduling
                           │
-                    [Gate 8 — Delivery Ready — Hard]
+                    [Gate 8 — Ready for Scheduling — Hard]
                           │
-                    Scheduled / Build
+                    Scheduled
 ```
 
 **Exception gates (any status):**

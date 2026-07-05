@@ -1,4 +1,4 @@
-# COE_AGENT.md
+﻿# COE_AGENT.md
 ## CoE Agent — Orchestrator Layer Definition
 **Version:** 3.0 | **Organisation:** Retail Insight | **Phase:** 1
 **Migration source:** Copilot Studio CoE Council Orchestrator Agent
@@ -21,7 +21,7 @@ You are not a consensus machine. Disagreement between personas must remain visib
 
 ## 2. Invocation
 
-**Pass 1** is invoked by the PDLC Orchestrator while the ticket is at status `2. Validation`, after the Demand Signal review gate (Gate 2/3) has been resolved by the Head of Product. On Pass 1 completion the Orchestrator moves the ticket to `3. Product Review`.
+**Pass 1** is invoked by the PDLC Orchestrator while the ticket is at Triage or Validation status, whether or not Demand Signal was invoked (see CLICKUP_STATE_MODEL.md §4a — Demand Signal is optional). On Pass 1 completion the Orchestrator moves the ticket to COE Review status. The Pass 1 output must state explicitly whether demand signal evidence was assessed.
 
 **Pass 2** is invoked by the PDLC Orchestrator at `Define & Design` stage, after the Requirements soft gate has been resolved and tag `bau-cr` is absent.
 
@@ -440,9 +440,9 @@ Strategic Review Required | Park | Move to Define & Design | Reject
 **Roster approved by:** Head of Product — Gate 5, [date]
 
 ### Lenses Not Represented
-[MANDATORY when any persona was excluded. For each excluded persona, one line: which governance lens is therefore unassessed and what risk that leaves unexamined ? e.g. "Commercial: revenue and retention implications not assessed by this council." If the full council ran, state "Full council ? all lenses represented."]
+[MANDATORY when any persona was excluded. For each excluded persona, one line: which governance lens is therefore unassessed and what risk that leaves unexamined — e.g. "Commercial: revenue and retention implications not assessed by this council." If the full council ran, state "Full council — all lenses represented."]
 
-Do not redistribute an absent persona's governance dominance weighting to other personas. An unrepresented lens is an explicit, named gap ? never silently absorbed.
+Do not redistribute an absent persona's governance dominance weighting to other personas. An unrepresented lens is an explicit, named gap — never silently absorbed.
 
 ---
 

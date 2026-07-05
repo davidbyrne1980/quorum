@@ -1,4 +1,4 @@
-# CLICKUP_COMMENT_TEMPLATES.md
+﻿# CLICKUP_COMMENT_TEMPLATES.md
 ## PDLC Orchestrator — ClickUp Comment Templates
 **Version:** 2.1 | **Organisation:** Retail Insight | **Phase:** 1
 
@@ -174,7 +174,7 @@ We're recommending this ticket be closed until the submitter is available to res
 ### T-07 — Demand Signal Summary (after Head of Product review)
 
 **When posted:** After the Head of Product approves the filtered demand signal write-back at Gate 2. Never posted at gate-open — pre-approval, output lives in Supabase/chat only.
-**Status after posting:** Product Review (CoE Pass 1 fires next)
+**Status after posting:** COE Review (CoE Pass 1 fires next)
 
 ```
 🤖 **PDLC Orchestrator** | Demand Signal | [DATE]
@@ -223,7 +223,7 @@ This means we don't have sufficient evidence to confidently support progression.
 ### T-09 — CoE Pass 1 Gate (Go / No-Go)
 
 **When posted:** After CoE Pass 1 completes — presenting result for Head of Product decision.
-**Status after posting:** Product Review
+**Status after posting:** COE Review
 **Tags added:** `coe-pass-1-complete`, `human-review-required`
 
 ```
@@ -232,6 +232,8 @@ This means we don't have sufficient evidence to confidently support progression.
 CoE Pass 1 (Early Challenge) is complete.
 
 **Overall recommendation:** [Go / No-Go / Validate Further]
+
+**Demand signal evidence:** [CONTENT: "Assessed — see summary above" / "Not assessed — Demand Signal Agent was not invoked for this ticket"]
 
 **Summary:**
 [CONTENT: challenge summary from CoE Pass 1 synthesis — key agreements, key disagreements, dominant concerns — 4–8 sentences. No raw persona output.]
@@ -249,10 +251,12 @@ CoE Pass 1 (Early Challenge) is complete.
 ### T-10 — CoE Pass 1 Closed (No-Go)
 
 **When posted:** Head of Product has rejected at CoE Pass 1 gate.
-**Status after posting:** Closed
+**Status after posting:** Status unchanged; `closed` tag added
 
 ```
 🤖 **PDLC Orchestrator** | Ticket Closed | [DATE]
+
+*Ticket remains at its current status; closure is recorded via the `closed` tag.*
 
 This ticket has been reviewed at CoE Pass 1 and the decision is not to proceed.
 
@@ -340,7 +344,7 @@ Requirements reviewed and approved.
 **Open items carried forward:**
 [CONTENT: High and Medium materiality open questions — brief list, or "None" if resolved]
 
-[If BAU/CR = Yes:] Moving to Delivery Ready (BAU/CR fast-track).
+[If BAU/CR = Yes:] Moving to Ready for Scheduling (BAU/CR fast-track).
 [If BAU/CR = No:] Moving to CoE Pass 2.
 ```
 
@@ -362,10 +366,10 @@ Based on the requirements assessment, this ticket appears to qualify for the BAU
 
 **Classification rationale:** [CONTENT: why Orchestrator flagged as BAU/CR — scope, estimated size, no new architecture]
 
-If confirmed, this ticket will skip CoE Pass 2 and Solution Shaping and proceed directly to Delivery Ready.
+If confirmed, this ticket will skip CoE Pass 2 and Solution Shaping and proceed directly to Ready for Scheduling.
 
 **Decision required from Head of Product:**
-- Confirm BAU/CR — proceed to Delivery Ready
+- Confirm BAU/CR — proceed to Ready for Scheduling
 - Reject classification — treat as strategic, proceed to CoE Pass 2
 
 ⏸️ *On hold pending decision.*
@@ -377,14 +381,14 @@ If confirmed, this ticket will skip CoE Pass 2 and Solution Shaping and proceed 
 
 ---
 
-### T-15 — Delivery Ready Gate
+### T-15 — Ready for Scheduling Gate
 
 **When posted:** All upstream stages complete — presenting for final Head of Product approval.
-**Status after posting:** Delivery Ready
+**Status after posting:** Ready for Scheduling
 **Tags added:** `human-review-required`
 
 ```
-🤖 **PDLC Orchestrator** | Delivery Ready — Approval Required | [DATE]
+🤖 **PDLC Orchestrator** | Ready for Scheduling — Approval Required | [DATE]
 
 This ticket has completed all PDLC stages and is ready for scheduling.
 
@@ -399,7 +403,7 @@ This ticket has completed all PDLC stages and is ready for scheduling.
 **BAU/CR:** [Yes / No]
 
 **Decision required from Head of Product:**
-- Approve — move to Scheduled / Build
+- Approve — move to Scheduled
 - Hold — not ready to schedule (state reason)
 - Reject — close ticket
 
@@ -411,10 +415,12 @@ This ticket has completed all PDLC stages and is ready for scheduling.
 ### T-16 — Ticket Closed (General)
 
 **When posted:** Ticket is being closed for any reason other than CoE Pass 1 No-Go.
-**Status after posting:** Closed
+**Status after posting:** Status unchanged; `closed` tag added
 
 ```
 🤖 **PDLC Orchestrator** | Ticket Closed | [DATE]
+
+*Ticket remains at its current status; closure is recorded via the `closed` tag.*
 
 **Reason for closure:** [CONTENT: one of — No submitter response (9 working days) / Rejected at [stage] / Confirmed duplicate of [ticket ID] / Merged into [ticket ID] / Insufficient demand evidence / Head of Product decision]
 
@@ -503,4 +509,4 @@ No action will be taken until a decision is received.
 5. **Keep gate comments actionable.** Every gate comment must state clearly what decision is required and what the options are.
 6. **One comment per trigger per day.** Check the most recent Orchestrator comment before posting. If the same action was taken today, do not repeat.
 7. **Plain language.** Comments are read by submitters who may not be technical.
-8. **Status references must match.** Use only these status names: Submitted, Validation, Product Review, Define & Design, Delivery Ready, Scheduled / Build, Closed.
+8. **Status references must match.** Use only these status names: Submitted, Triage, Validation, COE Review, Define & Design, Ready for Scheduling, Scheduled. There is no Closed status — use the `closed` tag and state the closure reason in the comment; do not reference a status change on closure.

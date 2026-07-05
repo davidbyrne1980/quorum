@@ -1,4 +1,4 @@
-# AGENT_ROUTING_RULES.md
+﻿# AGENT_ROUTING_RULES.md
 ## PDLC Orchestrator — Agent Routing Rules
 **Version:** 2.1 | **Organisation:** Retail Insight | **Phase:** 1
 
@@ -17,11 +17,12 @@ This document defines the rules the Orchestrator follows to decide which agent f
 Before taking ANY action on any ticket:
 
 1. Read ClickUp status
-2. Check for `human-review-required` tag → **if present, stop immediately**
-3. Check progress tags to determine what has already been done
-4. Check state tags for active exceptions
-5. Read most recent Orchestrator comment — does the intended action duplicate it?
-6. Check Supabase for working-day timer and last processed comment ID (Phase 2)
+2. Check for `closed` tag → **if present, stop immediately. Closed tickets are never acted on regardless of status.**
+3. Check for `human-review-required` tag → **if present, stop immediately**
+4. Check progress tags to determine what has already been done
+5. Check state tags for active exceptions
+6. Read most recent Orchestrator comment — does the intended action duplicate it?
+7. Check Supabase for working-day timer and last processed comment ID (Phase 2)
 
 Only proceed if all checks pass.
 
@@ -100,26 +101,23 @@ On skip: post T-02. Remove `human-review-required`. Move status → Validation.
 
 **Trigger:** Daily Routine finds ticket in Validation with no `awaiting-info` and no `coe-pass-1-complete`.
 
-**Check first:** Is this ticket new to Validation (no Demand Signal run yet) or has it been graded already?
+**Demand Signal is optional — invoked on demand, not automatically.**
 
-**Path A — Demand Signal not yet run:**
+If the Head of Product invokes Demand Signal Agent (at Triage or Validation): follow Path A/B below.
+If Demand Signal is not invoked: proceed directly to CoE Pass 1 (see §3 CoE Pass 1 invocation below), with the council output declaring "No demand signal evidence assessed for this ticket."
 
-Invoke Demand Signal Agent.
+**Path A — Demand Signal invoked, not yet graded:**
 
 Agent searches: ClickUp, Confluence, Slack, Jira, HubSpot.
 Output returned to Orchestrator → stored in Supabase → not written to ClickUp yet.
-
-Add `human-review-required`. Phase 1: present the full graded output in chat for Head of Product review — post nothing to ClickUp yet. Phase 2+: post a content-free gate notification (T-00 pattern) only. The T-07 content comment posts only after approval (Path B).
+Add `human-review-required`. Present the full graded output in chat (Phase 1); nothing posts to ClickUp pre-approval.
 Stop. Wait for Head of Product to grade evidence.
 
-**Special case — overall grade Low:**
-Post T-08 comment instead. Hard gate. Head of Product must decide whether to proceed.
+**Special case — overall grade Low:** Gate 3 fires. Hard gate. Head of Product must decide whether to proceed.
 
-**Path B — explicit Head of Product decision recorded; `human-review-required` subsequently removed by the Orchestrator:**
+**Path B — Demand Signal invoked and graded, `human-review-required` resolved via explicit decision:**
 
-Demand Signal is graded. Head of Product has approved write-back.
-
-Write filtered summary to ClickUp (T-07 template).
+Write filtered summary to ClickUp (T-07 template) — only after approval.
 Invoke CoE Pass 1.
 
 **CoE Pass 1 personas:** Product Manager, Analyst, Commercial, Product Marketing, Customer Success, Contrarian.
@@ -127,22 +125,22 @@ Invoke CoE Pass 1.
 **Context passed to CoE Pass 1:**
 - Full ticket content
 - All comments including Q&A
-- Demand Signal filtered summary
+- Demand Signal filtered summary if invoked, otherwise the explicit "not assessed" declaration
 - Relevant Confluence docs (pre-fetched by Orchestrator)
 
 After all 6 personas respond, produce synthesis.
 
 Add `coe-pass-1-complete`.
-Move status → Product Review.
+Move status → COE Review.
 Add `human-review-required`.
-Post T-09 gate comment.
+Post T-09 gate comment (must include the demand-signal-assessed-or-not declaration).
 Stop. Wait.
 
 ---
 
-### Status: Product Review
+### Status: COE Review
 
-**Trigger:** Daily Routine finds ticket in Product Review.
+**Trigger:** Daily Routine finds ticket in COE Review.
 
 **If `human-review-required` present:** Stop. Waiting on Head of Product go/no-go.
 
@@ -151,8 +149,8 @@ Stop. Wait.
 | Decision | Orchestrator action |
 |---|---|
 | Go | Move status → Define & Design. Post continuation comment. |
-| No-Go | Move status → Closed. Post T-10 closure comment. |
-| Validate Further | Remain at Product Review. Post follow-up request. Re-add `human-review-required` after follow-up work complete. |
+| No-Go | Add tag `closed`. Status unchanged. Post T-10 closure comment. |
+| Validate Further | Remain at COE Review. Post follow-up request. Re-add `human-review-required` after follow-up work complete. |
 
 ---
 
@@ -196,8 +194,8 @@ Add `human-review-required`.
 Hard gate. Wait for Head of Product to confirm fast-track.
 
 **If BAU/CR confirmed by Head of Product (`bau-cr-signal` swapped for `bau-cr`):**
-Move status → Delivery Ready.
-Add `human-review-required` (Delivery Ready hard gate).
+Move status → Ready for Scheduling.
+Add `human-review-required` (Ready for Scheduling hard gate).
 Post T-15 gate comment.
 Stop.
 
@@ -239,14 +237,14 @@ Assess: are all required stages complete? Are there unresolved blockers?
 
 | Result | Orchestrator action |
 |---|---|
-| Pass | Move status → Delivery Ready. Add `human-review-required`. Post T-15 gate comment. |
+| Pass | Move status → Ready for Scheduling. Add `human-review-required`. Post T-15 gate comment. |
 | Fail | Add `human-review-required`. Post T-18 gate comment listing gaps. |
 
 ---
 
-### Status: Delivery Ready
+### Status: Ready for Scheduling
 
-**Trigger:** Daily Routine finds ticket at Delivery Ready.
+**Trigger:** Daily Routine finds ticket at Ready for Scheduling.
 
 **If `human-review-required` present:** Stop. Hard gate. Waiting on Head of Product final approval.
 
@@ -254,21 +252,21 @@ Assess: are all required stages complete? Are there unresolved blockers?
 
 | Decision | Orchestrator action |
 |---|---|
-| Approve | Move status → Scheduled / Build. Record in Supabase. No further Orchestrator action. |
-| Hold | Remain at Delivery Ready. Record reason. Wait. |
-| Reject | Move status → Closed. Post T-16 closure comment. |
+| Approve | Move status → Scheduled. Record in Supabase. No further Orchestrator action. |
+| Hold | Remain at Ready for Scheduling. Record reason. Wait. |
+| Reject | Add tag `closed`. Status unchanged. Post T-16 closure comment. |
 
 ---
 
-### Status: Scheduled / Build
+### Status: Scheduled
 
 Orchestrator does not act on tickets in this status. Human-controlled from here.
 
 ---
 
-### Status: Closed
+### Tag: `closed`
 
-Orchestrator does not act on Closed tickets. Terminal state.
+Orchestrator does not act on tickets with the `closed` tag. Terminal state.
 
 ---
 
@@ -317,7 +315,7 @@ Hard gate — Head of Product confirms or rejects classification.
 **If confirmed:**
 Remove `bau-cr-signal`. Add `bau-cr` (permanent progress tag).
 Skip CoE Pass 2 and Solution Shaping entirely.
-Move directly to Delivery Ready gate.
+Move directly to Ready for Scheduling gate.
 
 **If rejected:**
 Remove `bau-cr-signal`. Do NOT add `bau-cr`. Continue standard path to CoE Pass 2. (This prevents the rejected-classification loop: only the removable signal tag exists pre-confirmation.)

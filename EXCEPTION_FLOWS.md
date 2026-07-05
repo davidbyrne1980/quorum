@@ -58,7 +58,7 @@ All comments in this document are posted using the templates in CLICKUP_COMMENT_
 **Day 9 (no reply):**
 - Post park recommendation comment.
 - Add tag `human-review-required`.
-- Comment content: state that no reply has been received after 9 working days, the ticket is recommended for parking, and the Head of Product must decide: park to Closed / grant extension / take over submitter communication.
+- Comment content: state that no reply has been received after 9 working days, the ticket is recommended for parking, and the Head of Product must decide: park via `closed` tag / grant extension / take over submitter communication.
 - Post comment: `Park recommendation posted — awaiting human decision — Day 9 [date]`
 - **Stop. Take no further action until the Head of Product responds.**
 
@@ -66,7 +66,7 @@ All comments in this document are posted using the templates in CLICKUP_COMMENT_
 
 | Head of Product Decision | Orchestrator Action |
 |---|---|
-| Park ticket | Move status to `7. Closed`. Post T-16 closure comment (reason: no submitter response, 9 working days). Remove `awaiting-info`, `stalled`, `human-review-required`. |
+| Park ticket | Add tag `closed`. Status unchanged. Post T-16 closure comment (reason: no submitter response, 9 working days). Remove `awaiting-info`, `stalled`, `human-review-required`. |
 | Grant extension | Reset timer. Post comment confirming extension. Remove tag `human-review-required`. Continue monitoring. |
 | Take over submitter communication | Post a comment recording this. Continue monitoring. Timer continues from Day 9 unless reset. |
 
@@ -132,8 +132,8 @@ If the submitter replies at any point during the stall period:
 
 | Head of Product Decision | Orchestrator Action |
 |---|---|
-| Confirmed duplicate — close | Move status to `7. Closed`. Post T-16 referencing the canonical ticket. Remove tag `human-review-required`. |
-| Confirmed duplicate — merge | Record merge instruction in Orchestrator comment. Orchestrator does not perform the merge — this is a human ClickUp action. Once confirmed complete, move status to `7. Closed` on the new ticket, posting T-16 referencing the canonical ticket. |
+| Confirmed duplicate — close | Add tag `closed`. Status unchanged. Post T-16 referencing the canonical ticket. Remove tag `human-review-required`. |
+| Confirmed duplicate — merge | Record merge instruction in Orchestrator comment. Orchestrator does not perform the merge — this is a human ClickUp action. Once confirmed complete, add tag `closed` on the new ticket, status unchanged, posting T-16 referencing the canonical ticket. |
 | Link but keep separate | Add ClickUp link relationship between tickets (if MCP supports). Remove tag `human-review-required`. Continue intake on the new ticket — move status to `Validation`. |
 | Not a duplicate — proceed | Remove tag `human-review-required`. Continue intake — move status to `Validation`. |
 
@@ -172,7 +172,7 @@ Common triggers:
 | Accept Source B, discard Source A | As above. |
 | Request additional investigation | Determine which agent (if any) should re-run with a targeted prompt. Invoke if appropriate. Reset gate after re-run. |
 | Accept the ambiguity and proceed | Record decision and stated tolerance for ambiguity. Remove tag `human-review-required`. Continue. |
-| Reject ticket | Move status to `Closed`. Post closure comment. |
+| Reject ticket | Add tag `closed`. Status unchanged. Post closure comment. |
 
 ---
 
@@ -200,7 +200,7 @@ Common triggers:
 - Note in the ClickUp ticket that progression is proceeding with acknowledged low demand signal.
 - Note demand signal grade as Low in comment.
 - Remove tag `human-review-required`.
-- Continue to Product Review.
+- Continue to COE Review.
 
 **Source-specific handling:**
 - **Slack:** Treat as noisy by default. Signals from Slack require corroboration from at least one other source before being graded above Low.
