@@ -343,7 +343,7 @@ If a Head of Product edit violates a hard rule, the Orchestrator refuses the spe
 ### Round count
 
 - Roster ≤ 7: single round. The Contrarian still runs last, must name specific positions challenged, and must include the convergence assessment normally produced in Round 2.
-- Roster ≥ 8: full two-round architecture per COE_AGENT.md §8.
+- Roster ≥ 8: full two-round architecture per spec/agents/COE_AGENT.md §8.
 
 ### Decision options at Gate 5 (roster component)
 

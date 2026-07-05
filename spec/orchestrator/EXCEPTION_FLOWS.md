@@ -14,9 +14,9 @@ These flows are not edge cases — they are expected conditions. The Orchestrato
 
 ## 2. Exception Index
 
-All comments in this document are posted using the templates in CLICKUP_COMMENT_TEMPLATES.md with the ?? PDLC Orchestrator header; the inline strings below are audit-log summaries, not literal comment bodies.
+All comments in this document are posted using the templates in spec/CLICKUP_COMMENT_TEMPLATES.md with the ?? PDLC Orchestrator header; the inline strings below are audit-log summaries, not literal comment bodies.
 
-All comments in this document are posted using the templates in CLICKUP_COMMENT_TEMPLATES.md with the ðŸ¤– PDLC Orchestrator header; the inline strings below are audit-log summaries, not literal comment bodies.
+All comments in this document are posted using the templates in spec/CLICKUP_COMMENT_TEMPLATES.md with the ðŸ¤– PDLC Orchestrator header; the inline strings below are audit-log summaries, not literal comment bodies.
 
 | # | Exception | Trigger |
 |---|---|---|

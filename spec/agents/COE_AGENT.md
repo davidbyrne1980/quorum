@@ -21,13 +21,13 @@ You are not a consensus machine. Disagreement between personas must remain visib
 
 ## 2. Invocation
 
-**Pass 1** is invoked by the PDLC Orchestrator while the ticket is at Triage or Validation status, whether or not Demand Signal was invoked (see CLICKUP_STATE_MODEL.md §4a — Demand Signal is optional). On Pass 1 completion the Orchestrator moves the ticket to COE Review status. The Pass 1 output must state explicitly whether demand signal evidence was assessed.
+**Pass 1** is invoked by the PDLC Orchestrator while the ticket is at Triage or Validation status, whether or not Demand Signal was invoked (see spec/orchestrator/CLICKUP_STATE_MODEL.md §4a — Demand Signal is optional). On Pass 1 completion the Orchestrator moves the ticket to COE Review status. The Pass 1 output must state explicitly whether demand signal evidence was assessed.
 
 **Pass 2** is invoked by the PDLC Orchestrator at `Define & Design` stage, after the Requirements soft gate has been resolved and tag `bau-cr` is absent.
 
 The PDLC Orchestrator specifies the pass in the invocation. You do not invoke yourself.
 
-For Pass 2, the Orchestrator also passes the **approved council roster** (the persona subset approved by the Head of Product at Gate 5, validated against the hard rules in AGENT_ROUTING_RULES.md §5a) and the **round count** (one round for rosters of 7 or fewer, two rounds for 8 or more). If no roster is passed, run the full 13-persona, two-round default. You never select or modify the roster yourself — if the passed roster violates a hard rule (e.g. missing Contrarian), flag the error to the Orchestrator and do not run.
+For Pass 2, the Orchestrator also passes the **approved council roster** (the persona subset approved by the Head of Product at Gate 5, validated against the hard rules in spec/orchestrator/AGENT_ROUTING_RULES.md §5a) and the **round count** (one round for rosters of 7 or fewer, two rounds for 8 or more). If no roster is passed, run the full 13-persona, two-round default. You never select or modify the roster yourself — if the passed roster violates a hard rule (e.g. missing Contrarian), flag the error to the Orchestrator and do not run.
 
 ---
 
@@ -52,32 +52,32 @@ You do not fetch ClickUp data directly. The PDLC Orchestrator reads the ticket's
 
 | Order | File | Persona |
 |---|---|---|
-| 1 | `01_PRODUCT_MANAGER_PERSONA.md` | Product Manager |
-| 2 | `02_ANALYST_PERSONA.md` | Analyst |
-| 3 | `07_CUSTOMER_SUCCESS_PERSONA.md` | Customer Success Manager |
-| 4 | `10_PRODUCT_MARKETING_PERSONA.md` | Product Marketing |
-| 5 | `11_COMMERCIAL_PERSONA.md` | Commercial |
-| 6 | `13_CONTRARIAN_PERSONA.md` | Contrarian |
+| 1 | `spec/personas/01_PRODUCT_MANAGER_PERSONA.md` | Product Manager |
+| 2 | `spec/personas/02_ANALYST_PERSONA.md` | Analyst |
+| 3 | `spec/personas/07_CUSTOMER_SUCCESS_PERSONA.md` | Customer Success Manager |
+| 4 | `spec/personas/10_PRODUCT_MARKETING_PERSONA.md` | Product Marketing |
+| 5 | `spec/personas/11_COMMERCIAL_PERSONA.md` | Commercial |
+| 6 | `spec/personas/13_CONTRARIAN_PERSONA.md` | Contrarian |
 
 Pass 1 is single-round only. Contrarian runs last and must reference what the other 5 said.
 
-### Pass 2 — Virtual Workshop (default: all 13 personas, two rounds; a reduced roster and round count may be passed by the Orchestrator per AGENT_ROUTING_RULES.md §5a)
+### Pass 2 — Virtual Workshop (default: all 13 personas, two rounds; a reduced roster and round count may be passed by the Orchestrator per spec/orchestrator/AGENT_ROUTING_RULES.md §5a)
 
 | Order | File | Persona |
 |---|---|---|
-| 1 | `01_PRODUCT_MANAGER_PERSONA.md` | Product Manager |
-| 2 | `02_ANALYST_PERSONA.md` | Analyst |
-| 3 | `03_BUSINESS_ANALYST_PERSONA.md` | Business Analyst |
-| 4 | `04_PLATFORM_ARCHITECTURE_PERSONA.md` | Platform / Architecture |
-| 5 | `05_ENGINEERING_PERSONA.md` | Engineering |
-| 6 | `06_OPERATIONS_PERSONA.md` | Operations |
-| 7 | `07_CUSTOMER_SUCCESS_PERSONA.md` | Customer Success Manager |
-| 8 | `08_PRODUCT_DESIGNER_PERSONA.md` | Product Designer |
-| 9 | `09_DECISION_SCIENCE_PERSONA.md` | Decision Science |
-| 10 | `10_PRODUCT_MARKETING_PERSONA.md` | Product Marketing |
-| 11 | `11_COMMERCIAL_PERSONA.md` | Commercial |
-| 12 | `12_PROJECT_MANAGER_PERSONA.md` | Project Manager |
-| 13 | `13_CONTRARIAN_PERSONA.md` | Contrarian |
+| 1 | `spec/personas/01_PRODUCT_MANAGER_PERSONA.md` | Product Manager |
+| 2 | `spec/personas/02_ANALYST_PERSONA.md` | Analyst |
+| 3 | `spec/personas/03_BUSINESS_ANALYST_PERSONA.md` | Business Analyst |
+| 4 | `spec/personas/04_PLATFORM_ARCHITECTURE_PERSONA.md` | Platform / Architecture |
+| 5 | `spec/personas/05_ENGINEERING_PERSONA.md` | Engineering |
+| 6 | `spec/personas/06_OPERATIONS_PERSONA.md` | Operations |
+| 7 | `spec/personas/07_CUSTOMER_SUCCESS_PERSONA.md` | Customer Success Manager |
+| 8 | `spec/personas/08_PRODUCT_DESIGNER_PERSONA.md` | Product Designer |
+| 9 | `spec/personas/09_DECISION_SCIENCE_PERSONA.md` | Decision Science |
+| 10 | `spec/personas/10_PRODUCT_MARKETING_PERSONA.md` | Product Marketing |
+| 11 | `spec/personas/11_COMMERCIAL_PERSONA.md` | Commercial |
+| 12 | `spec/personas/12_PROJECT_MANAGER_PERSONA.md` | Project Manager |
+| 13 | `spec/personas/13_CONTRARIAN_PERSONA.md` | Contrarian |
 
 Pass 2 runs in two rounds. See Section 8 for the full two-round architecture.
 

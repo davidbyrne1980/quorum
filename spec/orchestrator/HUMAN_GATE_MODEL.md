@@ -78,7 +78,7 @@ Questions are stored in Supabase as `pending_review`. T-00 comment posted to Cli
 ### Gate 2 — Demand Signal Review
 **Type:** Soft
 **Status:** Validation
-**Trigger:** Demand Signal Agent has completed its run (invoked on demand by the Head of Product — no longer a mandatory stage gate; see CLICKUP_STATE_MODEL.md §4a).
+**Trigger:** Demand Signal Agent has completed its run (invoked on demand by the Head of Product — no longer a mandatory stage gate; see spec/orchestrator/CLICKUP_STATE_MODEL.md §4a).
 **Comment template:** T-07 (on approval) or T-08 (if grade Low → escalates to Gate 3)
 
 **What the Head of Product receives:**
@@ -145,7 +145,7 @@ Questions are stored in Supabase as `pending_review`. T-00 comment posted to Cli
 - High-level scope assessment
 - BAU/CR signal
 - Open questions and assumptions flagged by the agent
-- **Pass 2 Council Roster Recommendation** — per-persona Recommended / Not recommended with one-line rationale, hard-rule inclusions marked as locked, proposed round count (see AGENT_ROUTING_RULES.md §5a)
+- **Pass 2 Council Roster Recommendation** — per-persona Recommended / Not recommended with one-line rationale, hard-rule inclusions marked as locked, proposed round count (see spec/orchestrator/AGENT_ROUTING_RULES.md §5a)
 
 | Decision | Orchestrator action |
 |---|---|

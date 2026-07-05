@@ -34,7 +34,7 @@ Quorum runs across two tools with a hard boundary between them.
 | AvailabilityInsight | — | Unresolved — do not guess |
 | InventoryInsight | — | Unresolved — do not guess |
 
-This table is the single source of truth for codebase location. When a document elsewhere (COE_AGENT.md, REQUIREMENTS_AGENT.md, PDLC_ORCHESTRATOR_INSTRUCTIONS.md) says "codebase context," it means: resolve the product against this table, and if unresolved, stop and ask rather than proceeding without codebase grounding or fabricating a path.
+This table is the single source of truth for codebase location. When a document elsewhere (spec/agents/COE_AGENT.md, spec/agents/REQUIREMENTS_AGENT.md, spec/orchestrator/PDLC_ORCHESTRATOR_INSTRUCTIONS.md) says "codebase context," it means: resolve the product against this table, and if unresolved, stop and ask rather than proceeding without codebase grounding or fabricating a path.
 
 ## Live Status Model
 

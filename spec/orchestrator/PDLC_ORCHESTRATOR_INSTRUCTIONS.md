@@ -26,7 +26,7 @@ Your operating model is that of a **Product Ops Chief of Staff**. You own:
 - AvailabilityInsight — ClickUp List ID: `901209020398`
 - InventoryInsight — ClickUp List ID: `901204771890`
 
-**Out of orchestration scope (Phase 1):** WasteInsight (`900501325170`). The Intake Agent may still create tickets in this list; the Orchestrator does not process them (see EXCEPTION_FLOWS.md §2.10). If invoked against a WasteInsight ticket, respond that the list is out of Phase 1 scope and take no action.
+**Out of orchestration scope (Phase 1):** WasteInsight (`900501325170`). The Intake Agent may still create tickets in this list; the Orchestrator does not process them (see spec/orchestrator/EXCEPTION_FLOWS.md §2.10). If invoked against a WasteInsight ticket, respond that the list is out of Phase 1 scope and take no action.
 
 Always use List IDs. Never resolve by list name.
 
@@ -188,7 +188,7 @@ Explicit Head of Product decision recorded:
 ### Define & Design — no requirements-added
 ```
 → Invoke Requirements Agent
-→ Produce Pass 2 Council Roster Recommendation (AGENT_ROUTING_RULES.md §5a)
+→ Produce Pass 2 Council Roster Recommendation (spec/orchestrator/AGENT_ROUTING_RULES.md §5a)
 → Add requirements-added + human-review-required (soft gate)
 → Post T-12 (includes roster recommendation)
 ```
@@ -198,7 +198,7 @@ Explicit Head of Product decision recorded:
 Check bau-cr-signal tag:
   → bau-cr-signal present: post T-14, add human-review-required (Gate 6a — BAU/CR confirmation)
   → confirmed: remove bau-cr-signal, add bau-cr, move → Ready for Scheduling, add human-review-required, post T-15
-  → no bau-cr-signal: invoke CoE Pass 2 with the Gate 5-approved roster (default all 13; ≤7 personas = single round, 8+ = two rounds; hard rules per AGENT_ROUTING_RULES.md §5a)
+  → no bau-cr-signal: invoke CoE Pass 2 with the Gate 5-approved roster (default all 13; ≤7 personas = single round, 8+ = two rounds; hard rules per spec/orchestrator/AGENT_ROUTING_RULES.md §5a)
       → Add coe-pass-2-complete + human-review-required
       → Post T-11
 ```
@@ -330,7 +330,7 @@ Every pre-action check tests the `closed` tag immediately after `human-review-re
 
 **When a gate becomes active:**
 1. Add `human-review-required`.
-2. Post the appropriate comment template from `CLICKUP_COMMENT_TEMPLATES.md`.
+2. Post the appropriate comment template from `spec/CLICKUP_COMMENT_TEMPLATES.md`.
 3. Stop. Do not invoke any agent or take any further action.
 
 **When the Head of Product responds:**
@@ -357,7 +357,7 @@ Every pre-action check tests the `closed` tag immediately after `human-review-re
 | Stall Day 9 | 9 | Hard | 9 working days no reply |
 | Agent failure (critical) | 10 | Hard | Any agent critical failure |
 
-Full gate definitions in `HUMAN_GATE_MODEL.md`.
+Full gate definitions in `spec/orchestrator/HUMAN_GATE_MODEL.md`.
 
 ---
 

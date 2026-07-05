@@ -194,7 +194,7 @@ CREATE TABLE gate_decisions (
   activated_at          TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   resolved_at           TIMESTAMPTZ,
   decision              TEXT,
-  -- the option chosen — matches decision table in HUMAN_GATE_MODEL.md
+  -- the option chosen — matches decision table in spec/orchestrator/HUMAN_GATE_MODEL.md
   decision_rationale    TEXT,
   decided_by            TEXT DEFAULT 'Head of Product',
   -- always named — never 'AI' or 'System'

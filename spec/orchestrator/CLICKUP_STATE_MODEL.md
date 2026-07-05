@@ -176,7 +176,7 @@ human-review-required removed?
 
 ## 4a. Demand Signal — optional invocation
 
-Demand Signal Agent (Mode A, Orchestrator-managed) is not a mandatory gate. It is invoked on demand by the Head of Product while a ticket is at Triage or Validation, using the same Mode A behaviour defined in DEMAND_SIGNAL_AGENT.md (output returns to Orchestrator, graded, presented for review, written back via T-07 only after approval).
+Demand Signal Agent (Mode A, Orchestrator-managed) is not a mandatory gate. It is invoked on demand by the Head of Product while a ticket is at Triage or Validation, using the same Mode A behaviour defined in spec/agents/DEMAND_SIGNAL_AGENT.md (output returns to Orchestrator, graded, presented for review, written back via T-07 only after approval).
 
 **If Demand Signal is never invoked:** CoE Pass 1 runs on ticket content and Requirements context alone. The Pass 1 council output must include an explicit line: "No demand signal evidence assessed for this ticket." This is not optional — silent proceeding without the declaration is a governance failure, same standard as the Lenses Not Represented rule for reduced CoE Pass 2 councils.
 
@@ -194,7 +194,7 @@ When any gate resolves in rejection, confirmed duplicate, or park (Gate 1, Gate 
 
 **Reopening:** if the Head of Product removes the `closed` tag, the ticket is live again at whatever status it sits at. The Orchestrator re-applies the pre-action check (read status, read tags, read most recent comment) before taking any further action — it does not assume where the ticket "should" resume from.
 
-**Pre-action check addition:** every pre-action check (CLICKUP_STATE_MODEL.md §3, AGENT_ROUTING_RULES.md §2) must check the `closed` tag immediately after `human-review-required`. If `closed` is present, stop — the Orchestrator never acts on a closed ticket regardless of status.
+**Pre-action check addition:** every pre-action check (spec/orchestrator/CLICKUP_STATE_MODEL.md §3, spec/orchestrator/AGENT_ROUTING_RULES.md §2) must check the `closed` tag immediately after `human-review-required`. If `closed` is present, stop — the Orchestrator never acts on a closed ticket regardless of status.
 
 ---
 
@@ -282,7 +282,7 @@ In Phase 2, Supabase is added as the orchestration memory layer. ClickUp statuse
 
 The Supabase MCP connector is used directly by the Claude Code Routine. No custom backend code is needed.
 
-See `SUPABASE_SCHEMA.md` for full Phase 2 schema.
+See `schema/SUPABASE_SCHEMA.md` for full Phase 2 schema.
 
 ---
 

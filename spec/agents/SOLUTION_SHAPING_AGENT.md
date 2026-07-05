@@ -91,7 +91,7 @@ This agent's full specification should be written when:
 - At least 3–5 tickets have completed the full Phase 1 workflow (Intake → Requirements → CoE Pass 2)
 - The Head of Product has reviewed CoE Pass 2 outputs and can articulate what additional shaping information is needed before delivery
 
-At that point, replace this placeholder with a full agent definition following the same structure as `INTAKE_AGENT.md`, `COE_AGENT.md`, `DEMAND_SIGNAL_AGENT.md`, and `REQUIREMENTS_AGENT.md`.
+At that point, replace this placeholder with a full agent definition following the same structure as `spec/agents/INTAKE_AGENT.md`, `spec/agents/COE_AGENT.md`, `spec/agents/DEMAND_SIGNAL_AGENT.md`, and `spec/agents/REQUIREMENTS_AGENT.md`.
 
 ---
 
