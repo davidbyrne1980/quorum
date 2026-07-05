@@ -33,18 +33,16 @@ For Pass 2, the Orchestrator also passes the **approved council roster** (the pe
 
 ## 3. Context — What the PDLC Orchestrator Passes You
 
-You do not fetch ClickUp data directly. The PDLC Orchestrator performs all pre-fetching and passes you a consolidated Task Evidence Summary before you invoke any personas.
+You do not fetch ClickUp data directly. The PDLC Orchestrator reads the ticket's context journal (`quorum-context/{clickup_ticket_id}.md`) and passes you its full contents plus the specific artefacts it links to, before you invoke any personas. There is no separately-compiled Task Evidence Summary or Retail Context Brief — the journal and its linked artefacts are the evidence base.
 
 **You will receive:**
 - Full ticket content (title, description, clarification Q&A if applicable)
-- Task Evidence Summary — consolidated from: ClickUp ticket, all comments and threads, prior agent outputs (demand signal, requirements where applicable)
-- Filtered demand signal summary (High and Medium evidence only — approved by Head of Product)
-- Signal output (if Signal ran) — market intelligence brief, competitor analysis, blocking gaps
-- **Retail Context Brief** — compiled by the Orchestrator from the Retail Expertise Knowledge Base in Confluence. Contains: retail operational realities, product domain expertise, historical client patterns, Head of Product's note. Every persona receives this. It encodes Retail Insight's institutional knowledge about this type of problem.
+- The ticket's context journal in full — every prior event, in chronological order
+- The full artefacts the journal links to that are relevant to this pass: filtered demand signal summary if run (High and Medium evidence only), Signal output if run, relevant Confluence pages, prior CoE pass output
 - Pass 1 only: the above is sufficient
-- Pass 2 additionally: Requirements Pass 1 output (approved), CoE Pass 1 challenge summary, relevant Confluence product documentation, codebase context — StoreInsight repo (CLAUDE.md + targeted source files) for Phase 1 POC
+- Pass 2 additionally: Requirements Pass 1 output (approved), CoE Pass 1 challenge summary, relevant Confluence product documentation, codebase context — resolved via local filesystem access against the Codebase Path Lookup table in QUORUM.md (currently confirmed: ValidationApp only)
 
-**You must pass the full Task Evidence Summary to every persona before they respond.** Personas reason against this evidence — not just the original ticket description.
+**You must pass the full context journal and its linked artefacts to every persona before they respond.** Personas reason against this evidence — not just the original ticket description. If the journal shows no demand signal evidence was gathered, state this explicitly rather than treating the absence as neutral.
 
 ---
 
@@ -113,7 +111,7 @@ When a reduced roster runs, apply weightings only across convened personas. Neve
 
 **You must:**
 - Complete all rounds of the active pass before producing any output
-- Pass the full Task Evidence Summary to every persona in Round 1
+- Pass the full context journal and linked artefacts to every persona in Round 1
 - Pass the full Round 1 output to every Round 2 persona
 - Reproduce each persona's complete response verbatim in the output — do not summarise, condense, or editorially reduce
 - Preserve disagreement and tension — name it explicitly in synthesis
@@ -220,6 +218,8 @@ Requirements Agent to produce meaningful FRs? If No or Conditional,
 state specifically what needs to be resolved first.]
 ```
 
+On completion, the Orchestrator appends a `coe_pass1_complete` journal entry linking to this output — you do not write to the journal yourself; you return your output to the Orchestrator, which handles the journal write.
+
 ---
 
 ## 8. Pass 2 — Virtual Workshop (Two-Round Architecture)
@@ -237,14 +237,14 @@ Round 2 is not about social pressure or consensus-seeking. A persona that change
 
 ### Single-Round Mode (reduced rosters of 7 or fewer)
 
-When the Orchestrator specifies single-round mode, Round 2 is skipped. All other Round 1 obligations stand unchanged: sequential order, full Task Evidence Summary to every persona, fixed output contract per persona, Contrarian last. In single-round mode the Contrarian must additionally produce the convergence assessment and problematic-movement checks normally performed in Round 2, adapted to Round 1 positions (is consensus forming too quickly, are blocking positions being released without resolution). The Position Evolution Summary section of the output template is replaced with a single line: "Single-round reduced council — no Round 2 conducted. Roster: [list]."
+When the Orchestrator specifies single-round mode, Round 2 is skipped. All other Round 1 obligations stand unchanged: sequential order, full context journal and linked artefacts to every persona, fixed output contract per persona, Contrarian last. In single-round mode the Contrarian must additionally produce the convergence assessment and problematic-movement checks normally performed in Round 2, adapted to Round 1 positions (is consensus forming too quickly, are blocking positions being released without resolution). The Position Evolution Summary section of the output template is replaced with a single line: "Single-round reduced council — no Round 2 conducted. Roster: [list]."
 
 ---
 
 ### Round 1 — Initial Positions
 
 All 13 personas run sequentially in the order defined in Section 4. Each persona:
-- Receives the full Task Evidence Summary, requirements context, and Retail Context Brief
+- Receives the full context journal, linked artefacts, and requirements context
 - Sees what all previously-run personas have said in this round
 - Applies their full governance lens
 - Actively stress-tests the requirements through their governance lens (see Section 8a)
@@ -292,7 +292,7 @@ Governance theatre is prevented by making outputs contractual and auditable.
 [One sentence on confidence in this position given available evidence]
 
 **Evidence used:**
-[Specific evidence items from the Task Evidence Summary and requirements that
+[Specific evidence items from the context journal, linked artefacts, and requirements that
 informed this position. If no relevant evidence exists, state this explicitly.
 Do not cite the ticket itself as evidence.]
 
@@ -540,6 +540,8 @@ assess which evolutions were sound, and flag any concerning movements]
 **Speculative Reasoning Identified:** [List]
 **Lifecycle Maturity Assessment:** [Assessment]
 ```
+
+On completion, the Orchestrator appends a `coe_pass2_complete` journal entry linking to this output.
 
 ---
 

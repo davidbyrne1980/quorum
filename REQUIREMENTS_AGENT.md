@@ -65,10 +65,10 @@ Re-runs require explicit instruction from the Orchestrator.
 - All Pass 1 inputs above
 - CoE Pass 2 full council output (both rounds)
 - CoE Pass 2 Position Evolution Summary
-- Codebase context — StoreInsight only (Phase 1 POC):
-  — CLAUDE.md (codebase orientation — always fetched first)
+- Codebase context — resolved via local filesystem access against the Codebase Path Lookup table in QUORUM.md. Currently confirmed: ValidationApp only (C:\Users\DaveByrne\Documents\RI Validation Platform). If the ticket's product has no confirmed local path, state this explicitly in the requirements output rather than fabricating a path or skipping the check silently:
+  — CLAUDE.md or equivalent orientation file at the repo root (read first, if present)
   — Relevant Confluence architecture pages
-  — Targeted source files identified from CLAUDE.md as relevant to ticket scope
+  — Targeted source files relevant to ticket scope, read directly from the local path
 - Pass 1 requirements output (for delta comparison)
 
 **Mode B — fetched directly:**
