@@ -412,6 +412,17 @@ Low evidence is discarded before write-back. Only High and Medium evidence is wr
 | Contrarian always last | Contrarian closes both Pass 1 and Pass 2 — must reference other persona outputs |
 | Agent failure — do not retry silently | Flag failure via T-18, add `human-review-required`, stop |
 
+### 7.1 Subagent-fetch pattern for large ClickUp payloads (token-efficient — mandatory)
+
+A ClickUp task on the in-scope lists carries ~80+ custom fields, and `clickup_get_task` returns the full definition of every field (all options, colours, IDs) plus embedded related-task objects — a single fetch can exceed 55k characters while the useful content is a small fraction of that. Any time the Orchestrator pre-fetches ticket context for an agent (Requirements, CoE Pass 1/2, QUIP Scoring), it MUST:
+
+1. Fetch narrow — request only the `include` sections the agent needs (typically `custom_fields` + `description`; add `dependencies`/`linked_tasks` only when a specific check requires them).
+2. Never read an overflowed raw payload into the main Orchestrator context.
+3. Delegate parsing to a subagent (`Explore` / `general-purpose`) that reads the saved file with `python -X utf8` (jq is not installed on the RI Windows host; `-X utf8` avoids the cp1252 crash on emoji), extracts only the field allowlist the agent needs (values, not option schemas), and returns a compact block. The raw payload stays inside the subagent.
+4. Extract in a single pass — do not probe the file repeatedly.
+
+The QUIP Scoring Agent's concrete allowlist and recipe are in `spec/agents/QUIP_SCORING_AGENT.md` §5.1; the same shape applies to the other agents with their own field allowlists.
+
 ---
 
 ## 8. What the Orchestrator never does

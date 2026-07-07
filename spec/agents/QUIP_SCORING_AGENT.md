@@ -65,6 +65,21 @@ The Orchestrator supplies:
 
 Do not rely on memory of previous scoring sessions. Score only from the context supplied for this run. If a field is not supplied, it is blank — do not fetch, infer, or estimate it.
 
+### 5.1 Orchestrator Context-Fetch Recipe (token-efficient — mandatory)
+
+A ClickUp task on these lists carries ~80+ custom fields, and the API returns the **full definition** of every field (all dropdown options, colours, IDs) plus embedded related-task objects — a single `get_task` can exceed 55k characters, of which the QUIP-relevant content is under 2k. Fetching naively burns tokens and pollutes context. The Orchestrator MUST follow this recipe:
+
+1. **Fetch narrow.** Call `clickup_get_task(task_id, include: ['custom_fields', 'description'])`. Do **not** add `dependencies` or `linked_tasks` — the compact summary already returns their counts; only include them if the Dependency lever specifically needs confirming.
+2. **Never read the raw payload into the scoring context.** When the result overflows to a saved file, do not read that file into the main context.
+3. **Delegate extraction to a subagent** (e.g. `Explore` or `general-purpose`). Instruct it to parse the saved file with `python -X utf8` (jq is not installed on the RI Windows host; `-X utf8` avoids the cp1252 crash on emoji in descriptions), extract **only** the allowlist below plus `name`, `status`, `url`, and `markdown_description`, and return a compact markdown block (~1–2k tokens). The 55k raw payload stays inside the subagent and never reaches the Orchestrator.
+4. **One extraction pass, not several.** The subagent returns everything needed in a single structured block. Do not probe the file repeatedly.
+
+**QUIP field allowlist** (match by field name, case-insensitive; return **values only**, never the option schemas):
+
+`Work Type` · `ARR £` / any ARR-band field · `EBITDAC £` · `Idea origin` · `Alignment to Strategy` · `Benefits / Outcomes` · `Customer Pains` · `Customer Gains` · `Associated Risks` · `Table Stakes` · `Target Addressable Market` · `USPs` · `Differentiation` · `Market/Competitor context` · `Personas (buyers)` · `Personas (users)` · ROM day-splits (`PM(d)`, `DS(d)`, `FE(d)`, `SW/API(d)`, `DBEng(d)`, `QA(d)`) · `ROM TOTAL(d)` · `Clients` · `Product` · `Total Score` (existing value, for the divergence check)
+
+Only the distilled block enters the scoring context. This is the same payload problem the Requirements and CoE agents hit — see `spec/orchestrator/AGENT_ROUTING_RULES.md` §7.1 for the shared subagent-fetch pattern.
+
 ---
 
 ## 6. Step 2 — Assess Data Quality
@@ -253,6 +268,28 @@ Only proceed to output once all three passes confirm.
 
 ---
 
+## 8a. Clarifiable Levers — Ask on Manual Runs, Flag on Automatic Runs
+
+The default ambiguity rule (absent evidence → lowest plausible band) is the floor and never changes. But some levers depend on values the Head of Product often knows even when they are not written on the ticket. These are the **clarifiable levers**:
+
+- **ARR Growth** and **ARR Retain** — a real ARR £ figure or a confirmed named-client pilot
+- **EBITDAC** — a credible RI operational saving
+- **Effort / Time** — a sprint or developer-day estimate when ROM fields are blank
+- **Table Stakes** — whether the item is genuinely baseline vs a differentiator, when the field is blank but competitive pressure is described
+
+Behaviour depends on how the score was triggered:
+
+**Manual trigger (`/score` — Head of Product present):**
+Before finalising, if a clarifiable lever would be defaulted to its lowest band *purely for want of a figure that the Head of Product likely holds*, **pause and ask**. Present one short, batched set of questions (max 5, one line each, most material first). Then:
+- Answers supplied → score with the supplied values; note the source in the lever reasoning ("ARR £ supplied by Head of Product at scoring: £X").
+- "Score as-is" → apply the default, note it, and record the gap as an open clarification question (below).
+Never invent or estimate a figure to fill a gap — asking is the only route to a non-default value.
+
+**Automatic trigger (`quip*` tag or stage entry — no human present):**
+Do **not** block. Produce the full score with defaults, but for every clarifiable lever left at its default for want of a figure, record an open clarification question, set **Score Status** to `provisional-open-questions`, and let the dashboard surface the flag (see §9 and §10). The Orchestrator does **not** post these questions to ClickUp — they are an internal review flag for the Head of Product, who can then re-run manually with the figures.
+
+---
+
 ## 9. Step 5 — Output
 
 ### Report Header
@@ -267,8 +304,15 @@ Only proceed to output once all three passes confirm.
 **Scored:** {ISO 8601 timestamp}
 **Version:** v{n}
 **Quorum Run:** {run_slug}
+**Trigger:** {manual | automatic}
+**Score Status:** {final | provisional-thin-data | provisional-open-questions}
 [Insert ⚠️ THIN DATA WARNING block here if applicable]
 ```
+
+**Score Status** is machine-readable — the dashboard parses this exact line. Allowed values:
+- `final` — no THIN DATA warning and no open clarification questions.
+- `provisional-thin-data` — the THIN DATA threshold was met (§6).
+- `provisional-open-questions` — one or more clarifiable levers were left at their default for want of a figure (§8a). If both apply, use `provisional-open-questions`.
 
 ### Scoring Summary
 
@@ -326,6 +370,26 @@ Dependency: 10 — InVI Phase 2 is explicitly blocked on this.
 ✅ Initial Score = {a} + {b} + {c} = {total}
 ✅ Lever Total = {breakdown sum} = {total}
 ✅ Total Score = {initial} + {lever} = {total}
+```
+
+### Open Clarification Questions
+This section is machine-readable — the dashboard detects the `<!-- quip:open-questions -->` marker and counts the `-` bullets beneath it to raise its flag. Always emit the section and the marker, even when empty.
+
+When there are open questions (typically automatic runs — see §8a), list one bullet per clarifiable lever left at its default, each naming the lever and the figure needed:
+
+```
+## Open Clarification Questions
+<!-- quip:open-questions -->
+- **ARR Growth/Retain (ARR £):** No ARR figure on the ticket — is there a target ARR for this pilot/rollout? Scored via pilot override / defaulted to 0.
+- **EBITDAC (£):** Any RI operational saving expected? Currently 0.
+```
+
+When there are none (typically manual runs where questions were answered or waived):
+
+```
+## Open Clarification Questions
+<!-- quip:open-questions -->
+None — all clarifiable levers had evidence or were confirmed with the Head of Product.
 ```
 
 ---
