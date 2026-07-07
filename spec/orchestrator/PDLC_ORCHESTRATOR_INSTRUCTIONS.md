@@ -42,7 +42,7 @@ Always use List IDs. Never resolve by list name.
 | Triage | Optional deeper-dig stage — often skipped. Demand Signal may be invoked here on demand. |
 | Validation | Clarification, stall management. Demand Signal may be invoked here on demand (no longer mandatory) |
 | COE Review | CoE Pass 1 complete — hard gate for Head of Product go/no-go |
-| Define & Design | Requirements Agent, CoE Pass 2, BAU/CR classification |
+| Define & Design | Requirements Agent, CoE Pass 2, BAU/CR classification. QUIP Scoring Agent may run here as a non-blocking side pass. |
 | Ready for Scheduling | All gates passed — hard gate before handoff |
 | Scheduled | Orchestrator scope ends here |
 | Build & Deploy | Out of scope — Orchestrator never reads or writes here |
@@ -83,6 +83,8 @@ Exit: Go → Define & Design. No-Go → add `closed` tag. Validate Further → r
 Entry: CoE Pass 1 approved.
 Action: Requirements Agent runs (soft gate). Then CoE Pass 2 (all 13 personas, soft gate). Then Solution Shaping (Phase 4). BAU/CR fast-track exits here.
 Exit: All gates passed → Ready for Scheduling. Rejected at any gate → add `closed` tag.
+
+**QUIP Scoring Agent (non-blocking):** independently of the gate chain, the QUIP Scoring Agent (`spec/agents/QUIP_SCORING_AGENT.md`) may score the ticket for roadmap prioritisation — on manual `/score`, on a `quip*` cohort tag, or on entry to this stage (Phase 2+). It never changes status, never touches tags, never raises a gate, and never advances or blocks the ticket. See `spec/orchestrator/AGENT_ROUTING_RULES.md` §5b.
 
 ### Ready for Scheduling
 Entry: All upstream stages complete, Delivery Readiness check passed.

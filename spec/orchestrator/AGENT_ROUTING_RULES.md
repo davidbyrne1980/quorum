@@ -359,6 +359,27 @@ The approved roster, the recommendation, and any refused edits are recorded in S
 
 ---
 
+## 5b. QUIP Scoring Agent — non-blocking scoring pass
+
+The QUIP Scoring Agent (`spec/agents/QUIP_SCORING_AGENT.md`) scores a ticket for roadmap prioritisation. It is **not a gate agent** and does not sit in the go/no-go chain. It never changes status, never adds/removes tags, and never raises a human gate.
+
+**Invocation:**
+
+| Trigger | When | Phase |
+|---|---|---|
+| Manual `/score {ticket_id}` | Head of Product requests a score | Phase 1+ |
+| `quip*` tag present (e.g. `quip jul to oct`) | Planning-cohort tag applied — matched by prefix (see spec/orchestrator/CLICKUP_STATE_MODEL.md §2a) | Phase 2+ |
+| Transition into `Define & Design` | Ticket enters the stage | Phase 2+ |
+
+**Rules:**
+- Runs as a side pass — it does not interrupt or reorder the blocking flow. If the Requirements Agent (or any other gate agent) is due to fire at Define & Design, that fires first under normal routing; the QUIP score runs alongside or after.
+- The pre-action check (§2) still applies. Do not run a QUIP score on a ticket carrying `closed`. If `human-review-required` is active, the score may still be produced for the Head of Product's review, but it must not be used to justify advancing the ticket.
+- The Orchestrator pre-fetches the ticket content and custom fields and passes them to the agent — the agent never reads ClickUp itself (§7).
+- Output is versioned per ticket (`QUIP_score_v{n}.md`) and written by the Orchestrator to the ticket's current run folder; the Orchestrator then appends a `quip_scored` context-journal entry. Never overwrite a prior version.
+- The score is advisory. It informs QUIP planning; it never advances or blocks a ticket on its own.
+
+---
+
 ## 6. Demand Signal source reliability
 
 When invoking the Demand Signal Agent, apply these source reliability weights:

@@ -58,6 +58,16 @@ Tags are the state detail layer. The Orchestrator reads tags before taking any a
 
 ---
 
+## 2a. External planning-cohort tags — `quip*`
+
+Tags matching the prefix `quip*` (e.g. `quip jul to oct`) are **QUIP planning-cohort tags**. They are managed by the roadmap-planning process outside Quorum, not by the Orchestrator.
+
+- They are an **exception to the lowercase-hyphenated-no-spaces rule** above — they may contain spaces, because they predate Quorum's tag convention and are set by humans during planning.
+- The Orchestrator **reads** them (by prefix match) as a trigger for the QUIP Scoring Agent (Phase 2+ — see `spec/orchestrator/AGENT_ROUTING_RULES.md` §5b). It does **not create, edit, or remove** them.
+- They are not state tags and never affect the go/no-go gate chain. Presence of a `quip*` tag never advances, blocks, or closes a ticket.
+
+---
+
 ## 3. How the Orchestrator reads state
 
 Before taking any action on a ticket, the Orchestrator reads in this exact order:

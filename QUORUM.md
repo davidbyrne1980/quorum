@@ -95,6 +95,12 @@ Standard artefacts:
 10_clickup_summary.md
 ```
 
+Non-standard lifecycle artefacts also live in the run folder:
+
+```text
+QUIP_score_v{n}.md    # roadmap-prioritisation score — versioned per ticket, produced by the QUIP Scoring Agent (spec/agents/QUIP_SCORING_AGENT.md)
+```
+
 Every artefact should also be represented in Supabase `output_artefacts` when Supabase is live. Artefacts are versioned and never overwritten silently.
 
 ## Context Journal
@@ -111,7 +117,7 @@ The journal is append-only. Every agent run, gate decision, and material event (
 [1-3 sentence summary]
 → Full detail: [link to output_artefacts entry or run-folder file]`
 
-**Event types:** `ticket_created`, `clarification_drafted`, `clarification_answered`, `demand_signal_run`, `demand_signal_graded`, `coe_pass1_complete`, `gate_decision`, `requirements_drafted`, `requirements_approved`, `coe_pass2_complete`, `solution_design_drafted`, `solution_design_approved`, `implementation_handoff_approved`, `stall`, `exception`, `closed`, `reopened`, `rerun_started`.
+**Event types:** `ticket_created`, `clarification_drafted`, `clarification_answered`, `demand_signal_run`, `demand_signal_graded`, `coe_pass1_complete`, `gate_decision`, `requirements_drafted`, `requirements_approved`, `coe_pass2_complete`, `solution_design_drafted`, `solution_design_approved`, `implementation_handoff_approved`, `quip_scored`, `stall`, `exception`, `closed`, `reopened`, `rerun_started`.
 
 **This journal replaces three previously separate "compile everything so far" mechanisms, now retired:**
 - The Task Evidence Summary (formerly compiled fresh by the Orchestrator before each CoE pass)

@@ -100,5 +100,5 @@ At that point, replace this placeholder with a full agent definition following t
 - [ ] Full system prompt — to be written at Phase 4 build
 - [ ] Output templates for both operating moments — to be defined at Phase 4 build
 - [ ] Codebase integration pattern — to be aligned with CoE Pass 2 codebase access approach
-- [ ] Relationship to Roadmap Scoring Agent (Phase 4) — sequencing to be confirmed
+- [x] Relationship to QUIP Scoring Agent (formerly "Roadmap Scoring Agent") — now specified in `spec/agents/QUIP_SCORING_AGENT.md`. The QUIP agent is a non-blocking scoring pass that runs independently of the gate chain; it does not gate or sequence Solution Shaping. Sequencing to be revisited at Phase 4 build if Solution Shaping needs the score as an input.
 - [ ] Whether Moment 1 (high-level scope check) is a separate invocation or a mode flag — to be decided at Phase 4
