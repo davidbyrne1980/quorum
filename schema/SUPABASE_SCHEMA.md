@@ -1,4 +1,4 @@
-# SUPABASE_SCHEMA.md
+﻿# SUPABASE_SCHEMA.md
 ## Quorum — Supabase Schema
 **Version:** 5.0 | **Organisation:** Retail Insight | **Phase:** 1+
 
@@ -400,7 +400,7 @@ CREATE TABLE output_artefacts (
 
 Outputs are never overwritten. A revision inserts a new row with version+1, sets is_current=true, points supersedes at the prior row, and flips the prior row's is_current to false.
 
-Context journal entries (see QUORUM.md — Context Journal) are stored as `output_artefacts` rows of type `context_journal_entry`, one row per entry, in addition to existing as lines in the `quorum-context/{clickup_ticket_id}.md` file. The file is the human-readable form; the Supabase rows make it queryable (e.g. "show me every stall event across all tickets this month").
+Context journal entries (see QUORUM.md — Context Journal) are stored as `output_artefacts` rows of type `context_journal_entry`, one row per entry, in addition to existing as lines in the `quorum-tickets/{ticket_folder}/_journal.md` file. The file is the human-readable form; the Supabase rows make it queryable (e.g. "show me every stall event across all tickets this month").
 
 ---
 

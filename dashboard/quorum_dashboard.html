@@ -14,86 +14,61 @@
     --closed-bg: #fbe7e7; --closed-fg: #8b2b2b; --closed-br: #e2b0b0;
   }
   * { box-sizing: border-box; }
-  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-         color: var(--ink); background: var(--bg); line-height: 1.5; }
+  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: var(--ink); background: var(--bg); line-height: 1.5; }
   .wrap { max-width: 1100px; margin: 0 auto; padding: 24px 20px 64px; }
   header.page { border-bottom: 3px solid var(--navy); padding-bottom: 16px; margin-bottom: 24px; }
-  header.page h1 { margin: 0 0 4px; color: var(--navy); font-size: 24px; letter-spacing: -0.01em; }
-  .sub { color: var(--muted); font-size: 13px; }
+  header.page h1 { margin: 0 0 4px; color: var(--navy); font-size: 24px; }
+  .sub, .muted { color: var(--muted); font-size: 13px; }
   .summary-bar { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 14px; }
-  .stat { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 10px 16px; }
+  .stat { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 10px 16px; }
   .stat b { display: block; font-size: 22px; color: var(--navy); }
   .stat span { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
-  .readonly { background: #eef2f7; border: 1px dashed #b6c4d6; color: #3d5872; border-radius: 8px;
-              padding: 10px 14px; font-size: 13px; margin-top: 16px; }
-  .run { background: var(--card); border: 1px solid var(--line); border-radius: 14px;
-         padding: 20px 22px; margin-bottom: 22px; box-shadow: 0 1px 2px rgba(10,37,64,0.04); }
-  .run.orphan { border-style: dashed; }
-  .run-head { margin-bottom: 14px; }
+  .readonly { background: #eef2f7; border: 1px dashed #b6c4d6; color: #3d5872; border-radius: 8px; padding: 10px 14px; font-size: 13px; margin-top: 16px; }
+  .run { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 20px 22px; margin-bottom: 22px; box-shadow: 0 1px 2px rgba(10,37,64,0.04); }
   .run-title h2 { margin: 0; font-size: 17px; color: var(--navy); word-break: break-word; }
   .run-sub { display: flex; gap: 10px 14px; flex-wrap: wrap; align-items: center; margin-top: 8px; font-size: 13px; color: var(--muted); }
   .kv strong { color: var(--ink); }
   .objective { margin: 10px 0 0; font-size: 14px; color: var(--ink); }
-  .pill { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 600;
-          border: 1px solid transparent; text-transform: lowercase; }
+  .pill { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; border: 1px solid transparent; text-transform: lowercase; }
   .st-await { background: var(--await-bg); color: var(--await-fg); border-color: var(--await-br); }
   .st-done { background: var(--done-bg); color: var(--done-fg); border-color: var(--done-br); }
   .st-active { background: var(--active-bg); color: var(--active-fg); border-color: var(--active-br); }
   .st-closed { background: var(--closed-bg); color: var(--closed-fg); border-color: var(--closed-br); }
-  .gate { border-radius: 10px; padding: 14px 16px; margin-bottom: 16px; border: 1px solid var(--await-br);
-          background: var(--await-bg); }
-  .gate-none { background: #f3f6f9; border-color: var(--line); color: var(--muted); }
-  .gate-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--await-fg); }
-  .gate-title { font-size: 15px; font-weight: 700; color: var(--navy); margin: 2px 0 8px; }
-  .gate-rec { font-size: 13px; margin-bottom: 8px; }
-  .gate-note { font-size: 12px; color: var(--await-fg); margin-top: 8px; font-style: italic; }
-  .quip-flag { border-radius: 10px; padding: 12px 16px; margin-bottom: 16px; font-size: 13px;
-               background: #fff4e5; border: 1px solid #f0c68a; color: #7a4b00; }
-  .quip-flag-label { font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
-                     font-size: 11px; display: block; margin-bottom: 2px; }
-  .quip-flag code { background: rgba(0,0,0,0.05); padding: 1px 5px; border-radius: 4px; font-size: 12px; }
-  .options { margin: 6px 0 0; padding-left: 22px; }
-  .options li { margin: 3px 0; font-size: 13px; }
   .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
   @media (max-width: 720px) { .cols { grid-template-columns: 1fr; } }
-  .col h3 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted);
-            margin: 0 0 10px; border-bottom: 1px solid var(--line); padding-bottom: 6px; }
+  .col h3 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin: 18px 0 10px; border-bottom: 1px solid var(--line); padding-bottom: 6px; }
+  .col h3:first-child { margin-top: 0; }
+  .run-detail { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; margin-bottom: 10px; }
+  .run-detail summary { cursor: pointer; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; color: var(--navy); }
+  .run-detail summary span { color: var(--muted); font-size: 12px; }
+  .gate { border-radius: 8px; padding: 12px 14px; margin: 12px 0; border: 1px solid var(--await-br); background: var(--await-bg); }
+  .gate-label, .dk { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--await-fg); }
+  .gate-title { font-size: 15px; font-weight: 700; color: var(--navy); margin: 2px 0 8px; }
+  .gate-note { font-size: 12px; color: var(--await-fg); margin-top: 8px; font-style: italic; }
+  .options { margin: 6px 0 0; padding-left: 22px; }
+  .options li { margin: 3px 0; font-size: 13px; }
   .artefacts { list-style: none; margin: 0; padding: 0; }
   .artefacts li { display: flex; align-items: center; gap: 8px; padding: 4px 0; font-size: 13px; }
   .artefacts .tick { width: 16px; text-align: center; }
   .artefacts li.yes .tick { color: #1e6b3a; }
   .artefacts li.no { color: var(--muted); }
   .artefacts li.no .tick { color: #b6c4d6; }
-  .anum { font-variant-numeric: tabular-nums; color: var(--muted); width: 22px; }
+  .anum { font-variant-numeric: tabular-nums; color: var(--muted); width: 34px; }
   .alabel { flex: 1; }
-  a.alabel.alink { color: var(--accent); text-decoration: none; }
-  a.alabel.alink:hover { text-decoration: underline; }
-  .jlink a { color: var(--accent); text-decoration: none; }
-  .jlink a:hover { text-decoration: underline; }
-  .astate { font-size: 11px; text-transform: uppercase; letter-spacing: 0.03em; }
-  .artefacts li.yes .astate { color: #1e6b3a; }
-  .artefacts li.no .astate { color: #b6c4d6; }
-  .decision { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; margin-bottom: 10px; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .astate { font-size: 11px; text-transform: uppercase; letter-spacing: 0.03em; color: var(--muted); }
+  .decision { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; margin: 10px 0; }
   .dhead { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; font-size: 14px; }
-  .dmeta { color: var(--muted); font-size: 12px; }
-  .drow { display: block; margin-top: 6px; font-size: 13px; }
-  .dk { display: inline-block; font-weight: 700; color: var(--muted); font-size: 11px; text-transform: uppercase;
-        letter-spacing: 0.03em; margin-right: 6px; }
-  .dv { color: var(--ink); }
-  .drow .dv .options { display: inline-block; }
-  .journal-wrap { margin-top: 16px; border-top: 1px solid var(--line); padding-top: 8px; }
-  .journal-wrap summary { cursor: pointer; font-size: 13px; font-weight: 600; color: var(--accent); }
   .journal { margin: 12px 0 0; padding-left: 0; list-style: none; }
   .journal li { border-left: 2px solid var(--line); padding: 0 0 14px 16px; position: relative; }
-  .journal li::before { content: ""; position: absolute; left: -5px; top: 4px; width: 8px; height: 8px;
-                        background: var(--accent); border-radius: 50%; }
+  .journal li::before { content: ""; position: absolute; left: -5px; top: 4px; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; }
   .jhead { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
   .jdate { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
   .jevent { font-size: 13px; font-weight: 700; color: var(--navy); }
   .jsummary { font-size: 13px; margin-top: 2px; }
   .jlink { font-size: 12px; color: var(--muted); margin-top: 3px; }
   .jlink code { background: #f0f3f7; padding: 1px 5px; border-radius: 4px; }
-  .muted { color: var(--muted); font-size: 13px; }
   footer { text-align: center; color: var(--muted); font-size: 12px; margin-top: 32px; }
 </style>
 </head>
@@ -101,120 +76,99 @@
 <div class="wrap">
   <header class="page">
     <h1>Quorum Dashboard</h1>
-    <div class="sub">Read-only view of run + context-journal state &middot; generated 2026-07-07 16:09:54 UTC</div>
+    <div class="sub">Read-only view of ticket, run, score, and context-journal state &middot; generated 2026-07-07 21:35:07 UTC</div>
     <div class="summary-bar">
-      <div class="stat"><b>2</b><span>Runs</span></div>
+      <div class="stat"><b>2</b><span>Tickets</span></div>
       <div class="stat"><b>1</b><span>Awaiting a gate</span></div>
-      <div class="stat"><b>0</b><span>Journals w/o run</span></div>
+      <div class="stat"><b>0</b><span>Provisional QUIP</span></div>
     </div>
-    <div class="readonly"><strong>Read-only.</strong> This dashboard displays state only. It does not approve gates or write back to any file, ClickUp, or Supabase. Gate approvals happen through Claude Code (the Orchestrator) in session &mdash; never from the browser.</div>
+    <div class="readonly"><strong>Read-only.</strong> This dashboard displays state only. It does not approve gates or write back to any file, ClickUp, or Supabase. Gate approvals happen through Claude Code (the Orchestrator) in session, never from the browser.</div>
   </header>
 
-  <section class="run" id="run-0">
+  <section class="run" id="ticket-0">
     <header class="run-head">
       <div class="run-title">
-        <h2>2026-07-05-validation-app-group-alerts-by-subcategory</h2>
+        <h2>Store Insight v1 EoE Pilot</h2>
         <div class="run-sub">
-          <span class="pill st-await">awaiting_human</span>
-          <span class="kv">Ticket: <strong>TBC</strong></span>
-          
-          <span class="kv">Stage: implementation handoff approval</span>
-          <span class="kv">10/11 artefacts</span>
+          <span class="pill st-active">8. Build &amp; Deploy</span>
+          <span class="kv">Folder: <strong>869ayynqb__store-insight-v1-eoe-pilot</strong></span>
+          <span class="kv">ClickUp: <strong><a href="https://app.clickup.com/t/869ayynqb" target="_blank" rel="noopener">869ayynqb</a></strong></span>
+          <span class="kv">Stage: Build &amp; Deploy</span>
+          <span class="kv">0 runs</span>
+          <span class="kv">QUIP v2: <strong>72.5</strong></span>
           
         </div>
-        <p class="objective">Group validation app alerts by product sub-category.</p>
+        <p class="objective">StoreInsight ticket at Build &amp; Deploy.</p>
       </div>
     </header>
 
-    
-
-    <div class="gate">
-             <div class="gate-label">&#9873; Pending gate</div>
-             <div class="gate-title">D03 — Implementation handoff approval</div>
-             <div class="gate-rec"><span class="dk">Recommendation</span> Option 1 - Approve implementation handoff and allow Codex/Claude Code to implement in the RI Validation Platform repo.</div>
-             <ol class="options"><li>Approve implementation handoff and allow Codex/Claude Code to implement in the RI Validation Platform repo.</li><li>Approve handoff with edits.</li><li>Request handoff changes before implementation.</li><li>Cancel implementation for this run.</li></ol>
-             <div class="gate-note">Decision is made through Claude Code (the Orchestrator), not this dashboard.</div>
-           </div>
+    <div class="cols">
+      <div class="col">
+        <h3>State now / next</h3>
+        <p class="muted">Current ClickUp status: <strong>8. Build &amp; Deploy</strong>.</p>
+        <h3>Runs</h3>
+        <p class="muted">No delivery runs recorded for this ticket.</p>
+      </div>
+      <div class="col">
+        <h3>Scores</h3>
+        <ul class="artefacts"><li class="yes"><span class="tick">&#10003;</span><span class="anum">v1</span><a class="alabel alink" href="../quorum-tickets/869ayynqb__store-insight-v1-eoe-pilot/scores/QUIP_score_v1.md" target="_blank" rel="noopener">QUIP_score_v1.md</a><span class="astate">72.5 provisional-open-questions - provisional</span></li><li class="yes"><span class="tick">&#10003;</span><span class="anum">v2</span><a class="alabel alink" href="../quorum-tickets/869ayynqb__store-insight-v1-eoe-pilot/scores/QUIP_score_v2.md" target="_blank" rel="noopener">QUIP_score_v2.md</a><span class="astate">72.5 final</span></li></ul>
+        <h3>History / journal</h3>
+        
+        <p class="muted">No context journal found for this ticket.</p>
+      </div>
+    </div>
+  </section>
+<section class="run" id="ticket-1">
+    <header class="run-head">
+      <div class="run-title">
+        <h2>Validation App Group Alerts By Subcategory</h2>
+        <div class="run-sub">
+          <span class="pill st-active">Validation [TBC - Head of Product to confirm]</span>
+          <span class="kv">Folder: <strong>no-id__validation-app-group-alerts-by-subcategory</strong></span>
+          <span class="kv">ClickUp: <strong>TBC</strong></span>
+          <span class="kv">Stage: implementation handoff approval</span>
+          <span class="kv">1 run</span>
+          
+          
+        </div>
+        <p class="objective">RI Validation Platform ticket at implementation handoff approval.</p>
+      </div>
+    </header>
 
     <div class="cols">
       <div class="col">
-        <h3>Artefacts</h3>
-        <ul class="artefacts"><li class="yes"><span class="tick">&#10003;</span><span class="anum">00</span><a class="alabel alink" href="../quorum-runs/2026-07-05-validation-app-group-alerts-by-subcategory/00_run_manifest.md" target="_blank" rel="noopener">Run manifest</a><span class="astate">produced</span></li><li class="yes"><span class="tick">&#10003;</span><span class="anum">01</span><a class="alabel alink" href="../quorum-runs/2026-07-05-validation-app-group-alerts-by-subcategory/01_ticket_intake.md" target="_blank" rel="noopener">Ticket intake</a><span class="astate">produced</span></li><li class="yes"><span class="tick">&#10003;</span><span class="anum">02</span><a class="alabel alink" href="../quorum-runs/2026-07-05-validation-app-group-alerts-by-subcategory/02_context_pack.md" target="_blank" rel="noopener">Context pack</a><span class="astate">produced</span></li><li class="yes"><span class="tick">&#10003;</span><span class="anum">03</span><a class="alabel alink" href="../quorum-runs/2026-07-05-validation-app-group-alerts-by-subcategory/03_persona_recommendation.md" target="_blank" rel="noopener">Persona recommendation</a><span class="astate">produced</span></li><li class="yes"><span class="tick">&#10003;</span><span class="anum">04</span><a class="alabel alink" href="../quorum-runs/2026-07-05-validation-app-group-alerts-by-subcategory/04_clarification_questions.md" target="_blank" rel="noopener">Clarification questions</a><span class="astate">produced</span></li><li class="yes"><span class="tick">&#10003;</span><span class="anum">05</span><a class="alabel alink" href="../quorum-runs/2026-07-05-validation-app-group-alerts-by-subcategory/05_requirements.md" target="_blank" rel="noopener">Requirements</a><span class="astate">produced</span></li><li class="yes"><span class="tick">&#10003;</span><span class="anum">06</span><a class="alabel alink" href="../quorum-runs/2026-07-05-validation-app-group-alerts-by-subcategory/06_solution_design.md" target="_blank" rel="noopener">Solution design</a><span class="astate">produced</span></li><li class="yes"><span class="tick">&#10003;</span><span class="anum">07</span><a class="alabel alink" href="../quorum-runs/2026-07-05-validation-app-group-alerts-by-subcategory/07_test_plan.md" target="_blank" rel="noopener">Test plan</a><span class="astate">produced</span></li><li class="yes"><span class="tick">&#10003;</span><span class="anum">08</span><a class="alabel alink" href="../quorum-runs/2026-07-05-validation-app-group-alerts-by-subcategory/08_human_decisions.md" target="_blank" rel="noopener">Human decisions</a><span class="astate">produced</span></li><li class="yes"><span class="tick">&#10003;</span><span class="anum">09</span><a class="alabel alink" href="../quorum-runs/2026-07-05-validation-app-group-alerts-by-subcategory/09_implementation_handoff.md" target="_blank" rel="noopener">Implementation handoff</a><span class="astate">produced</span></li><li class="no"><span class="tick">&#9675;</span><span class="anum">10</span><span class="alabel">ClickUp summary</span><span class="astate">not yet</span></li></ul>
+        <h3>State now / next</h3>
+        <p class="muted">Current ClickUp status: <strong>Validation [TBC - Head of Product to confirm]</strong>.</p>
+        <h3>Runs</h3>
+        <details class="run-detail" open>
+    <summary><strong>2026-07-05__run-01</strong><span>10/11 artefacts</span><span class="pill st-await">pending gate</span></summary>
+    <p class="objective">Group validation app alerts by product sub-category.</p>
+    <div class="gate"><div class="gate-label">&#9873; Pending gate</div><div class="gate-title">D03 - Implementation handoff approval</div><div class="gate-rec"><span class="dk">Recommendation</span> Option 1 - Approve implementation handoff and allow Codex/Claude Code to implement in the RI Validation Platform repo.</div><div class="gate-note">Decision is made through Claude Code (the Orchestrator), not this dashboard.</div></div>
+    <ul class="artefacts"><li class="yes"><span class="tick">&#10003;</span><span class="anum">00</span><a class="alabel alink" href="../quorum-tickets/no-id__validation-app-group-alerts-by-subcategory/runs/2026-07-05__run-01/00_run_manifest.md" target="_blank" rel="noopener">Run manifest</a><span class="astate">produced</span></li><li class="yes"><span class="tick">&#10003;</span><span class="anum">01</span><a class="alabel alink" href="../quorum-tickets/no-id__validation-app-group-alerts-by-subcategory/runs/2026-07-05__run-01/01_ticket_intake.md" target="_blank" rel="noopener">Ticket intake</a><span class="astate">produced</span></li><li class="yes"><span class="tick">&#10003;</span><span class="anum">02</span><a class="alabel alink" href="../quorum-tickets/no-id__validation-app-group-alerts-by-subcategory/runs/2026-07-05__run-01/02_context_pack.md" target="_blank" rel="noopener">Context pack</a><span class="astate">produced</span></li><li class="yes"><span class="tick">&#10003;</span><span class="anum">03</span><a class="alabel alink" href="../quorum-tickets/no-id__validation-app-group-alerts-by-subcategory/runs/2026-07-05__run-01/03_persona_recommendation.md" target="_blank" rel="noopener">Persona recommendation</a><span class="astate">produced</span></li><li class="yes"><span class="tick">&#10003;</span><span class="anum">04</span><a class="alabel alink" href="../quorum-tickets/no-id__validation-app-group-alerts-by-subcategory/runs/2026-07-05__run-01/04_clarification_questions.md" target="_blank" rel="noopener">Clarification questions</a><span class="astate">produced</span></li><li class="yes"><span class="tick">&#10003;</span><span class="anum">05</span><a class="alabel alink" href="../quorum-tickets/no-id__validation-app-group-alerts-by-subcategory/runs/2026-07-05__run-01/05_requirements.md" target="_blank" rel="noopener">Requirements</a><span class="astate">produced</span></li><li class="yes"><span class="tick">&#10003;</span><span class="anum">06</span><a class="alabel alink" href="../quorum-tickets/no-id__validation-app-group-alerts-by-subcategory/runs/2026-07-05__run-01/06_solution_design.md" target="_blank" rel="noopener">Solution design</a><span class="astate">produced</span></li><li class="yes"><span class="tick">&#10003;</span><span class="anum">07</span><a class="alabel alink" href="../quorum-tickets/no-id__validation-app-group-alerts-by-subcategory/runs/2026-07-05__run-01/07_test_plan.md" target="_blank" rel="noopener">Test plan</a><span class="astate">produced</span></li><li class="yes"><span class="tick">&#10003;</span><span class="anum">08</span><a class="alabel alink" href="../quorum-tickets/no-id__validation-app-group-alerts-by-subcategory/runs/2026-07-05__run-01/08_human_decisions.md" target="_blank" rel="noopener">Human decisions</a><span class="astate">produced</span></li><li class="yes"><span class="tick">&#10003;</span><span class="anum">09</span><a class="alabel alink" href="../quorum-tickets/no-id__validation-app-group-alerts-by-subcategory/runs/2026-07-05__run-01/09_implementation_handoff.md" target="_blank" rel="noopener">Implementation handoff</a><span class="astate">produced</span></li><li class="no"><span class="tick">&#9675;</span><span class="anum">10</span><span class="alabel">ClickUp summary</span><span class="astate">not yet</span></li></ul>
+    <h4>Decision history</h4><div class="decision"><div class="dhead"><span class="pill st-done">resolved</span><strong>D01</strong> - Persona/workflow path approval</div></div><div class="decision"><div class="dhead"><span class="pill st-done">resolved</span><strong>D02</strong> - Solution design approval</div></div><div class="decision"><div class="dhead"><span class="pill st-await">pending</span><strong>D03</strong> - Implementation handoff approval</div></div>
+  </details>
       </div>
       <div class="col">
-        <h3>Decision history</h3>
-        <div class="decision">
-    <div class="dhead"><span class="pill st-done">resolved</span>
-    <strong>D01</strong> — Persona/workflow path approval<span class="dmeta">Human approval · by Head of Product · resolved 2026-07-05</span></div>
-    <div class="drow"><span class="dk">Options presented</span><span class="dv"><ol class="options"><li>Approve simplified path.</li><li>Approve simplified path and require Data/API Reviewer.</li><li>Escalate to CoE Pass 2 reduced council.</li><li>Request changes to the recommendation.</li></ol></span></div><div class="drow"><span class="dk">Human response</span><span class="dv">Option 2.</span></div><div class="drow"><span class="dk">Recorded decision</span><span class="dv">Approve the simplified delivery path and require Data/API Reviewer from the start.</span></div><div class="drow"><span class="dk">Recorded action</span><span class="dv">The run may resume to requirements and solution design when explicitly instructed. The approved reviewer path is: - Product Intake - Solution Designer - Engineering Reviewer - QA/Test Reviewer - Data/API Reviewer</span></div>
-  </div><div class="decision">
-    <div class="dhead"><span class="pill st-done">resolved</span>
-    <strong>D02</strong> — Solution design approval<span class="dmeta">Soft gate · by Head of Product · resolved 2026-07-05</span></div>
-    <div class="drow"><span class="dk">Rationale</span><span class="dv">Requirements and solution design have been rerun using D01 Option 2, with Data/API Reviewer required from the start. Context Discovery inspected the local RI Validation Platform repo and confirmed that `subcategory` already exists in the frontend type, backend models, session API flow, CSV import, and seed data. The recommended route is to approve the solution design and proceed to test plan. The change is now understood as a narrow dashboard grouping enhancement with small capture-navigation support and no API/data-model change.</span></div><div class="drow"><span class="dk">Options presented</span><span class="dv"><ol class="options"><li>Approve solution design and proceed to test plan.</li><li>Approve solution design with wording change for the grouping label.</li><li>Request design changes.</li><li>Escalate to CoE Pass 2 reduced council because broader impact is suspected.</li></ol></span></div><div class="drow"><span class="dk">Human response</span><span class="dv">Option 1.</span></div><div class="drow"><span class="dk">Recorded decision</span><span class="dv">Approve solution design and proceed to test plan.</span></div><div class="drow"><span class="dk">Recorded action</span><span class="dv">Produced `07_test_plan.md` and `09_implementation_handoff.md`. Opened D03 implementation handoff approval. Do not implement or produce `10_clickup_summary.md` until D03 is resolved.</span></div>
-  </div><div class="decision">
-    <div class="dhead"><span class="pill st-await">pending</span>
-    <strong>D03</strong> — Implementation handoff approval<span class="dmeta">Hard gate · by Head of Product</span></div>
-    <div class="drow"><span class="dk">Rationale</span><span class="dv">The implementation handoff is now Codex/Claude Code-ready. It contains the approved requirements, codebase evidence, exact files likely to change, implementation constraints, verification commands, manual checks, and stop conditions. Implementation must not begin until this hard gate is explicitly approved.</span></div><div class="drow"><span class="dk">Options presented</span><span class="dv"><ol class="options"><li>Approve implementation handoff and allow Codex/Claude Code to implement in the RI Validation Platform repo.</li><li>Approve handoff with edits.</li><li>Request handoff changes before implementation.</li><li>Cancel implementation for this run.</li></ol></span></div><div class="drow"><span class="dk">Recorded action</span><span class="dv">Awaiting Head of Product decision. Do not implement, write to ClickUp, write to Supabase, or produce `10_clickup_summary.md` until D03 is resolved.</span></div>
-  </div>
-      </div>
-    </div>
-
-    <details class="journal-wrap">
-      <summary>Context journal timeline (3)</summary>
-      <p class="muted">Identifier note:** The ClickUp ticket ID is still `[TBC - Head of Product]` in `01_ticket_intake.md`, so this journal uses the run slug as a placeholder ID until the real ClickUp ticket ID is confirmed.</p>
-      <ol class="journal"><li>
+        <h3>Scores</h3>
+        <p class="muted">No QUIP scores recorded.</p>
+        <h3>History / journal</h3>
+        <p class="muted">Identifier note:** The ClickUp ticket ID is still `[TBC - Head of Product]` in `01_ticket_intake.md`, so this journal uses the run slug as a placeholder ID until the real ClickUp ticket ID is confirmed.</p>
+        <ol class="journal"><li>
         <div class="jhead"><span class="jdate">2026-07-05</span><span class="jevent">ticket_created</span></div>
         <div class="jsummary">Ticket intake recorded the request to group validation app alerts by product sub-category. The ticket URL, live ClickUp status confirmation, user/persona, and exact ClickUp ticket ID were still `[TBC - Head of Product]`.</div>
-        <div class="jlink">&#8594; Full detail: <a href="../quorum-runs/2026-07-05-validation-app-group-alerts-by-subcategory/01_ticket_intake.md" target="_blank" rel="noopener"><code>01_ticket_intake.md</code></a></div>
+        <div class="jlink">&#8594; Full detail: <a href="../quorum-tickets/no-id__validation-app-group-alerts-by-subcategory/runs/2026-07-05__run-01/01_ticket_intake.md" target="_blank" rel="noopener"><code>01_ticket_intake.md</code></a></div>
       </li><li>
         <div class="jhead"><span class="jdate">2026-07-05</span><span class="jevent">context_discovery_codebase</span></div>
         <div class="jsummary">Context Discovery inspected the local RI Validation Platform repo read-only at `C:\Users\DaveByrne\Documents\RI Validation Platform`, branch `master`, commit `97d3e01`. It found the alert list in `client/src/pages/Dashboard.tsx`, capture navigation in `client/src/pages/Capture.tsx`, CSV import support in `client/src/pages/NewSession.tsx`, and existing `subcategory` fields in frontend and backend alert models.</div>
-        <div class="jlink">&#8594; Full detail: <a href="../quorum-runs/2026-07-05-validation-app-group-alerts-by-subcategory/02_context_pack.md" target="_blank" rel="noopener"><code>02_context_pack.md</code></a></div>
+        <div class="jlink">&#8594; Full detail: <a href="../quorum-tickets/no-id__validation-app-group-alerts-by-subcategory/runs/2026-07-05__run-01/02_context_pack.md" target="_blank" rel="noopener"><code>02_context_pack.md</code></a></div>
       </li><li>
         <div class="jhead"><span class="jdate">2026-07-05</span><span class="jevent">context_discovery_findings</span></div>
         <div class="jsummary">Context Discovery found that `subcategory` already exists in the session alert payload and backend models, so no data model or API contract change appears required for the grouping change. It identified the likely implementation surface as `Dashboard.tsx`, with `Capture.tsx` only needed if group query params must support the new grouping, and recommended normalising missing, blank, or null sub-category values to `Uncategorised`.</div>
-        <div class="jlink">&#8594; Full detail: <a href="../quorum-runs/2026-07-05-validation-app-group-alerts-by-subcategory/02_context_pack.md" target="_blank" rel="noopener"><code>02_context_pack.md</code></a></div>
+        <div class="jlink">&#8594; Full detail: <a href="../quorum-tickets/no-id__validation-app-group-alerts-by-subcategory/runs/2026-07-05__run-01/02_context_pack.md" target="_blank" rel="noopener"><code>02_context_pack.md</code></a></div>
       </li></ol>
-    </details>
-  </section>
-<section class="run" id="run-1">
-    <header class="run-head">
-      <div class="run-title">
-        <h2>2026-07-07-storeinsight-v1-eoe-pilot</h2>
-        <div class="run-sub">
-          <span class="pill st-active">(unknown)</span>
-          <span class="kv">Ticket: <strong>TBC</strong></span>
-          
-          
-          <span class="kv">0/11 artefacts</span>
-          <span class="kv">QUIP v2: <strong>72.5</strong></span>
-        </div>
-        
-      </div>
-    </header>
-
-    
-
-    <div class="gate gate-none">No gate pending &mdash; nothing awaiting a decision on this run.</div>
-
-    <div class="cols">
-      <div class="col">
-        <h3>Artefacts</h3>
-        <ul class="artefacts"><li class="no"><span class="tick">&#9675;</span><span class="anum">00</span><span class="alabel">Run manifest</span><span class="astate">not yet</span></li><li class="no"><span class="tick">&#9675;</span><span class="anum">01</span><span class="alabel">Ticket intake</span><span class="astate">not yet</span></li><li class="no"><span class="tick">&#9675;</span><span class="anum">02</span><span class="alabel">Context pack</span><span class="astate">not yet</span></li><li class="no"><span class="tick">&#9675;</span><span class="anum">03</span><span class="alabel">Persona recommendation</span><span class="astate">not yet</span></li><li class="no"><span class="tick">&#9675;</span><span class="anum">04</span><span class="alabel">Clarification questions</span><span class="astate">not yet</span></li><li class="no"><span class="tick">&#9675;</span><span class="anum">05</span><span class="alabel">Requirements</span><span class="astate">not yet</span></li><li class="no"><span class="tick">&#9675;</span><span class="anum">06</span><span class="alabel">Solution design</span><span class="astate">not yet</span></li><li class="no"><span class="tick">&#9675;</span><span class="anum">07</span><span class="alabel">Test plan</span><span class="astate">not yet</span></li><li class="no"><span class="tick">&#9675;</span><span class="anum">08</span><span class="alabel">Human decisions</span><span class="astate">not yet</span></li><li class="no"><span class="tick">&#9675;</span><span class="anum">09</span><span class="alabel">Implementation handoff</span><span class="astate">not yet</span></li><li class="no"><span class="tick">&#9675;</span><span class="anum">10</span><span class="alabel">ClickUp summary</span><span class="astate">not yet</span></li></ul>
-      </div>
-      <div class="col">
-        <h3>Decision history</h3>
-        <p class="muted">No decisions recorded (08_human_decisions.md not found or empty).</p>
       </div>
     </div>
-
-    <details class="journal-wrap">
-      <summary>Context journal timeline</summary>
-      
-      <p class="muted">No context journal found for this run.</p>
-    </details>
   </section>
-  
 
   <footer>Generated by dashboard/generate_dashboard.cjs &middot; re-run to refresh.</footer>
 </div>

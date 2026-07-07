@@ -6,7 +6,7 @@
 **Work Type:** New Feature
 **Scored:** 2026-07-07
 **Version:** v2
-**Quorum Run:** 2026-07-07-storeinsight-v1-eoe-pilot
+**Ticket folder:** 869ayynqb__store-insight-v1-eoe-pilot
 **Trigger:** manual
 **Score Status:** final
 

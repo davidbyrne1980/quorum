@@ -1,6 +1,6 @@
 # Quorum Run Manifest
 
-> This run predates the context journal model (Pack 7). Context now also tracked at `quorum-context/2026-07-05-validation-app-group-alerts-by-subcategory.md`.
+> This run predates the ticket-centric folder model. Context is now tracked at `quorum-tickets/no-id__validation-app-group-alerts-by-subcategory/_journal.md`.
 
 ## Run ID
 2026-07-05-validation-app-group-alerts-by-subcategory

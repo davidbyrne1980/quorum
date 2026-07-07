@@ -1,4 +1,4 @@
-# Quorum Operating Guide
+﻿# Quorum Operating Guide
 
 ## What Quorum Is
 
@@ -55,7 +55,7 @@ Build & Deploy and Release & GTM are outside Orchestrator scope. Quorum does not
 Each Phase 2 delivery run follows this spine:
 
 1. Register the run.
-2. Read the ticket's context journal (`quorum-context/{clickup_ticket_id}.md`). If none exists, create it with a `ticket_created` entry.
+2. Read the ticket's context journal (`quorum-tickets/{ticket_folder}/_journal.md`). If none exists, create it with a `ticket_created` entry.
 3. Extract the ticket intake — append a journal entry.
 4. Perform Context Discovery once, informed by the journal's history — append a journal entry linking to any newly-fetched material.
 5. Recommend persona/workflow path — append a journal entry.
@@ -71,15 +71,21 @@ Each Phase 2 delivery run follows this spine:
 
 Every pause-for-approval step and every produce-artefact step appends a journal entry at the point the artefact or decision is recorded — this is not a separate step, it is part of each numbered step above.
 
-## Run Folder Convention
+## Ticket Folder Convention
 
-Run folders live under:
+Ticket folders live under:
 
 ```text
-quorum-runs/{run_slug}/
+quorum-tickets/{clickupTicketId}__{slug}/
 ```
 
-Standard artefacts:
+If the ClickUp ticket ID is unknown, use `no-id__{slug}` until it is confirmed. Each ticket folder contains a lightweight `_ticket.md` index and an append-only `_journal.md`. Delivery runs are nested under:
+
+```text
+quorum-tickets/{ticket_folder}/runs/{YYYY-MM-DD}__run-{NN}/
+```
+
+Standard run artefacts:
 
 ```text
 00_run_manifest.md
@@ -95,10 +101,10 @@ Standard artefacts:
 10_clickup_summary.md
 ```
 
-Non-standard lifecycle artefacts also live in the run folder:
+Ticket-level QUIP score artefacts live under `scores/` and are versioned per ticket:
 
 ```text
-QUIP_score_v{n}.md    # roadmap-prioritisation score — versioned per ticket, produced by the QUIP Scoring Agent (spec/agents/QUIP_SCORING_AGENT.md)
+quorum-tickets/{ticket_folder}/scores/QUIP_score_v{n}.md
 ```
 
 Every artefact should also be represented in Supabase `output_artefacts` when Supabase is live. Artefacts are versioned and never overwritten silently.
@@ -107,7 +113,7 @@ Every artefact should also be represented in Supabase `output_artefacts` when Su
 
 Every ClickUp ticket has exactly one context journal, independent of and persisting across however many delivery runs the ticket has:
 
-`quorum-context/{clickup_ticket_id}.md`
+`quorum-tickets/{ticket_folder}/_journal.md`
 
 The journal is append-only. Every agent run, gate decision, and material event (stall, exception, closure, reopening) adds one short entry — never a full re-paste of prior content. Each entry links to the full artefact for detail rather than duplicating it.
 
@@ -126,7 +132,7 @@ The journal is append-only. Every agent run, gate decision, and material event (
 
 Every step that previously required one of these now reads the ticket's context journal instead. Where a step still needs freshly-fetched material (e.g. current Confluence pages, current codebase state), it fetches that material directly and appends a journal entry linking to it — it does not reconstruct a parallel summary document.
 
-**Obsidian note:** `quorum-context/` and `quorum-runs/` are plain markdown folders and can be opened directly as an Obsidian vault for human browsing (backlinks, graph view) — no code or format change is required for this. This is an optional viewing method, not part of the Orchestrator's write path.
+**Obsidian note:** `quorum-tickets/` is a plain markdown tree and can be opened directly as an Obsidian vault for human browsing (backlinks, graph view) — no code or format change is required for this. This is an optional viewing method, not part of the Orchestrator's write path.
 
 ## Closure Model
 

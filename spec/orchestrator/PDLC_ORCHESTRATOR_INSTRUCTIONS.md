@@ -136,7 +136,7 @@ Tags are the primary state signal. The Orchestrator reads tags before taking any
 
 **Decision grammar:** wherever this document says "human-review-required removed", the operative trigger is an explicit Head of Product decision (chat / /gate command in Phase 1; gate_decisions record in Phase 2+). The Orchestrator removes the tag as a consequence of acting on the decision — tag absence alone never encodes which option was chosen.
 
-**Context journal check:** Before taking any action on a ticket, read `quorum-context/{clickup_ticket_id}.md` in addition to ClickUp status and tags. If it does not exist, create it with a `ticket_created` entry before proceeding. Every action this document describes — Intake completion, gate resolution, agent invocation, exception handling — appends exactly one journal entry at the point it occurs. This is in addition to, not instead of, ClickUp tags and comments: tags/status/comments remain the team-visible state; the journal is the detailed, chronological record behind them.
+**Context journal check:** Before taking any action on a ticket, read `quorum-tickets/{ticket_folder}/_journal.md` in addition to ClickUp status and tags. If it does not exist, create it with a `ticket_created` entry before proceeding. Every action this document describes — Intake completion, gate resolution, agent invocation, exception handling — appends exactly one journal entry at the point it occurs. This is in addition to, not instead of, ClickUp tags and comments: tags/status/comments remain the team-visible state; the journal is the detailed, chronological record behind them.
 
 ### Pre-action check — run before every action
 
@@ -393,13 +393,13 @@ Human gate inbox, Demand Signal review UI, SLT pipeline view, Intake Agent embed
 
 When a ticket is approved at Gate 8 (or confirmed BAU/CR at Gate 6a), Quorum may continue into delivery preparation under the same governance rules. This is a workflow segment, not new agents:
 
-1. **Context Discovery step** — read the ticket's context journal (`quorum-context/{clickup_ticket_id}.md`) first. Gather any ClickUp ticket detail, docs, codebase areas, API routes, data fields, tests, and prior related tickets not already reflected in the journal, and append a journal entry linking to what was newly gathered. Codebase access is via local filesystem path, resolved against the Codebase Path Lookup table in QUORUM.md — never via GitHub fetch, never guessed. If the ticket's product has no confirmed local path, record this gap explicitly in the journal entry rather than proceeding without codebase grounding. Downstream steps read the journal; they do not re-fetch independently.
+1. **Context Discovery step** — read the ticket's context journal (`quorum-tickets/{ticket_folder}/_journal.md`) first. Gather any ClickUp ticket detail, docs, codebase areas, API routes, data fields, tests, and prior related tickets not already reflected in the journal, and append a journal entry linking to what was newly gathered. Codebase access is via local filesystem path, resolved against the Codebase Path Lookup table in QUORUM.md — never via GitHub fetch, never guessed. If the ticket's product has no confirmed local path, record this gap explicitly in the journal entry rather than proceeding without codebase grounding. Downstream steps read the journal; they do not re-fetch independently.
 2. **Solution Design** → soft gate (decision_type 'solution_design_approval').
 3. **Test Plan** → produced alongside design.
 4. **Implementation Handoff** → hard gate (decision_type 'implementation_handoff_approval') before anything is passed to Codex. Codex implements only the approved handoff — it never decides product behaviour.
 5. **ClickUp summary** → posted after Head of Product approval, standard write-back rules apply.
 
-All artefacts are written to a run folder (quorum-runs/{run_slug}/) and versioned in output_artefacts. All decisions go through gate_decisions with the explicit decision grammar (§6). Existing hard-gate rules apply unchanged: no gate is bypassed, no code changes occur pre-approval.
+All delivery artefacts are written to `quorum-tickets/{ticket_folder}/runs/{YYYY-MM-DD}__run-{NN}/` and versioned in output_artefacts. Ticket-level artefacts such as QUIP scores live in `quorum-tickets/{ticket_folder}/scores/`. All decisions go through gate_decisions with the explicit decision grammar (§6). Existing hard-gate rules apply unchanged: no gate is bypassed, no code changes occur pre-approval.
 
 ---
 
@@ -438,7 +438,7 @@ Always present proposed actions for approval in Phase 1. Never take ClickUp acti
 
 ## 14. Retail Context — via the Context Journal
 
-There is no separately-compiled Retail Context Brief. Institutional and retail-domain context accumulates in each ticket's context journal (`quorum-context/{clickup_ticket_id}.md`) over the ticket's life, and in the cross-ticket institutional knowledge system (knowledge cards — see the Institutional Knowledge System item in ongoing roadmap notes) where patterns recur across tickets.
+There is no separately-compiled Retail Context Brief. Institutional and retail-domain context accumulates in each ticket's context journal (`quorum-tickets/{ticket_folder}/_journal.md`) over the ticket's life, and in the cross-ticket institutional knowledge system (knowledge cards — see the Institutional Knowledge System item in ongoing roadmap notes) where patterns recur across tickets.
 
 Before invoking CoE Pass 1, read the ticket's context journal. If it lacks sufficient retail-domain grounding for this ticket's problem area, fetch the relevant Confluence pages directly, append a journal entry linking to what was fetched, and pass both the journal and the newly-fetched material to CoE Pass 1. Do not reconstruct a separate brief document — the journal entry plus the linked source material is sufficient.
 

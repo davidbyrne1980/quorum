@@ -33,7 +33,7 @@ For Pass 2, the Orchestrator also passes the **approved council roster** (the pe
 
 ## 3. Context — What the PDLC Orchestrator Passes You
 
-You do not fetch ClickUp data directly. The PDLC Orchestrator reads the ticket's context journal (`quorum-context/{clickup_ticket_id}.md`) and passes you its full contents plus the specific artefacts it links to, before you invoke any personas. There is no separately-compiled Task Evidence Summary or Retail Context Brief — the journal and its linked artefacts are the evidence base.
+You do not fetch ClickUp data directly. The PDLC Orchestrator reads the ticket's context journal (`quorum-tickets/{ticket_folder}/_journal.md`) and passes you its full contents plus the specific artefacts it links to, before you invoke any personas. There is no separately-compiled Task Evidence Summary or Retail Context Brief — the journal and its linked artefacts are the evidence base.
 
 **You will receive:**
 - Full ticket content (title, description, clarification Q&A if applicable)

@@ -3,8 +3,8 @@
  * Quorum Dashboard — Live Read-Only Server (Option 2)
  * ---------------------------------------------------
  * Serves the dashboard from http://localhost:<port>, rebuilding the HTML fresh
- * from disk on every page load, and watches quorum-runs/ + quorum-context/ so
- * the open browser tab auto-refreshes whenever any run/context file changes.
+ * from disk on every page load, and watches quorum-tickets/ so
+ * the open browser tab auto-refreshes whenever any ticket file changes.
  *
  * STRICTLY READ-ONLY. This server has NO write endpoints. It only serves GET
  * requests and rejects everything else. It cannot approve gates or modify any
@@ -22,7 +22,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const { buildDashboardHtml, RUNS_DIR, CONTEXT_DIR, ROOT } = require('./generate_dashboard.cjs');
+const { buildDashboardHtml, TICKETS_DIR, ROOT } = require('./generate_dashboard.cjs');
 
 const PORT = Number(process.argv[2] || process.env.PORT || 4319);
 
@@ -34,7 +34,7 @@ const LIVE_SNIPPET = `
 (function () {
   var dot = document.createElement('div');
   dot.id = 'live-indicator';
-  dot.title = 'Live — auto-refreshes when run/context files change';
+  dot.title = 'Live — auto-refreshes when ticket files change';
   dot.textContent = 'live';
   document.body.appendChild(dot);
   var s = document.createElement('style');
@@ -131,9 +131,9 @@ const server = http.createServer((req, res) => {
   }
 
   // Read-only artefact/journal files. The artefact hyperlinks resolve here in
-  // served mode. Path is contained: only files physically inside quorum-runs/
-  // or quorum-context/ can be read — any traversal outside is refused.
-  if (url.startsWith('/quorum-runs/') || url.startsWith('/quorum-context/')) {
+  // served mode. Path is contained: only files physically inside quorum-tickets/
+  // can be read — any traversal outside is refused.
+  if (url.startsWith('/quorum-tickets/')) {
     let resolved;
     try {
       resolved = path.resolve(path.join(ROOT, decodeURIComponent(url)));
@@ -142,9 +142,8 @@ const server = http.createServer((req, res) => {
       res.end('400');
       return;
     }
-    const inRuns = resolved === RUNS_DIR || resolved.startsWith(RUNS_DIR + path.sep);
-    const inCtx = resolved === CONTEXT_DIR || resolved.startsWith(CONTEXT_DIR + path.sep);
-    if (!inRuns && !inCtx) {
+    const inTickets = resolved === TICKETS_DIR || resolved.startsWith(TICKETS_DIR + path.sep);
+    if (!inTickets) {
       res.writeHead(403, { 'Content-Type': 'text/plain' });
       res.end('403 — outside allowed directories');
       return;
@@ -169,8 +168,7 @@ const server = http.createServer((req, res) => {
 server.listen(PORT, () => {
   console.log(`Quorum live dashboard (read-only) serving at:`);
   console.log(`  http://localhost:${PORT}`);
-  watchDir(RUNS_DIR);
-  watchDir(CONTEXT_DIR);
+  watchDir(TICKETS_DIR);
   console.log(`Press Ctrl-C to stop.`);
 });
 

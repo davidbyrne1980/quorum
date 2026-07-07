@@ -375,7 +375,7 @@ The QUIP Scoring Agent (`spec/agents/QUIP_SCORING_AGENT.md`) scores a ticket for
 - Runs as a side pass — it does not interrupt or reorder the blocking flow. If the Requirements Agent (or any other gate agent) is due to fire at Define & Design, that fires first under normal routing; the QUIP score runs alongside or after.
 - The pre-action check (§2) still applies. Do not run a QUIP score on a ticket carrying `closed`. If `human-review-required` is active, the score may still be produced for the Head of Product's review, but it must not be used to justify advancing the ticket.
 - The Orchestrator pre-fetches the ticket content and custom fields and passes them to the agent — the agent never reads ClickUp itself (§7).
-- Output is versioned per ticket (`QUIP_score_v{n}.md`) and written by the Orchestrator to the ticket's current run folder; the Orchestrator then appends a `quip_scored` context-journal entry. Never overwrite a prior version.
+- Output is versioned per ticket (`QUIP_score_v{n}.md`) and written by the Orchestrator to the ticket's `scores/` folder; the Orchestrator then appends a `quip_scored` context-journal entry. Never overwrite a prior version.
 - The score is advisory. It informs QUIP planning; it never advances or blocks a ticket on its own.
 
 ---
