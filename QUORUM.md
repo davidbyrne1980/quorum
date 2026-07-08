@@ -34,7 +34,13 @@ Quorum runs across two tools with a hard boundary between them.
 | AvailabilityInsight | � | Unresolved � do not guess |
 | InventoryInsight | � | Unresolved � do not guess |
 
-This table is the single source of truth for codebase location. When a document elsewhere (spec/agents/COE_AGENT.md, spec/agents/REQUIREMENTS_AGENT.md, spec/orchestrator/PDLC_ORCHESTRATOR_INSTRUCTIONS.md) says "codebase context," it means: resolve the product against this table, and if unresolved, stop and ask rather than proceeding without codebase grounding or fabricating a path.
+Full product documentation reference — Jira, Confluence URLs, codebase paths,
+and per-product agent reading instructions — lives in:
+`spec/orchestrator/PRODUCT_CONTEXT.md`
+
+When a document elsewhere says "codebase context" or "Confluence docs", resolve
+against PRODUCT_CONTEXT.md. If the product path is unresolved, stop and ask
+rather than guessing.
 
 ## Live Status Model
 
