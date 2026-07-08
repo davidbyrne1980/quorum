@@ -4,28 +4,28 @@
 Shared source of truth for downstream work. Downstream steps consume this pack and do not re-fetch independently unless explicitly instructed.
 
 ## Source Ticket
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Product / Workflow
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Relevant Code Areas
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## API Routes / Queries
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Data Fields
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Existing Tests
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Prior Related Tickets
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Constraints
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Open Questions
-[TBC - Head of Product]
+[TBC - Product Manager]

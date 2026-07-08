@@ -1,25 +1,25 @@
 # Implementation Handoff
 
 ## Decision ID
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Approved Scope
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Product Behaviour
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Technical Instructions
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Files / Areas
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Tests Required
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Constraints
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Stop Conditions
-[TBC - Head of Product]
+[TBC - Product Manager]

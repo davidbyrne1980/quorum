@@ -45,4 +45,4 @@ If Context Discovery finds architecture, API contract, schema, data model, platf
 4. Request changes to the recommendation.
 
 ## Pending Human Decision
-Awaiting Head of Product decision on D01. Do not produce requirements, solution design, test plan, or implementation handoff until D01 is recorded.
+Awaiting Product Manager decision on D01. Do not produce requirements, solution design, test plan, or implementation handoff until D01 is recorded.

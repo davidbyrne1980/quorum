@@ -20,7 +20,7 @@ This is the single authoritative statement of Quorum. Every knowledge file must 
 
 ### 1.2 Gate decision grammar (new — closes Critical finding #1)
 Tag removal is **never** a decision signal. Removing `human-review-required` means only "a decision was made and acted on". The decision itself is transmitted by exactly one of:
-- **Phase 1:** Head of Product states the decision in chat, or uses `/gate [ticket-url] [decision]`. The Orchestrator records it, takes the mapped action, then removes the tag.
+- **Phase 1:** Product Manager states the decision in chat, or uses `/gate [ticket-url] [decision]`. The Orchestrator records it, takes the mapped action, then removes the tag.
 - **Phase 2+:** decision written to `gate_decisions.decision` in Supabase (via ClickUp reply parse or dashboard). The Routine reads the decision record, never infers from tag absence.
 
 Multi-way outcomes (Go / No-Go / Validate Further, Confirm / Reject BAU-CR, etc.) are always explicit decision values, never inferred from state.
@@ -29,7 +29,7 @@ Multi-way outcomes (Go / No-Go / Validate Further, Confirm / Reject BAU-CR, etc.
 - Sub-agents: Intake, Signal (optional, pre-council), Demand Signal, CoE (Pass 1 = 6 personas, Pass 2 = 13 personas, two rounds), Requirements (Pass 1 and Pass 2), Solution Shaping (Phase 4 only).
 - **Demand Signal searches 5 channels: ClickUp, Slack, Confluence, Jira, HubSpot.** (Routing rules previously omitted Jira — Jira is in.)
 - CoE Pass 1 fires at status `2. Validation`. CoE Pass 2 fires at `4. Define & Design`. There is no "CoE Review" stage.
-- All agent output returns to the Orchestrator. Nothing writes to ClickUp before Head of Product review, ever, in any document.
+- All agent output returns to the Orchestrator. Nothing writes to ClickUp before Product Manager review, ever, in any document.
 
 ### 1.4 Write-back discipline
 No template that contains agent-derived content (T-07 demand summary, T-09 CoE synthesis, T-12 requirements) is posted to ClickUp before the corresponding review gate is resolved. In Phase 1, gate presentation happens in chat; the ClickUp comment posts *after* approval. In Phase 2+, a content-free gate notification (T-00 pattern) may post; content-bearing comments still post only after approval.
@@ -50,7 +50,7 @@ These are defects with one correct resolution. Exact find/replace instructions a
 | 2.1 | Critical | Ghost vocabulary: `human-gate` tag, `Parked` status, `Clarification` status, "PDLC Stage" field — all from a retired model | EXCEPTION_FLOWS.md (throughout) |
 | 2.2 | Critical | CoE Pass 1 said to fire at "`CoE Review` stage" — status does not exist | COE_AGENT.md §2 |
 | 2.3 | Critical | Pre-approval write-back: routing rules say "Post T-07 gate comment" when Demand Signal *completes* — T-07 is the post-approval content template. Posting it at gate-open leaks unreviewed content | AGENT_ROUTING_RULES.md §3 Path A; CLICKUP_STATE_MODEL.md §4 |
-| 2.4 | Critical | `bau-cr` is a permanent tag but is added on *signal*, before confirmation. If Head of Product rejects the classification, the tag cannot be removed → routing re-enters the BAU/CR gate forever. Fix: `bau-cr-signal` (removable state tag) added on signal; `bau-cr` (permanent) added only on confirmation | CLICKUP_STATE_MODEL.md, AGENT_ROUTING_RULES.md §5, PDLC_ORCHESTRATOR_INSTRUCTIONS.md §6/§8, HUMAN_GATE_MODEL.md Gate 6a |
+| 2.4 | Critical | `bau-cr` is a permanent tag but is added on *signal*, before confirmation. If Product Manager rejects the classification, the tag cannot be removed → routing re-enters the BAU/CR gate forever. Fix: `bau-cr-signal` (removable state tag) added on signal; `bau-cr` (permanent) added only on confirmation | CLICKUP_STATE_MODEL.md, AGENT_ROUTING_RULES.md §5, PDLC_ORCHESTRATOR_INSTRUCTIONS.md §6/§8, HUMAN_GATE_MODEL.md Gate 6a |
 | 2.5 | High | Gate decisions inferred from tag removal (multi-way outcomes with no decision channel) | AGENT_ROUTING_RULES.md, CLICKUP_STATE_MODEL.md §4, PDLC_ORCHESTRATOR_INSTRUCTIONS.md §6 |
 | 2.6 | High | Demand Signal channel list: 4 channels in routing rules vs 5 (incl. Jira) in agent spec | AGENT_ROUTING_RULES.md §3, PDLC_ORCHESTRATOR_INSTRUCTIONS.md §6 |
 | 2.7 | High | Frontend brief uses status set that doesn't exist (Triage, CoE Review, Ready for Scheduling) | QUORUM_FRONTEND_BRIEF.md §4.1 |

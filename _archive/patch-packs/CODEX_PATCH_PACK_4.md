@@ -3,7 +3,7 @@
 **Version:** 1.0 | **Date:** 05 Jul 2026
 **Depends on:** CODEX_PATCH_PACK.md, _2.md, _3.md (apply those first)
 
-**Design decisions encoded (confirmed by Head of Product):**
+**Design decisions encoded (confirmed by Product Manager):**
 - Canonical status model changes from 7 statuses to match live ClickUp (8 statuses Quorum touches, 2 beyond that are fully out of scope).
 - `Triage` is a real status between Submitted and Validation — currently often skipped in practice.
 - `COE REVIEW` = today's `Product Review` (rename only — same gate, same role).
@@ -30,7 +30,7 @@ Nine live ClickUp statuses. Quorum orchestrates the first six. The final three a
 | 1 | Submitted | Intake Agent fires here |
 | 2 | Triage | Optional deeper-dig stage. Frequently skipped in practice — tickets may move directly from Submitted/Validation to COE Review. The Orchestrator does not force a ticket through Triage. Demand Signal Agent may be invoked here on demand (see §4a). |
 | 3 | Validation | PM sanity check that the idea is valid to progress. Clarification and stall management happen here. Demand Signal Agent may be invoked here on demand (see §4a) — no longer mandatory. |
-| 4 | COE Review | CoE Pass 1 runs here — hard gate for Head of Product go/no-go (Gate 4, same role as the former "Product Review" name) |
+| 4 | COE Review | CoE Pass 1 runs here — hard gate for Product Manager go/no-go (Gate 4, same role as the former "Product Review" name) |
 | 5 | Define & Design | Requirements Agent and CoE Pass 2 fire here |
 | 6 | Ready for Scheduling | All gates passed — hard gate before handoff (Gate 8, same role as the former "Delivery Ready" name) |
 | 7 | Scheduled | Orchestrator scope ends here. No further Orchestrator action. |
@@ -44,7 +44,7 @@ Exact live string capitalisation must be confirmed against the ClickUp API respo
 ### 15a-2 — §2 tags table: add `closed`
 In the **Action tag** table (the one currently containing only `human-review-required`), add a row:
 
-`| `closed` | Ticket is rejected, confirmed duplicate, parked, or otherwise terminated | Never automatically. Only if the Head of Product explicitly reopens the ticket. |`
+`| `closed` | Ticket is rejected, confirmed duplicate, parked, or otherwise terminated | Never automatically. Only if the Product Manager explicitly reopens the ticket. |`
 
 Rename the table heading from "Action tag" to "Action and terminal tags" if a single heading covers both, or add a new **Terminal tag** sub-heading above the `closed` row — whichever fits the existing document structure with the least disruption.
 
@@ -56,7 +56,7 @@ Insert a new section after §4 (Routing logic), before §5:
 
 `## 4a. Demand Signal — optional invocation
 
-Demand Signal Agent (Mode A, Orchestrator-managed) is not a mandatory gate. It is invoked on demand by the Head of Product while a ticket is at Triage or Validation, using the same Mode A behaviour defined in DEMAND_SIGNAL_AGENT.md (output returns to Orchestrator, graded, presented for review, written back via T-07 only after approval).
+Demand Signal Agent (Mode A, Orchestrator-managed) is not a mandatory gate. It is invoked on demand by the Product Manager while a ticket is at Triage or Validation, using the same Mode A behaviour defined in DEMAND_SIGNAL_AGENT.md (output returns to Orchestrator, graded, presented for review, written back via T-07 only after approval).
 
 **If Demand Signal is never invoked:** CoE Pass 1 runs on ticket content and Requirements context alone. The Pass 1 council output must include an explicit line: "No demand signal evidence assessed for this ticket." This is not optional — silent proceeding without the declaration is a governance failure, same standard as the Lenses Not Represented rule for reduced CoE Pass 2 councils.
 
@@ -72,7 +72,7 @@ When any gate resolves in rejection, confirmed duplicate, or park (Gate 1, Gate 
 3. Posts the appropriate T-16 (or T-10 for CoE Pass 1 No-Go) closure comment stating the reason.
 4. Records the closure in the audit log (Supabase `audit_log` and `workflow_runs`).
 
-**Reopening:** if the Head of Product removes the `closed` tag, the ticket is live again at whatever status it sits at. The Orchestrator re-applies the pre-action check (read status, read tags, read most recent comment) before taking any further action — it does not assume where the ticket "should" resume from.
+**Reopening:** if the Product Manager removes the `closed` tag, the ticket is live again at whatever status it sits at. The Orchestrator re-applies the pre-action check (read status, read tags, read most recent comment) before taking any further action — it does not assume where the ticket "should" resume from.
 
 **Pre-action check addition:** every pre-action check (CLICKUP_STATE_MODEL.md §3, AGENT_ROUTING_RULES.md §2) must check the `closed` tag immediately after `human-review-required`. If `closed` is present, stop — the Orchestrator never acts on a closed ticket regardless of status.`
 
@@ -100,7 +100,7 @@ In §3, section **Status: Validation — no `awaiting-info`, no `coe-pass-1-comp
 
 `**Demand Signal is optional — invoked on demand, not automatically.**
 
-If the Head of Product invokes Demand Signal Agent (at Triage or Validation): follow Path A/B below.
+If the Product Manager invokes Demand Signal Agent (at Triage or Validation): follow Path A/B below.
 If Demand Signal is not invoked: proceed directly to CoE Pass 1 (see §3 CoE Pass 1 invocation below), with the council output declaring "No demand signal evidence assessed for this ticket."
 
 **Path A — Demand Signal invoked, not yet graded:**
@@ -108,9 +108,9 @@ If Demand Signal is not invoked: proceed directly to CoE Pass 1 (see §3 CoE Pas
 Agent searches: ClickUp, Confluence, Slack, Jira, HubSpot.
 Output returned to Orchestrator → stored in Supabase → not written to ClickUp yet.
 Add `human-review-required`. Present the full graded output in chat (Phase 1); nothing posts to ClickUp pre-approval.
-Stop. Wait for Head of Product to grade evidence.
+Stop. Wait for Product Manager to grade evidence.
 
-**Special case — overall grade Low:** Gate 3 fires. Hard gate. Head of Product must decide whether to proceed.
+**Special case — overall grade Low:** Gate 3 fires. Hard gate. Product Manager must decide whether to proceed.
 
 **Path B — Demand Signal invoked and graded, `human-review-required` resolved via explicit decision:**
 
@@ -153,7 +153,7 @@ In Gate 2 (Demand Signal Review) header block, find:
 
 Replace with:
 
-`**Trigger:** Demand Signal Agent has completed its run (invoked on demand by the Head of Product — no longer a mandatory stage gate; see CLICKUP_STATE_MODEL.md §4a).`
+`**Trigger:** Demand Signal Agent has completed its run (invoked on demand by the Product Manager — no longer a mandatory stage gate; see CLICKUP_STATE_MODEL.md §4a).`
 
 ---
 
@@ -178,7 +178,7 @@ Replace with: `8. **Status references must match.** Use only these status names:
 
 Find (from Patch 2, already-applied wording):
 
-`**Pass 1** is invoked by the PDLC Orchestrator while the ticket is at status `2. Validation`, after the Demand Signal review gate (Gate 2/3) has been resolved by the Head of Product. On Pass 1 completion the Orchestrator moves the ticket to `3. Product Review`.`
+`**Pass 1** is invoked by the PDLC Orchestrator while the ticket is at status `2. Validation`, after the Demand Signal review gate (Gate 2/3) has been resolved by the Product Manager. On Pass 1 completion the Orchestrator moves the ticket to `3. Product Review`.`
 
 Replace with:
 
@@ -198,7 +198,7 @@ Replace the full §3 table (The PDLC Lifecycle — stages) with:
 | Submitted | Invoke Intake Agent |
 | Triage | Optional deeper-dig stage — often skipped. Demand Signal may be invoked here on demand. |
 | Validation | Clarification, stall management. Demand Signal may be invoked here on demand (no longer mandatory) |
-| COE Review | CoE Pass 1 complete — hard gate for Head of Product go/no-go |
+| COE Review | CoE Pass 1 complete — hard gate for Product Manager go/no-go |
 | Define & Design | Requirements Agent, CoE Pass 2, BAU/CR classification |
 | Ready for Scheduling | All gates passed — hard gate before handoff |
 | Scheduled | Orchestrator scope ends here |
@@ -211,9 +211,9 @@ There is no terminal status. Closure is recorded via the `closed` tag — see §
 Replace `### Product Review` heading with `### COE Review`. Replace `### Delivery Ready` heading with `### Ready for Scheduling`. Update internal prose references to these status names accordingly (e.g. "Exit: Go → Define & Design" stays; "Entry: CoE Pass 1 complete" stays).
 
 ### 15f-3 — §4 Validation stage: remove mandatory Demand Signal language
-Find: `2. **Demand Signal** — run after clarification resolved, output reviewed by Head of Product before ClickUp write-back`
+Find: `2. **Demand Signal** — run after clarification resolved, output reviewed by Product Manager before ClickUp write-back`
 
-Replace with: `2. **Demand Signal** (optional, invoked on demand at Triage or Validation) — if run, output reviewed by Head of Product before ClickUp write-back. If not run, CoE Pass 1 proceeds without it and declares this explicitly.`
+Replace with: `2. **Demand Signal** (optional, invoked on demand at Triage or Validation) — if run, output reviewed by Product Manager before ClickUp write-back. If not run, CoE Pass 1 proceeds without it and declares this explicitly.`
 
 ### 15f-4 — New §9a Closure Handling
 Insert after §9 (Exception Handling), before §10:
@@ -225,7 +225,7 @@ There is no terminal ClickUp status. When any gate resolves in rejection, confir
 2. Post the appropriate closure comment (T-16, or T-10 for CoE Pass 1 No-Go) stating the reason.
 3. Record in Supabase audit log.
 
-Every pre-action check tests the `closed` tag immediately after `human-review-required` — if present, stop unconditionally, regardless of status. Reopening requires the Head of Product to remove the tag explicitly; the Orchestrator then re-runs the full pre-action check before any further routing.`
+Every pre-action check tests the `closed` tag immediately after `human-review-required` — if present, stop unconditionally, regardless of status. Reopening requires the Product Manager to remove the tag explicitly; the Orchestrator then re-runs the full pre-action check before any further routing.`
 
 ### 15f-5 — §18 "What You Are Not" — no change needed. Skip.
 

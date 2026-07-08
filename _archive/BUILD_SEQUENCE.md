@@ -46,7 +46,7 @@ No automation. No schedule. You control every action manually.
 5. [ ] Connect ClickUp MCP and Confluence MCP to the project
 6. [ ] Run Phase 1 test sequence (see Section 5)
 7. [ ] Validate routing, tags, and comment templates against 3–5 real tickets
-8. [ ] Head of Product confirms output quality and routing decisions
+8. [ ] Product Manager confirms output quality and routing decisions
 9. [ ] Declare Phase 1 complete
 
 **What Phase 1 proves:**
@@ -132,7 +132,7 @@ A React application deployed on Vercel (free tier sufficient at this scale).
 
 1. **Pipeline view** — all open tickets by status, with tags visible. Filterable by product, status, tag. This is the SLT visibility view.
 
-2. **Human gate inbox** — all tickets with `human-review-required` tag. Shows the gate type, what decision is needed, and the relevant agent output. Head of Product approves/rejects from here. Calls the Routine HTTP endpoint to trigger Orchestrator action after decision.
+2. **Human gate inbox** — all tickets with `human-review-required` tag. Shows the gate type, what decision is needed, and the relevant agent output. Product Manager approves/rejects from here. Calls the Routine HTTP endpoint to trigger Orchestrator action after decision.
 
 3. **Demand Signal review** — agent outputs awaiting grading. Shows evidence items with High/Medium/Low grading UI. Approved output is written to ClickUp. Discarded items are logged to Supabase.
 
@@ -186,8 +186,8 @@ A ticket that describes a small change (1–3 day delivery, narrow scope). Orche
 - Comments match templates in `CLICKUP_COMMENT_TEMPLATES.md`
 - All hard gates stop the Orchestrator correctly
 - CoE Pass 1 personas produce useful, differentiated output
-- Demand Signal grading workflow is usable by Head of Product
-- Head of Product is satisfied output quality meets or exceeds Copilot
+- Demand Signal grading workflow is usable by Product Manager
+- Product Manager is satisfied output quality meets or exceeds Copilot
 
 ---
 

@@ -82,7 +82,7 @@ The Intake Agent is the formal submission mechanism that feeds the PDLC Orchestr
 6. Remove any BAU/CR classification logic — classification moves to Orchestrator
 7. Test in conversational mode against 3 real idea submissions
 8. Test in Orchestrator-triggered mode against 2–3 existing Submitted tickets
-9. Head of Product confirms output quality matches or exceeds Copilot version
+9. Product Manager confirms output quality matches or exceeds Copilot version
 10. Switch live traffic to Claude version
 11. Retire Copilot submission workflow
 
@@ -97,15 +97,15 @@ The Intake Agent is the formal submission mechanism that feeds the PDLC Orchestr
 **Migration type:** Rebuild from source definitions
 
 **Steps:**
-1. Head of Product provides all 13 persona definitions from Copilot Studio
-2. Head of Product provides the Decision Science persona full system prompt (captured in planning session chat — needs extracting as a document)
-3. Head of Product confirms the Pass 2 output template (existing Copilot format — must be preserved exactly)
+1. Product Manager provides all 13 persona definitions from Copilot Studio
+2. Product Manager provides the Decision Science persona full system prompt (captured in planning session chat — needs extracting as a document)
+3. Product Manager confirms the Pass 2 output template (existing Copilot format — must be preserved exactly)
 4. Build 6 Pass 1 personas first (smaller set — faster to validate)
 5. Test Pass 1 against 1–2 tickets that have completed Demand Signal
-6. Head of Product confirms Pass 1 output quality
+6. Product Manager confirms Pass 1 output quality
 7. Build remaining 7 Pass 2-only personas
 8. Test full Pass 2 against 1 ticket that has completed Requirements
-9. Head of Product confirms Pass 2 output format matches Copilot version
+9. Product Manager confirms Pass 2 output format matches Copilot version
 10. Switch live traffic to Claude version
 11. Retire Copilot CoE Agent
 
@@ -126,13 +126,13 @@ The Intake Agent is the formal submission mechanism that feeds the PDLC Orchestr
 2. Identify any differences between the current behaviour and the target spec in `DEMAND_SIGNAL_AGENT.md`
 3. Key changes to implement:
    - Output is now returned to Orchestrator — not written directly to ClickUp
-   - Head of Product review gate added before write-back
+   - Product Manager review gate added before write-back
    - Per-item grading (High / Medium / Low) formalised
    - Source-specific reliability rules formalised (Slack noisy, HubSpot unreliable)
    - Filtered write-back format (T-07 template)
    - Low-grade hard gate (T-08 template + Gate 3)
 4. Test against 2–3 tickets with known demand context
-5. Head of Product confirms output quality
+5. Product Manager confirms output quality
 6. Retire the standalone Claude project version once Orchestrator-managed version is stable
 
 **Risk:** Low-medium. The core research behaviour is already proven. The changes are structural (gate insertion, write-back control) rather than capability changes.
@@ -155,7 +155,7 @@ The Intake Agent is the formal submission mechanism that feeds the PDLC Orchestr
    - Soft gate added before CoE Pass 2 fires
    - Structured output format (FR / NFR / scope / open questions)
 4. Test against 1–2 tickets that have completed CoE Pass 1
-5. Head of Product confirms output quality and format
+5. Product Manager confirms output quality and format
 6. Retire the standalone Claude project version
 
 **Risk:** Low. Requirements Agent behaviour is well understood. Changes are structural additions, not redesigns.
@@ -183,7 +183,7 @@ Tickets that are already in flight in ClickUp (in any status from Triage through
 ### Options
 
 **Option A — Clean cutover at Phase 1 go-live**
-All in-flight tickets are assessed manually by the Head of Product at Phase 1 go-live. Their current stage is recorded in the new ClickUp tags. The Orchestrator takes over from that point.
+All in-flight tickets are assessed manually by the Product Manager at Phase 1 go-live. Their current stage is recorded in the new ClickUp tags. The Orchestrator takes over from that point.
 
 Recommended for Phase 1. Simple to execute. No risk of mixed Copilot/Claude processing on the same ticket.
 
@@ -194,7 +194,7 @@ Not recommended. Creates a period where some tickets are in Copilot and some are
 
 ### Recommended Approach
 
-1. Pick a cutover date with Head of Product
+1. Pick a cutover date with Product Manager
 2. On cutover date: assess all in-flight tickets manually — record their current stage in new ClickUp tags
 3. All new tickets from cutover date: handled by Claude Orchestrator
 4. All in-flight tickets from cutover date: handed to Claude Orchestrator using the stage recorded in tag or comments
@@ -215,7 +215,7 @@ These items must be complete before any agent is migrated or built:
 - [ ] ClickUp tags created on both lists
 - [ ] Terminal status for closed/parked/rejected tickets confirmed
 - [ ] 3–5 real test tickets identified for Phase 1 testing
-- [ ] Cutover date agreed with Head of Product
+- [ ] Cutover date agreed with Product Manager
 
 ---
 
@@ -226,7 +226,7 @@ If the Claude Orchestrator or any migrated agent produces incorrect or unreliabl
 1. Do not use the Claude version on live tickets until the issue is resolved
 2. The Copilot versions remain available until explicitly retired — do not retire them until the Claude versions are confirmed stable
 3. Issues found during Phase 1 testing are fixed before any Phase 1 go-live declaration
-4. The Head of Product makes the final call on whether the Claude system is ready to take over from Copilot
+4. The Product Manager makes the final call on whether the Claude system is ready to take over from Copilot
 
 There is no automated rollback. Rollback means continuing to use the Copilot agents while issues are resolved.
 
@@ -239,7 +239,7 @@ The migration is considered complete when:
 - [ ] Signal confirmed operational and unchanged — no action required ✅
 - [ ] Intake Agent (submission workflow) migrated and tested in both conversational and Orchestrator-triggered modes
 - [ ] All other migrated agents (Demand Signal, CoE, Requirements) tested against 3–5 real tickets
-- [ ] Head of Product is satisfied that output quality meets or exceeds the Copilot versions
+- [ ] Product Manager is satisfied that output quality meets or exceeds the Copilot versions
 - [ ] All Copilot agents have been switched off
 - [ ] No tickets are being processed by both systems simultaneously
 - [ ] ClickUp tags are being maintained correctly by the Orchestrator

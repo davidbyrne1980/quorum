@@ -3,7 +3,7 @@
 - **ClickUp ID:** TBC
 - **ClickUp URL:** TBC
 - **Product:** RI Validation Platform
-- **Live ClickUp status:** Validation [TBC - Head of Product to confirm]
+- **Live ClickUp status:** Validation [TBC - Product Manager to confirm]
 - **Current PDLC stage:** implementation handoff approval
 - **Created:** 2026-07-05
 - **Runs:** 1 - see `runs/`

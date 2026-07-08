@@ -1,5 +1,5 @@
-ï»¿# SUPABASE_SCHEMA.md
-## Quorum â€” Supabase Schema
+# SUPABASE_SCHEMA.md
+## Quorum — Supabase Schema
 **Version:** 5.0 | **Organisation:** Retail Insight | **Phase:** 1+
 
 ---
@@ -8,14 +8,14 @@
 
 Supabase serves two distinct roles in Quorum:
 
-**Role 1 â€” Workflow State and Audit Layer**
-The authoritative source of truth for orchestration state. ClickUp is the human-facing work surface. Supabase is what the system uses to function reliably â€” workflow run state, agent run logs, gate decisions, exception tracking, idempotency keys. Without this, the Orchestrator reads its own comments to understand ticket state, which is fragile and undebuggable.
+**Role 1 — Workflow State and Audit Layer**
+The authoritative source of truth for orchestration state. ClickUp is the human-facing work surface. Supabase is what the system uses to function reliably — workflow run state, agent run logs, gate decisions, exception tracking, idempotency keys. Without this, the Orchestrator reads its own comments to understand ticket state, which is fragile and undebuggable.
 
-**Role 2 â€” Learning Loop Database**
+**Role 2 — Learning Loop Database**
 Captures feedback on agent outputs, tracks prompt versions, and records ticket outcomes so the system improves over time.
 
-**Role 3 â€” Delivery Extension State**
-When a ticket exits governance (post-Delivery Ready, or via the BAU/CR lane) and enters delivery preparation (context pack â†’ solution design â†’ test plan â†’ implementation handoff â†’ Codex), the same tables carry it: workflow_runs gains a run per delivery cycle, output_artefacts holds the versioned run-folder documents, gate_decisions holds the delivery approval gates (solution design approval, implementation handoff approval). No parallel schema exists.
+**Role 3 — Delivery Extension State**
+When a ticket exits governance (post-Delivery Ready, or via the BAU/CR lane) and enters delivery preparation (context pack ? solution design ? test plan ? implementation handoff ? Codex), the same tables carry it: workflow_runs gains a run per delivery cycle, output_artefacts holds the versioned run-folder documents, gate_decisions holds the delivery approval gates (solution design approval, implementation handoff approval). No parallel schema exists.
 
 ClickUp handles: visible ticket, status, tags, comments, human review and approval.
 Supabase handles: everything the system needs to run reliably and learn.
@@ -118,7 +118,7 @@ CREATE TABLE agent_runs (
   -- 'RequirementsAgent_Pass1' | 'RequirementsAgent_Pass2' |
   -- 'SolutionShapingAgent'
 
-  -- Idempotency â€” prevents duplicate runs
+  -- Idempotency — prevents duplicate runs
   idempotency_key     TEXT NOT NULL UNIQUE,
   -- format: '{clickup_ticket_id}:{agent_name}:{pass_number}'
 
@@ -144,11 +144,11 @@ CREATE TABLE agent_runs (
 
   -- What came out
   raw_output          JSONB,
-  -- full unfiltered output â€” never written to ClickUp
+  -- full unfiltered output — never written to ClickUp
   approved_summary    TEXT,
   -- filtered summary approved for ClickUp write-back
   approved_at         TIMESTAMPTZ,
-  approved_by         TEXT DEFAULT 'Head of Product',
+  approved_by         TEXT DEFAULT 'Product Manager',
 
   -- Quality
   confidence_level    TEXT,
@@ -167,7 +167,7 @@ CREATE TABLE agent_runs (
 );
 ```
 
-For CoE Pass 2 runs, council_roster records the full recommendation-to-approval trail. Reduced and full councils are queryable here â€” the ClickUp tag layer does not distinguish them by design.
+For CoE Pass 2 runs, council_roster records the full recommendation-to-approval trail. Reduced and full councils are queryable here — the ClickUp tag layer does not distinguish them by design.
 
 ---
 
@@ -194,10 +194,10 @@ CREATE TABLE gate_decisions (
   activated_at          TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   resolved_at           TIMESTAMPTZ,
   decision              TEXT,
-  -- the option chosen â€” matches decision table in spec/orchestrator/HUMAN_GATE_MODEL.md
+  -- the option chosen — matches decision table in spec/orchestrator/HUMAN_GATE_MODEL.md
   decision_rationale    TEXT,
-  decided_by            TEXT DEFAULT 'Head of Product',
-  -- always named â€” never 'AI' or 'System'
+  decided_by            TEXT DEFAULT 'Product Manager',
+  -- always named — never 'AI' or 'System'
 
   status                TEXT NOT NULL DEFAULT 'pending',
   -- 'pending' | 'approved' | 'modified' | 'rejected' | 'superseded' | 'expired'
@@ -259,7 +259,7 @@ CREATE TABLE evidence_records (
 
 ### 3.5 `exception_log`
 
-Every exception raised during orchestration â€” stalls, conflicts, failures, duplicates.
+Every exception raised during orchestration — stalls, conflicts, failures, duplicates.
 
 ```sql
 CREATE TABLE exception_log (
@@ -360,7 +360,7 @@ CREATE TABLE audit_log (
   decision            TEXT,
   notes               TEXT,
   performed_by        TEXT NOT NULL DEFAULT 'Orchestrator',
-  -- 'Orchestrator' | 'Head of Product' | 'System'
+  -- 'Orchestrator' | 'Product Manager' | 'System'
 
   created_at          TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
@@ -400,7 +400,7 @@ CREATE TABLE output_artefacts (
 
 Outputs are never overwritten. A revision inserts a new row with version+1, sets is_current=true, points supersedes at the prior row, and flips the prior row's is_current to false.
 
-Context journal entries (see QUORUM.md â€” Context Journal) are stored as `output_artefacts` rows of type `context_journal_entry`, one row per entry, in addition to existing as lines in the `quorum-tickets/{ticket_folder}/_journal.md` file. The file is the human-readable form; the Supabase rows make it queryable (e.g. "show me every stall event across all tickets this month").
+Context journal entries (see QUORUM.md — Context Journal) are stored as `output_artefacts` rows of type `context_journal_entry`, one row per entry, in addition to existing as lines in the `quorum-tickets/{ticket_folder}/_journal.md` file. The file is the human-readable form; the Supabase rows make it queryable (e.g. "show me every stall event across all tickets this month").
 
 ---
 
@@ -428,7 +428,7 @@ CREATE TABLE intake_question_feedback (
   -- 'submitter_behaviour' | 'orchestrator_inferred'
 
   outcome           TEXT,
-  provided_by       TEXT NOT NULL DEFAULT 'Head of Product',
+  provided_by       TEXT NOT NULL DEFAULT 'Product Manager',
   created_at        TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 ```
@@ -451,7 +451,7 @@ CREATE TABLE agent_feedback (
 
   feedback_detail   TEXT,
   affected_item     TEXT,
-  provided_by       TEXT NOT NULL DEFAULT 'Head of Product',
+  provided_by       TEXT NOT NULL DEFAULT 'Product Manager',
   created_at        TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 ```
@@ -470,7 +470,7 @@ CREATE TABLE agent_prompt_versions (
   created_from_feedback_ids   JSONB,
   active                      BOOLEAN NOT NULL DEFAULT FALSE,
   activated_at                TIMESTAMPTZ,
-  activated_by                TEXT DEFAULT 'Head of Product',
+  activated_by                TEXT DEFAULT 'Product Manager',
   created_at                  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   UNIQUE (agent_name, version)
 );
@@ -497,7 +497,7 @@ CREATE TABLE ticket_outcomes (
   which_demand_signals_proved_accurate  TEXT,
   bau_cr_classification_was_correct     BOOLEAN,
   readiness_rating_was_accurate         BOOLEAN,
-  recorded_by                           TEXT DEFAULT 'Head of Product',
+  recorded_by                           TEXT DEFAULT 'Product Manager',
   recorded_at                           TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 ```
@@ -577,7 +577,7 @@ CREATE INDEX idx_de_domain ON domain_experts(domain);
 
 ## 6. Key Queries
 
-### Active gates â€” what needs Head of Product attention
+### Active gates — what needs Product Manager attention
 ```sql
 SELECT
   wr.clickup_ticket_id,
@@ -659,7 +659,7 @@ GROUP BY source_type, grade
 ORDER BY source_type, grade;
 ```
 
-### Intake question quality â€” automatic signals
+### Intake question quality — automatic signals
 ```sql
 SELECT
   question_text,
@@ -694,21 +694,21 @@ Before invoking any agent, the Orchestrator must:
 2. Query `agent_runs` for an existing record with this key
 3. If found and status is `complete`: do not re-invoke. Use the existing output.
 4. If found and status is `running`: do not re-invoke. Wait.
-5. If found and status is `failed`: re-invoke only with explicit Head of Product instruction.
+5. If found and status is `failed`: re-invoke only with explicit Product Manager instruction.
 6. If not found: invoke the agent and insert the record immediately with status `running`.
 
 This prevents duplicate runs caused by comment re-processing, scheduled trigger overlap, or manual re-invocation.
 
 ---
 
-## 8. Phase 1 â†’ Phase 2 Bootstrap
+## 8. Phase 1 ? Phase 2 Bootstrap
 
 When Phase 2 Managed Agent is deployed:
 
 1. All in-flight tickets bootstrapped into `workflow_runs` from ClickUp current state
 2. `last_processed_comment_id` set to most recent comment on each ticket
-3. `audit_log` starts from deployment date â€” pre-Phase 2 history lives in ClickUp comments only
-4. ClickUp status and tags continue to be written â€” they are not retired
+3. `audit_log` starts from deployment date — pre-Phase 2 history lives in ClickUp comments only
+4. ClickUp status and tags continue to be written — they are not retired
 5. Supabase becomes the authoritative read source for all routing decisions
 
 ---
@@ -716,7 +716,7 @@ When Phase 2 Managed Agent is deployed:
 ## 9. Setup
 
 - Supabase project on Retail Insight account
-- Apply schema in order: workflow_runs â†’ agent_prompt_versions â†’ agent_runs â†’ all others
-- Row-level security: all tables restricted to service role â€” no public access
+- Apply schema in order: workflow_runs ? agent_prompt_versions ? agent_runs ? all others
+- Row-level security: all tables restricted to service role — no public access
 - Connection string stored in Managed Agents vault as environment variable
-- Begin populating from first ticket â€” no pre-seeding required
+- Begin populating from first ticket — no pre-seeding required

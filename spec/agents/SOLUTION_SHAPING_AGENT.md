@@ -27,7 +27,7 @@ It operates at the intersection of product and engineering — it does not write
 
 Will be invoked by the Orchestrator when:
 - PDLC Stage is `Solution Shaping`
-- CoE Pass 2 has been reviewed and approved by the Head of Product
+- CoE Pass 2 has been reviewed and approved by the Product Manager
 - BAU/CR Flag is confirmed as No
 - Phase 4 is active
 
@@ -89,7 +89,7 @@ Even at Phase 4, this agent will not:
 This agent's full specification should be written when:
 - Phase 3 (React dashboard) is operational
 - At least 3–5 tickets have completed the full Phase 1 workflow (Intake → Requirements → CoE Pass 2)
-- The Head of Product has reviewed CoE Pass 2 outputs and can articulate what additional shaping information is needed before delivery
+- The Product Manager has reviewed CoE Pass 2 outputs and can articulate what additional shaping information is needed before delivery
 
 At that point, replace this placeholder with a full agent definition following the same structure as `spec/agents/INTAKE_AGENT.md`, `spec/agents/COE_AGENT.md`, `spec/agents/DEMAND_SIGNAL_AGENT.md`, and `spec/agents/REQUIREMENTS_AGENT.md`.
 

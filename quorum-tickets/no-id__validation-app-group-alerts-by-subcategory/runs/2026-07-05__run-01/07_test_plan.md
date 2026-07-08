@@ -135,7 +135,7 @@ Expected:
 - AC9 No API/data-model changes: regression checks and implementation diff review.
 
 ## Stop Conditions
-Stop and return to Head of Product if:
+Stop and return to Product Manager if:
 
 - `subcategory` is not available in a runtime session despite being present in types/models.
 - Adding sub-category grouping requires backend/API changes.

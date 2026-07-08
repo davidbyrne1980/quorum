@@ -5,8 +5,8 @@ Shared source of truth for downstream requirements, solution design, test planni
 
 ## Source Ticket
 - Ticket title: Group validation app alerts by product sub-category.
-- Ticket URL: [TBC - Head of Product]
-- Live ClickUp status: Validation [TBC - Head of Product to confirm]
+- Ticket URL: [TBC - Product Manager]
+- Live ClickUp status: Validation [TBC - Product Manager to confirm]
 
 ## Codebase Source
 - Local repo path: `C:\Users\DaveByrne\Documents\RI Validation Platform`

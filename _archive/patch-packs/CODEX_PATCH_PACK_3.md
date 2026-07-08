@@ -3,7 +3,7 @@
 **Version:** 1.0 | **Date:** 05 Jul 2026
 **Depends on:** CODEX_PATCH_PACK.md and CODEX_PATCH_PACK_2.md (apply those first)
 
-**Design decisions encoded (confirmed by Head of Product):**
+**Design decisions encoded (confirmed by Product Manager):**
 - Pass 1 roster is fixed (6 personas). Only Pass 2 is composable.
 - Roster recommendation is bundled into Gate 5 (Requirements review) — no new gate.
 - Mandatory-inclusion rules are HARD — the Orchestrator refuses violating edits.
@@ -64,7 +64,7 @@ Insert a new section after §5 (BAU/CR fast-track lane), before §6:
 
 `## 5a. CoE Pass 2 Council Roster — recommendation and hard rules
 
-The Orchestrator recommends a Pass 2 roster from the Requirements Agent output. The Head of Product approves or edits it at Gate 5. This mechanism applies to Pass 2 only — the Pass 1 roster is fixed.
+The Orchestrator recommends a Pass 2 roster from the Requirements Agent output. The Product Manager approves or edits it at Gate 5. This mechanism applies to Pass 2 only — the Pass 1 roster is fixed.
 
 ### Recommendation
 
@@ -78,7 +78,7 @@ For each of the 13 personas, the Orchestrator classifies: **Recommended** (lens 
 4. **Decision Science is mandatory** if the ticket touches models, thresholds, scoring, ranking, or alert logic.
 5. **Minimum roster size is 5 including Contrarian.** If the Orchestrator cannot justify 5 relevant lenses, it must state in the recommendation that the ticket looks like a BAU/CR candidate and suggest reclassification rather than a sub-minimum council.
 
-If a Head of Product edit violates a hard rule, the Orchestrator refuses the specific removal, cites the rule, and re-presents the roster. The remainder of the edit is applied.
+If a Product Manager edit violates a hard rule, the Orchestrator refuses the specific removal, cites the rule, and re-presents the roster. The remainder of the edit is applied.
 
 ### Round count
 
@@ -104,7 +104,7 @@ The approved roster, the recommendation, and any refused edits are recorded in S
 ### 14b-1 — Roster is passed in
 In §2 (Invocation), append after the final paragraph:
 
-`For Pass 2, the Orchestrator also passes the **approved council roster** (the persona subset approved by the Head of Product at Gate 5, validated against the hard rules in AGENT_ROUTING_RULES.md §5a) and the **round count** (one round for rosters of 7 or fewer, two rounds for 8 or more). If no roster is passed, run the full 13-persona, two-round default. You never select or modify the roster yourself — if the passed roster violates a hard rule (e.g. missing Contrarian), flag the error to the Orchestrator and do not run.`
+`For Pass 2, the Orchestrator also passes the **approved council roster** (the persona subset approved by the Product Manager at Gate 5, validated against the hard rules in AGENT_ROUTING_RULES.md §5a) and the **round count** (one round for rosters of 7 or fewer, two rounds for 8 or more). If no roster is passed, run the full 13-persona, two-round default. You never select or modify the roster yourself — if the passed roster violates a hard rule (e.g. missing Contrarian), flag the error to the Orchestrator and do not run.`
 
 ### 14b-2 — Pass 2 roster table becomes the default
 In §4, find:
@@ -129,7 +129,7 @@ In §8, in the **Pass 2 Output Template**, insert immediately after the `## Coun
 
 **Personas convened:** [list]
 **Round count:** [1 / 2]
-**Roster approved by:** Head of Product — Gate 5, [date]
+**Roster approved by:** Product Manager — Gate 5, [date]
 
 ### Lenses Not Represented
 [MANDATORY when any persona was excluded. For each excluded persona, one line: which governance lens is therefore unassessed and what risk that leaves unexamined — e.g. "Commercial: revenue and retention implications not assessed by this council." If the full council ran, state "Full council — all lenses represented."]
@@ -147,7 +147,7 @@ In §5 (Governance Dominance Weighting), append after the final paragraph:
 
 In **Gate 5 — Requirements Review**, find:
 
-`**What the Head of Product receives:**
+`**What the Product Manager receives:**
 - Functional requirements
 - Non-functional requirements
 - High-level scope assessment
@@ -156,7 +156,7 @@ In **Gate 5 — Requirements Review**, find:
 
 Replace with:
 
-`**What the Head of Product receives:**
+`**What the Product Manager receives:**
 - Functional requirements
 - Non-functional requirements
 - High-level scope assessment

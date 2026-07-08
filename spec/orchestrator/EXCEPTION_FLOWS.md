@@ -26,8 +26,8 @@ All comments in this document are posted using the templates in spec/CLICKUP_COM
 | 2.4 | Conflicting evidence | Demand signal or CoE surfaces contradiction |
 | 2.5 | Noisy or low-grade demand signal | Agent grades evidence as Low |
 | 2.6 | Agent failure or low confidence | Agent output is partial, failed, or flagged |
-| 2.7 | Human gate — no response | Head of Product has not responded within expected window |
-| 2.8 | Ticket scope changes mid-workflow | Submitter or Head of Product changes the ticket |
+| 2.7 | Human gate — no response | Product Manager has not responded within expected window |
+| 2.8 | Ticket scope changes mid-workflow | Submitter or Product Manager changes the ticket |
 | 2.9 | Loop detection | Orchestrator risks re-processing a comment or action |
 | 2.10 | Out-of-scope ticket | Ticket arrives in a list not in Phase 1 scope |
 
@@ -50,21 +50,21 @@ All comments in this document are posted using the templates in spec/CLICKUP_COM
 
 **Day 6 (no reply):**
 - Post second chase comment.
-- Flag to Head of Product directly (Slack or ClickUp mention, depending on available tooling in Phase 1).
+- Flag to Product Manager directly (Slack or ClickUp mention, depending on available tooling in Phase 1).
 - Comment content: note this is the second chase, state questions are still outstanding, flag that the ticket will be recommended for parking at Day 9 if no reply is received.
-- Post comment: `Second chase posted — Head of Product flagged — Day 6 [date]`
+- Post comment: `Second chase posted — Product Manager flagged — Day 6 [date]`
 - No stage change.
 
 **Day 9 (no reply):**
 - Post park recommendation comment.
 - Add tag `human-review-required`.
-- Comment content: state that no reply has been received after 9 working days, the ticket is recommended for parking, and the Head of Product must decide: park via `closed` tag / grant extension / take over submitter communication.
+- Comment content: state that no reply has been received after 9 working days, the ticket is recommended for parking, and the Product Manager must decide: park via `closed` tag / grant extension / take over submitter communication.
 - Post comment: `Park recommendation posted — awaiting human decision — Day 9 [date]`
-- **Stop. Take no further action until the Head of Product responds.**
+- **Stop. Take no further action until the Product Manager responds.**
 
 ### Possible Outcomes After Day 9 Gate
 
-| Head of Product Decision | Orchestrator Action |
+| Product Manager Decision | Orchestrator Action |
 |---|---|
 | Park ticket | Add tag `closed`. Status unchanged. Post T-16 closure comment (reason: no submitter response, 9 working days). Remove `awaiting-info`, `stalled`, `human-review-required`. |
 | Grant extension | Reset timer. Post comment confirming extension. Remove tag `human-review-required`. Continue monitoring. |
@@ -104,7 +104,7 @@ If the submitter replies at any point during the stall period:
    - Restart the working-day timer from the date of the follow-up post.
 5. Update Orchestrator comment with outcome.
 
-**Maximum follow-up rounds:** There is no hard cap, but if more than two rounds of partial replies have occurred without progress, flag to Head of Product. Do not continue chasing indefinitely without human awareness.
+**Maximum follow-up rounds:** There is no hard cap, but if more than two rounds of partial replies have occurred without progress, flag to Product Manager. Do not continue chasing indefinitely without human awareness.
 
 ---
 
@@ -126,11 +126,11 @@ If the submitter replies at any point during the stall period:
 2. Add tag `human-review-required`.
 3. Set ClickUp status → remain at `Submitted` (do not advance).
 4. Post comment: `Duplicate suspected — gate active — [date]`
-5. **Stop. Await Head of Product decision.**
+5. **Stop. Await Product Manager decision.**
 
 ### Possible Outcomes
 
-| Head of Product Decision | Orchestrator Action |
+| Product Manager Decision | Orchestrator Action |
 |---|---|
 | Confirmed duplicate — close | Add tag `closed`. Status unchanged. Post T-16 referencing the canonical ticket. Remove tag `human-review-required`. |
 | Confirmed duplicate — merge | Record merge instruction in Orchestrator comment. Orchestrator does not perform the merge — this is a human ClickUp action. Once confirmed complete, add tag `closed` on the new ticket, status unchanged, posting T-16 referencing the canonical ticket. |
@@ -149,7 +149,7 @@ Common triggers:
 - Requirements Agent identifies scope assumptions that conflict with Confluence documentation
 
 **Do not:**
-- Resolve the conflict on behalf of the Head of Product.
+- Resolve the conflict on behalf of the Product Manager.
 - Suppress or minimise the contradiction.
 - Proceed as if the conflict does not exist.
 
@@ -162,11 +162,11 @@ Common triggers:
 2. Post to ClickUp — include the conflict summary. Do not post raw agent output.
 3. Add tag `human-review-required`.
 4. Post comment: `Conflicting evidence surfaced — gate active — [date]`
-5. **Hard gate. Stop. Await Head of Product decision.**
+5. **Hard gate. Stop. Await Product Manager decision.**
 
 ### Possible Outcomes
 
-| Head of Product Decision | Orchestrator Action |
+| Product Manager Decision | Orchestrator Action |
 |---|---|
 | Accept Source A, discard Source B | Record decision. Note any grade change in comment. Remove tag `human-review-required`. Continue. |
 | Accept Source B, discard Source A | As above. |
@@ -186,16 +186,16 @@ Common triggers:
 2. Low evidence is never written to ClickUp.
 3. Low evidence is noted internally as discarded. It does not contribute to the overall demand signal grade.
 4. Calculate the overall grade from High and Medium items only.
-5. Present the full graded output (including Low items, labelled as discarded) to the Head of Product for review — this is the soft gate.
+5. Present the full graded output (including Low items, labelled as discarded) to the Product Manager for review — this is the soft gate.
 
 **If overall grade is Low (after discarding low items, no High or Medium evidence remains):**
 - Flag explicitly: demand signal is Low overall.
-- This is a hard gate — the Head of Product must decide whether to proceed despite weak evidence.
+- This is a hard gate — the Product Manager must decide whether to proceed despite weak evidence.
 - Post gate comment: state that demand evidence is insufficient to support a confident progression, and that a decision is required.
 - Add tag `human-review-required`.
 - **Stop.**
 
-**If Head of Product approves progression with Low-grade evidence:**
+**If Product Manager approves progression with Low-grade evidence:**
 - Record the decision explicitly in Orchestrator comment.
 - Note in the ClickUp ticket that progression is proceeding with acknowledged low demand signal.
 - Note demand signal grade as Low in comment.
@@ -237,11 +237,11 @@ Common triggers:
 - Review the confidence statement from the agent.
 - Determine whether the stated uncertainty is material to the routing decision.
 - If not material: document and proceed with caveat.
-- If material: post to Head of Product for direction. Hard gate.
+- If material: post to Product Manager for direction. Hard gate.
 
 **Full failure:**
 - Option 1: Rerun the agent with a narrower or more targeted prompt. Only do this if the failure is likely due to prompt scope or context overload — not if the underlying information is genuinely absent.
-- Option 2: Ask the Head of Product for direction.
+- Option 2: Ask the Product Manager for direction.
 - Option 3: Halt and hold the ticket at its current stage.
 - Always surface the failure explicitly. Never proceed silently past a full failure.
 
@@ -252,7 +252,7 @@ Common triggers:
 
 ## 2.7 Human Gate — No Response
 
-**Trigger:** A hard or soft gate has been active for an extended period with no response from the Head of Product.
+**Trigger:** A hard or soft gate has been active for an extended period with no response from the Product Manager.
 
 **Note:** In Phase 1, there is no automated SLA enforcement on human gate response times. This is a Phase 2 feature. In Phase 1, the Orchestrator flags but does not escalate automatically.
 
@@ -260,7 +260,7 @@ Common triggers:
 
 1. If a hard gate has been active for 3 working days with no response:
    - Post a reminder comment to the ClickUp ticket.
-   - Post comment: `Gate reminder posted — awaiting Head of Product — [date]`
+   - Post comment: `Gate reminder posted — awaiting Product Manager — [date]`
 2. Do not escalate beyond the ClickUp comment in Phase 1.
 3. Do not bypass the gate under any circumstances, regardless of how long it has been active.
 
@@ -268,7 +268,7 @@ Common triggers:
 
 ## 2.8 Ticket Scope Changes Mid-Workflow
 
-**Trigger:** The submitter or Head of Product materially changes the ticket description, title, or requirements after a workflow stage has already completed.
+**Trigger:** The submitter or Product Manager materially changes the ticket description, title, or requirements after a workflow stage has already completed.
 
 **Protocol:**
 
@@ -279,8 +279,8 @@ Common triggers:
 2. For material changes:
    - Identify which stages were completed on the basis of the now-changed information.
    - Post a comment to the ClickUp ticket noting the change and its impact.
-   - Present options to Head of Product: re-run affected stages / proceed with change noted / reject and resubmit.
-   - Hard gate — await Head of Product decision.
+   - Present options to Product Manager: re-run affected stages / proceed with change noted / reject and resubmit.
+   - Hard gate — await Product Manager decision.
 
 3. If re-run is approved:
    - Reset the ClickUp status to the earliest affected stage.
@@ -298,7 +298,7 @@ Common triggers:
 1. Before taking any action on a ticket, read the most recent Orchestrator comment.
 2. If the Orchestrator comment matches the action you are about to take (same action, same date): stop. Do not repeat the action.
 3. Agent-authored ClickUp comments must be distinguishable from submitter comments. The Orchestrator must not re-trigger on its own prior comments.
-4. If you identify a potential loop, post a flag comment and surface to Head of Product before proceeding.
+4. If you identify a potential loop, post a flag comment and surface to Product Manager before proceeding.
 
 **Phase 2 note:** Loop prevention will be enforced via Supabase (last comment ID tracking) and backend tagging of agent-authored comments. Phase 1 relies on most recent Orchestrator comment discipline.
 
@@ -315,7 +315,7 @@ Resolved: WasteInsight is confirmed out of Phase 1 orchestration scope (intake-o
 1. Do not process the ticket.
 2. If the ticket appears in WasteInsight or StoreInsight: note it as out of scope for Phase 1. If invoked manually against such a ticket, respond with a clear statement that the list is not in scope and no action will be taken.
 3. Do not post to the out-of-scope ticket.
-4. Flag to Head of Product if out-of-scope tickets are being submitted for orchestration — this may indicate a Phase 2 readiness signal.
+4. Flag to Product Manager if out-of-scope tickets are being submitted for orchestration — this may indicate a Phase 2 readiness signal.
 
 ---
 

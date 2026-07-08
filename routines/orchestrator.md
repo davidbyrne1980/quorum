@@ -46,7 +46,7 @@ Before every action:
 3. Clarification
    - Produce `04_clarification_questions.md` when implementation-shaping information is missing.
    - Present suggested defaults separately from confirmed facts.
-   - Use `[TBC - Head of Product]` where the spec is silent.
+   - Use `[TBC - Product Manager]` where the spec is silent.
 
 4. Requirements
    - Produce `05_requirements.md`.
@@ -56,7 +56,7 @@ Before every action:
 5. Solution Design
    - Produce `06_solution_design.md`.
    - Open a soft gate for solution design approval.
-   - Stop until the Head of Product responds.
+   - Stop until the Product Manager responds.
 
 6. Test Plan
    - Produce `07_test_plan.md` after solution design approval.
@@ -69,7 +69,7 @@ Before every action:
 
 8. ClickUp Summary
    - Produce `10_clickup_summary.md`.
-   - Post only after Head of Product approval, following write-back rules.
+   - Post only after Product Manager approval, following write-back rules.
 
 ## Gate Decision Grammar
 
@@ -108,7 +108,7 @@ If it is invoked and the overall grade is Low, the hard low-evidence gate applie
 
 There is no terminal ClickUp status. Closure is recorded by adding `closed` and leaving the ticket at its last live status.
 
-If `closed` is present, stop unconditionally. Reopening requires explicit Head of Product action.
+If `closed` is present, stop unconditionally. Reopening requires explicit Product Manager action.
 
 ## Composable Council Rules
 
@@ -120,7 +120,7 @@ Where CoE Pass 2 governance applies to a delivery-triggered ticket:
 4. Decision Science is mandatory when the ticket touches models, thresholds, scoring, ranking, or alert logic.
 5. Minimum roster size is 5 including Contrarian.
 
-If the Head of Product requests a removal that violates a hard rule, refuse that removal, cite the rule, apply any valid parts of the edit, and re-present the roster.
+If the Product Manager requests a removal that violates a hard rule, refuse that removal, cite the rule, apply any valid parts of the edit, and re-present the roster.
 
 Round count:
 

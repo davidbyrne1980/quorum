@@ -3,15 +3,15 @@
 **Version:** 1.0 | **Date:** 05 Jul 2026
 **Depends on:** Packs 1–5 (apply those first)
 
-**Decision encoded:** Claude (Orchestrator) accesses product codebases via local filesystem paths, not GitHub fetch. Only one path is confirmed so far — ValidationApp. StoreInsight and other product-to-repo mappings remain `[TBC — Head of Product]` and must not be guessed.
+**Decision encoded:** Claude (Orchestrator) accesses product codebases via local filesystem paths, not GitHub fetch. Only one path is confirmed so far — ValidationApp. StoreInsight and other product-to-repo mappings remain `[TBC — Product Manager]` and must not be guessed.
 
 **Confirmed mapping:**
 | Product / repo name | Local path |
 |---|---|
 | ValidationApp (RI Validation Platform) | `C:\Users\DaveByrne\Documents\RI Validation Platform` |
-| StoreInsight | `[TBC — Head of Product]` — do not assume a path |
-| AvailabilityInsight | `[TBC — Head of Product]` — do not assume a path |
-| InventoryInsight | `[TBC — Head of Product]` — do not assume a path |
+| StoreInsight | `[TBC — Product Manager]` — do not assume a path |
+| AvailabilityInsight | `[TBC — Product Manager]` — do not assume a path |
+| InventoryInsight | `[TBC — Product Manager]` — do not assume a path |
 
 **Instruction to Codex:** Single backticks, literal. If a find string fails to match, stop and report — do not improvise. Do not invent paths for the TBC rows under any circumstance; leave them explicitly marked as unresolved.
 
@@ -25,7 +25,7 @@ In the Tool Boundary section (inserted by Patch 16a), find the line:
 
 Replace with:
 
-`- Reads codebases for context during Requirements, Solution Design, and CoE Pass 2 — read-only, for governance reasoning. Codebase access is via local filesystem path, not GitHub fetch. See the Codebase Path Lookup table below. Never guess or construct a path for a product not listed there — treat it as unresolved and ask the Head of Product.
+`- Reads codebases for context during Requirements, Solution Design, and CoE Pass 2 — read-only, for governance reasoning. Codebase access is via local filesystem path, not GitHub fetch. See the Codebase Path Lookup table below. Never guess or construct a path for a product not listed there — treat it as unresolved and ask the Product Manager.
 
 **Codebase Path Lookup**
 

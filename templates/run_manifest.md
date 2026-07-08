@@ -1,31 +1,31 @@
 # Quorum Run Manifest
 
 ## Run ID
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Source Ticket
-- Ticket ID: [TBC - Head of Product]
-- Ticket URL: [TBC - Head of Product]
-- Live ClickUp status: [TBC - Head of Product]
-- Active tags: [TBC - Head of Product]
+- Ticket ID: [TBC - Product Manager]
+- Ticket URL: [TBC - Product Manager]
+- Live ClickUp status: [TBC - Product Manager]
+- Active tags: [TBC - Product Manager]
 
 ## Objective
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Current Status
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Current Stage
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Current Gate
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Created At
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Triggered By
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Output Files
 - 00_run_manifest.md
@@ -41,7 +41,7 @@
 - 10_clickup_summary.md
 
 ## Human Decisions
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Links
-[TBC - Head of Product]
+[TBC - Product Manager]

@@ -7,11 +7,11 @@
 
 ## 1. What Quorum Is
 
-Quorum is an AI-native product governance platform. It takes product ideas through a governed pipeline — evidence validation, a 13-persona governance council, requirements, and eventually a GitHub pull request. The React dashboard is the human-facing control layer. It is where the Head of Product reviews agent outputs, approves or rejects gates, monitors the pipeline, and captures feedback that makes the system smarter over time.
+Quorum is an AI-native product governance platform. It takes product ideas through a governed pipeline — evidence validation, a 13-persona governance council, requirements, and eventually a GitHub pull request. The React dashboard is the human-facing control layer. It is where the Product Manager reviews agent outputs, approves or rejects gates, monitors the pipeline, and captures feedback that makes the system smarter over time.
 
 **The dashboard does not replace ClickUp.** ClickUp remains the team-facing work surface. The dashboard is for the product governance layer — richer, more structured, and agent-aware in a way ClickUp is not.
 
-**Users in v1:** Head of Product only. Future versions expand to SLT visibility and wider team access.
+**Users in v1:** Product Manager only. Future versions expand to SLT visibility and wider team access.
 
 ---
 
@@ -25,7 +25,7 @@ Quorum is an AI-native product governance platform. It takes product ideas throu
 
 **Calm and focused.** This is a serious governance tool, not a consumer app. No gamification. No celebration animations. Clean, professional, high information density where needed, generous whitespace where not.
 
-**Mobile-aware but desktop-first.** The Head of Product will primarily use this at a desk. Mobile should work for quick gate approvals and pipeline checks.
+**Mobile-aware but desktop-first.** The Product Manager will primarily use this at a desk. Mobile should work for quick gate approvals and pipeline checks.
 
 ---
 
@@ -34,7 +34,7 @@ Quorum is an AI-native product governance platform. It takes product ideas throu
 ```
 Quorum
 ├── Pipeline          — all in-flight tickets, status overview
-├── Gates             — active decisions requiring Head of Product action
+├── Gates             — active decisions requiring Product Manager action
 ├── Tickets           — individual ticket view (all detail)
 ├── Evidence Browser  — cross-ticket evidence and demand signal library
 ├── Council           — CoE council output browser
@@ -51,7 +51,7 @@ Quorum
 
 ### 4.1 Pipeline View
 
-**Purpose:** At-a-glance view of every in-flight ticket. The Head of Product's morning check.
+**Purpose:** At-a-glance view of every in-flight ticket. The Product Manager's morning check.
 
 **What to show:**
 
@@ -77,7 +77,7 @@ Kanban-style columns OR a prioritised list view — designer's call based on inf
 
 ### 4.2 Gates View
 
-**Purpose:** Everything requiring a Head of Product decision, in one place. This is the most action-critical screen.
+**Purpose:** Everything requiring a Product Manager decision, in one place. This is the most action-critical screen.
 
 **What to show:**
 
@@ -153,7 +153,7 @@ committing to council review."
 
 ### 4.4 Demand Signal Review UI
 
-**Purpose:** The soft gate screen where the Head of Product reviews full demand signal output and approves the filtered write-back to ClickUp.
+**Purpose:** The soft gate screen where the Product Manager reviews full demand signal output and approves the filtered write-back to ClickUp.
 
 **What to show:**
 
@@ -202,7 +202,7 @@ SUGGESTED EXPERT CONSULTATION
 ```
 
 **Key interactions:**
-- Per-item include/discard toggle — Head of Product can override the agent's grade on individual items
+- Per-item include/discard toggle — Product Manager can override the agent's grade on individual items
 - Edit summary — inline editing of the evidence summary before write-back
 - Approve write-back → posts filtered summary to ClickUp and advances to CoE Review
 - Expert consultation suggestions can be marked as acted on (feeds domain_experts table)
@@ -247,7 +247,7 @@ SUGGESTED EXPERT CONSULTATION
 - Experts grouped by domain (Availability Alerting, Inventory Accuracy, Waste, Store Colleague Behaviour, etc.)
 - Per expert: name, domains, evidence of expertise (expandable), how many times suggested, how many times consulted
 - Suggested this week: experts currently flagged on active tickets
-- Manually add an expert: Head of Product can add someone the agent has not yet identified
+- Manually add an expert: Product Manager can add someone the agent has not yet identified
 
 **Key interactions:**
 - Mark as consulted on a specific ticket → updates domain_experts.consulted_count
@@ -264,7 +264,7 @@ SUGGESTED EXPERT CONSULTATION
 
 **Intake Question Quality panel:**
 - Most frequently unnecessary questions (bar chart or ranked list)
-- Source breakdown: orchestrator inferred vs submitter direct vs head of product
+- Source breakdown: orchestrator inferred vs submitter direct vs product manager
 - Trend: is question count per ticket going down over time?
 
 **Agent Feedback panel:**
@@ -301,7 +301,7 @@ SUGGESTED EXPERT CONSULTATION
 **Onboard flow:**
 - Click Onboard → Orchestrator runs `/onboard` → Onboarding Assessment displayed
 - Gap analysis shown: what is present, what is missing, options
-- Head of Product selects option → Orchestrator records decision and proceeds
+- Product Manager selects option → Orchestrator records decision and proceeds
 - Ticket moves to Pipeline view
 
 ---
@@ -325,7 +325,7 @@ SUGGESTED EXPERT CONSULTATION
 - Confirm tags are live on all lists
 
 **Notification Preferences**
-- How the Head of Product wants to be notified of active gates (email, Slack, in-app)
+- How the Product Manager wants to be notified of active gates (email, Slack, in-app)
 
 **API Status**
 - MCP connection status per source: ClickUp, Confluence, Slack, Jira, HubSpot, GitHub

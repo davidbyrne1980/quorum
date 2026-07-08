@@ -1,21 +1,21 @@
-Ôªø# CLICKUP_COMMENT_TEMPLATES.md
-## PDLC Orchestrator ‚Äî ClickUp Comment Templates
+# CLICKUP_COMMENT_TEMPLATES.md
+## PDLC Orchestrator ó ClickUp Comment Templates
 **Version:** 2.1 | **Organisation:** Retail Insight | **Phase:** 1
 
 ---
 
 ## 1. Purpose
 
-This document contains every comment template the Orchestrator posts to ClickUp. Templates are used verbatim, with placeholders replaced. The Orchestrator does not improvise comment content ‚Äî it uses these templates.
+This document contains every comment template the Orchestrator posts to ClickUp. Templates are used verbatim, with placeholders replaced. The Orchestrator does not improvise comment content ó it uses these templates.
 
 **Placeholder convention:**
-- `[TICKET_ID]` ‚Äî ClickUp ticket ID
-- `[TICKET_TITLE]` ‚Äî ticket title
-- `[DATE]` ‚Äî date of posting (DD MMM YYYY)
-- `[CONTENT]` ‚Äî variable content specific to the comment type (defined per template)
-- `[OPTIONS]` ‚Äî decision options presented to Head of Product
+- `[TICKET_ID]` ó ClickUp ticket ID
+- `[TICKET_TITLE]` ó ticket title
+- `[DATE]` ó date of posting (DD MMM YYYY)
+- `[CONTENT]` ó variable content specific to the comment type (defined per template)
+- `[OPTIONS]` ó decision options presented to Product Manager
 
-All comments are attributed to the Orchestrator via the `ü§ñ PDLC Orchestrator` header. This header is used for loop prevention ‚Äî do not omit it.
+All comments are attributed to the Orchestrator via the `?? PDLC Orchestrator` header. This header is used for loop prevention ó do not omit it.
 
 ---
 
@@ -23,14 +23,14 @@ All comments are attributed to the Orchestrator via the `ü§ñ PDLC Orchestrator`
 
 ---
 
-### T-00 ‚Äî Clarification Questions Pending Review (Phase 2+ only)
+### T-00 ó Clarification Questions Pending Review (Phase 2+ only)
 
-**When posted:** After Intake Agent generates questions ‚Äî before they are sent to the submitter. Phase 2+ only. In Phase 1, questions are presented in the chat window instead.
+**When posted:** After Intake Agent generates questions ó before they are sent to the submitter. Phase 2+ only. In Phase 1, questions are presented in the chat window instead.
 **Tags added:** `human-review-required`
-**Note:** This comment is internal ‚Äî tagged at Head of Product. The submitter has not yet been asked anything.
+**Note:** This comment is internal ó tagged at Product Manager. The submitter has not yet been asked anything.
 
 ```
-ü§ñ **PDLC Orchestrator** | Questions Drafted ‚Äî Review Required | [DATE]
+?? **PDLC Orchestrator** | Questions Drafted ó Review Required | [DATE]
 
 Clarification questions have been drafted for this submission. They are ready for your review before being sent to the submitter.
 
@@ -39,71 +39,71 @@ Clarification questions have been drafted for this submission. They are ready fo
 **Drafted questions:**
 [CONTENT: drafted clarification questions from Intake Agent]
 
-@[HEAD_OF_PRODUCT] ‚Äî please review and reply with one of:
-- **Approve** ‚Äî I'll post these to the submitter as-is
-- **Edit** ‚Äî paste your revised version and I'll post that instead
-- **Skip** ‚Äî ticket is complete enough, proceed without asking
+@[HEAD_OF_PRODUCT] ó please review and reply with one of:
+- **Approve** ó I'll post these to the submitter as-is
+- **Edit** ó paste your revised version and I'll post that instead
+- **Skip** ó ticket is complete enough, proceed without asking
 
-‚è∏Ô∏è *Questions will not be posted to the submitter until you approve.*
+?? *Questions will not be posted to the submitter until you approve.*
 ```
 
 ---
 
-### T-01 ‚Äî Clarification Questions
+### T-01 ó Clarification Questions
 
 **When posted:** After Intake Agent run, when clarification is required.
 **Status after posting:** Validation
 **Tags added:** `awaiting-info`
 
 ```
-ü§ñ **PDLC Orchestrator** | Intake Assessment | [DATE]
+?? **PDLC Orchestrator** | Intake Assessment | [DATE]
 
 Thanks for submitting this. To make sure we assess it properly, we have a few questions before we can move it forward:
 
 [CONTENT: grouped clarification questions from Intake Agent output]
 
-You don't need to answer everything in detail ‚Äî a brief response on each is enough to get us started. Once we hear back, we'll pick this up straight away.
+You don't need to answer everything in detail ó a brief response on each is enough to get us started. Once we hear back, we'll pick this up straight away.
 ```
 
 ---
 
-### T-02 ‚Äî No Clarification Needed (Proceeding to Validation)
+### T-02 ó No Clarification Needed (Proceeding to Validation)
 
 **When posted:** After Intake Agent run, when ticket is complete.
 **Status after posting:** Validation
 
 ```
-ü§ñ **PDLC Orchestrator** | Intake Complete | [DATE]
+?? **PDLC Orchestrator** | Intake Complete | [DATE]
 
-Intake assessment complete. The submission looks good ‚Äî moving this forward to Validation now.
+Intake assessment complete. The submission looks good ó moving this forward to Validation now.
 
-[CONTENT: 2‚Äì3 sentence intake summary from Intake Agent]
+[CONTENT: 2ñ3 sentence intake summary from Intake Agent]
 ```
 
 ---
 
-### T-03 ‚Äî Suspected Duplicate Flag
+### T-03 ó Suspected Duplicate Flag
 
 **When posted:** After Intake Agent flags possible duplicate(s).
 **Status after posting:** Submitted (held)
 **Tags added:** `duplicate-suspected`, `human-review-required`
 
 ```
-ü§ñ **PDLC Orchestrator** | Duplicate Check | [DATE]
+?? **PDLC Orchestrator** | Duplicate Check | [DATE]
 
 Before we move this forward, we've found one or more existing tickets that may cover similar ground:
 
-[CONTENT: list of suspected duplicates ‚Äî each as: Ticket ID | Title | Link | 1‚Äì2 sentence rationale]
+[CONTENT: list of suspected duplicates ó each as: Ticket ID | Title | Link | 1ñ2 sentence rationale]
 
 This is a suspected match, not a confirmed one. No action has been taken.
 
-**Decision required from Head of Product:**
-- Confirmed duplicate ‚Äî close this ticket (reference canonical ticket)
-- Confirmed duplicate ‚Äî merge into existing ticket
-- Link tickets but keep separate ‚Äî continue intake on this one
-- Not a duplicate ‚Äî proceed
+**Decision required from Product Manager:**
+- Confirmed duplicate ó close this ticket (reference canonical ticket)
+- Confirmed duplicate ó merge into existing ticket
+- Link tickets but keep separate ó continue intake on this one
+- Not a duplicate ó proceed
 
-‚è∏Ô∏è *On hold pending decision.*
+?? *On hold pending decision.*
 ```
 
 ---
@@ -112,57 +112,57 @@ This is a suspected match, not a confirmed one. No action has been taken.
 
 ---
 
-### T-04 ‚Äî Day 3 Chase
+### T-04 ó Day 3 Chase
 
 **When posted:** Day 3 working days of no reply in Validation (awaiting-info active).
 **Tags added:** `stalled`
 
 ```
-ü§ñ **PDLC Orchestrator** | Awaiting Response | [DATE]
+?? **PDLC Orchestrator** | Awaiting Response | [DATE]
 
-Just a nudge ‚Äî we're still waiting on a response to the questions posted on [ORIGINAL_QUESTION_DATE].
+Just a nudge ó we're still waiting on a response to the questions posted on [ORIGINAL_QUESTION_DATE].
 
-[CONTENT: brief restatement of outstanding questions ‚Äî summary only, not full repost if questions are visible above]
+[CONTENT: brief restatement of outstanding questions ó summary only, not full repost if questions are visible above]
 
 No rush, but we can't move this forward until we hear back. Drop a reply here when you get a chance.
 ```
 
 ---
 
-### T-05 ‚Äî Day 6 Chase + Head of Product Flag
+### T-05 ó Day 6 Chase + Product Manager Flag
 
 **When posted:** Day 6 working days of no reply in Validation.
 
 ```
-ü§ñ **PDLC Orchestrator** | Second Chase | [DATE]
+?? **PDLC Orchestrator** | Second Chase | [DATE]
 
 This is the second follow-up on the questions posted on [ORIGINAL_QUESTION_DATE]. We haven't received a response yet.
 
 [CONTENT: brief restatement of outstanding questions]
 
-üì£ *@[HEAD_OF_PRODUCT] ‚Äî flagging for awareness. If no response is received by working day 9, this ticket will be recommended for closure.*
+?? *@[HEAD_OF_PRODUCT] ó flagging for awareness. If no response is received by working day 9, this ticket will be recommended for closure.*
 ```
 
 ---
 
-### T-06 ‚Äî Day 9 Park Recommendation
+### T-06 ó Day 9 Park Recommendation
 
 **When posted:** Day 9 working days of no reply in Validation.
 **Tags added:** `human-review-required`
 
 ```
-ü§ñ **PDLC Orchestrator** | Closure Recommendation | [DATE]
+?? **PDLC Orchestrator** | Closure Recommendation | [DATE]
 
-We've been waiting for a response to our clarification questions since [ORIGINAL_QUESTION_DATE] ‚Äî that's 9 working days with no reply.
+We've been waiting for a response to our clarification questions since [ORIGINAL_QUESTION_DATE] ó that's 9 working days with no reply.
 
 We're recommending this ticket be closed until the submitter is available to respond.
 
-**Decision required from Head of Product:**
+**Decision required from Product Manager:**
 - Close ticket (can be reopened when submitter is available)
-- Grant an extension (reset the timer ‚Äî we'll check back in)
+- Grant an extension (reset the timer ó we'll check back in)
 - Take over submitter communication directly
 
-‚è∏Ô∏è *On hold pending decision.*
+?? *On hold pending decision.*
 ```
 
 ---
@@ -171,13 +171,13 @@ We're recommending this ticket be closed until the submitter is available to res
 
 ---
 
-### T-07 ‚Äî Demand Signal Summary (after Head of Product review)
+### T-07 ó Demand Signal Summary (after Product Manager review)
 
-**When posted:** After the Head of Product approves the filtered demand signal write-back at Gate 2. Never posted at gate-open ‚Äî pre-approval, output lives in Supabase/chat only.
+**When posted:** After the Product Manager approves the filtered demand signal write-back at Gate 2. Never posted at gate-open ó pre-approval, output lives in Supabase/chat only.
 **Status after posting:** COE Review (CoE Pass 1 fires next)
 
 ```
-ü§ñ **PDLC Orchestrator** | Demand Signal | [DATE]
+?? **PDLC Orchestrator** | Demand Signal | [DATE]
 
 Demand signal assessment complete.
 
@@ -185,7 +185,7 @@ Demand signal assessment complete.
 **Signal Strength:** [Isolated / Emerging / Established]
 
 **Evidence:**
-[CONTENT: High and Medium evidence items ‚Äî one bullet per item, plain language, 1 sentence each]
+[CONTENT: High and Medium evidence items ó one bullet per item, plain language, 1 sentence each]
 
 *Low-grade evidence was discarded. Full report available on request.*
 
@@ -194,24 +194,24 @@ Proceeding to CoE Pass 1.
 
 ---
 
-### T-08 ‚Äî Low Demand Signal Hard Gate
+### T-08 ó Low Demand Signal Hard Gate
 
-**When posted:** When overall demand signal grade is Low ‚Äî before any write-back.
+**When posted:** When overall demand signal grade is Low ó before any write-back.
 **Tags added:** `human-review-required`
 
 ```
-ü§ñ **PDLC Orchestrator** | Demand Signal ‚Äî Decision Required | [DATE]
+?? **PDLC Orchestrator** | Demand Signal ó Decision Required | [DATE]
 
 The demand signal assessment has returned a Low overall grade. No High or Medium evidence was found across ClickUp, Confluence, Slack, or HubSpot.
 
 This means we don't have sufficient evidence to confidently support progression. A decision is needed before we move forward.
 
-**Decision required from Head of Product:**
+**Decision required from Product Manager:**
 - Proceed despite low demand evidence (this will be noted on the ticket)
-- Close this ticket ‚Äî insufficient evidence to continue
+- Close this ticket ó insufficient evidence to continue
 - Commission additional investigation before deciding
 
-‚è∏Ô∏è *On hold pending decision.*
+?? *On hold pending decision.*
 ```
 
 ---
@@ -220,67 +220,67 @@ This means we don't have sufficient evidence to confidently support progression.
 
 ---
 
-### T-09 ‚Äî CoE Pass 1 Gate (Go / No-Go)
+### T-09 ó CoE Pass 1 Gate (Go / No-Go)
 
-**When posted:** After CoE Pass 1 completes ‚Äî presenting result for Head of Product decision.
+**When posted:** After CoE Pass 1 completes ó presenting result for Product Manager decision.
 **Status after posting:** COE Review
 **Tags added:** `coe-pass-1-complete`, `human-review-required`
 
 ```
-ü§ñ **PDLC Orchestrator** | CoE Pass 1 ‚Äî Decision Required | [DATE]
+?? **PDLC Orchestrator** | CoE Pass 1 ó Decision Required | [DATE]
 
 CoE Pass 1 (Early Challenge) is complete.
 
 **Overall recommendation:** [Go / No-Go / Validate Further]
 
-**Demand signal evidence:** [CONTENT: "Assessed ‚Äî see summary above" / "Not assessed ‚Äî Demand Signal Agent was not invoked for this ticket"]
+**Demand signal evidence:** [CONTENT: "Assessed ó see summary above" / "Not assessed ó Demand Signal Agent was not invoked for this ticket"]
 
 **Summary:**
-[CONTENT: challenge summary from CoE Pass 1 synthesis ‚Äî key agreements, key disagreements, dominant concerns ‚Äî 4‚Äì8 sentences. No raw persona output.]
+[CONTENT: challenge summary from CoE Pass 1 synthesis ó key agreements, key disagreements, dominant concerns ó 4ñ8 sentences. No raw persona output.]
 
-**Decision required from Head of Product:**
-- Approve (Go) ‚Äî proceed to Define & Design
-- Reject (No-Go) ‚Äî close ticket
-- Validate Further ‚Äî [CONTENT: specify what is needed]
+**Decision required from Product Manager:**
+- Approve (Go) ó proceed to Define & Design
+- Reject (No-Go) ó close ticket
+- Validate Further ó [CONTENT: specify what is needed]
 
-‚è∏Ô∏è *On hold pending decision.*
+?? *On hold pending decision.*
 ```
 
 ---
 
-### T-10 ‚Äî CoE Pass 1 Closed (No-Go)
+### T-10 ó CoE Pass 1 Closed (No-Go)
 
-**When posted:** Head of Product has rejected at CoE Pass 1 gate.
+**When posted:** Product Manager has rejected at CoE Pass 1 gate.
 **Status after posting:** Status unchanged; `closed` tag added
 
 ```
-ü§ñ **PDLC Orchestrator** | Ticket Closed | [DATE]
+?? **PDLC Orchestrator** | Ticket Closed | [DATE]
 
 *Ticket remains at its current status; closure is recorded via the `closed` tag.*
 
 This ticket has been reviewed at CoE Pass 1 and the decision is not to proceed.
 
-**Reason:** [CONTENT: reason provided by Head of Product, or CoE Pass 1 No-Go rationale]
+**Reason:** [CONTENT: reason provided by Product Manager, or CoE Pass 1 No-Go rationale]
 
 Closing ticket. No further action.
 ```
 
 ---
 
-### T-11 ‚Äî CoE Pass 2 Summary (after Head of Product review)
+### T-11 ó CoE Pass 2 Summary (after Product Manager review)
 
-**When posted:** After Head of Product approves CoE Pass 2 write-back.
+**When posted:** After Product Manager approves CoE Pass 2 write-back.
 **Tags added:** `coe-pass-2-complete`
 
 ```
-ü§ñ **PDLC Orchestrator** | CoE Pass 2 Complete | [DATE]
+?? **PDLC Orchestrator** | CoE Pass 2 Complete | [DATE]
 
 CoE Virtual Workshop complete. All 13 personas have reviewed.
 
 **Overall recommendation:** [Proceed / Proceed with conditions / Do not proceed]
 
 **Summary:**
-[CONTENT: workshop summary from CoE Pass 2 synthesis ‚Äî 3‚Äì5 sentences. Key agreements, significant disagreements preserved, conditions if any. No raw persona output.]
+[CONTENT: workshop summary from CoE Pass 2 synthesis ó 3ñ5 sentences. Key agreements, significant disagreements preserved, conditions if any. No raw persona output.]
 
 [If conditions exist:]
 **Conditions before delivery:**
@@ -296,53 +296,53 @@ CoE Virtual Workshop complete. All 13 personas have reviewed.
 
 ---
 
-### T-12 ‚Äî Requirements Gate (Soft ‚Äî Review Before CoE Pass 2)
+### T-12 ó Requirements Gate (Soft ó Review Before CoE Pass 2)
 
-**When posted:** After Requirements Agent completes ‚Äî presenting for Head of Product soft review.
+**When posted:** After Requirements Agent completes ó presenting for Product Manager soft review.
 **Tags added:** `requirements-added`, `human-review-required`
 
 ```
-ü§ñ **PDLC Orchestrator** | Requirements Drafted ‚Äî Review Required | [DATE]
+?? **PDLC Orchestrator** | Requirements Drafted ó Review Required | [DATE]
 
 Requirements have been drafted and are ready for your review before we proceed to CoE Pass 2.
 
 **Summary:**
-[CONTENT: requirements summary from Requirements Agent ‚Äî 3‚Äì5 sentences, plain language]
+[CONTENT: requirements summary from Requirements Agent ó 3ñ5 sentences, plain language]
 
-**BAU/CR signal:** [Yes / No / Uncertain] ‚Äî [CONTENT: 1 sentence rationale]
+**BAU/CR signal:** [Yes / No / Uncertain] ó [CONTENT: 1 sentence rationale]
 
-**Open questions:** [CONTENT: High materiality open items only ‚Äî brief list]
+**Open questions:** [CONTENT: High materiality open items only ó brief list]
 
-**Proposed CoE Pass 2 council:** [CONTENT: recommended roster ‚Äî persona names only; excluded personas listed with one-line rationale; locked (hard-rule) inclusions marked üîí; proposed round count]
+**Proposed CoE Pass 2 council:** [CONTENT: recommended roster ó persona names only; excluded personas listed with one-line rationale; locked (hard-rule) inclusions marked ??; proposed round count]
 
-**Decision required from Head of Product:**
-- Approve ‚Äî proceed to CoE Pass 2 with the proposed council (or BAU/CR fast-track if applicable)
-- Edit council ‚Äî state personas to add or remove; hard-rule inclusions cannot be removed
-- Request amendments ‚Äî [specify what needs changing]
+**Decision required from Product Manager:**
+- Approve ó proceed to CoE Pass 2 with the proposed council (or BAU/CR fast-track if applicable)
+- Edit council ó state personas to add or remove; hard-rule inclusions cannot be removed
+- Request amendments ó [specify what needs changing]
 - Reject ticket
 
-‚è∏Ô∏è *On hold pending decision.*
+?? *On hold pending decision.*
 ```
 
 ---
 
-### T-13 ‚Äî Requirements Summary (after Head of Product approval)
+### T-13 ó Requirements Summary (after Product Manager approval)
 
-**When posted:** After Head of Product approves requirements for ClickUp write-back.
+**When posted:** After Product Manager approves requirements for ClickUp write-back.
 
 ```
-ü§ñ **PDLC Orchestrator** | Requirements Approved | [DATE]
+?? **PDLC Orchestrator** | Requirements Approved | [DATE]
 
 Requirements reviewed and approved.
 
 **Scope summary:**
-[CONTENT: in-scope / out-of-scope summary ‚Äî brief]
+[CONTENT: in-scope / out-of-scope summary ó brief]
 
 **Key requirements:**
-[CONTENT: top 3‚Äì5 functional requirements ‚Äî plain language, one line each]
+[CONTENT: top 3ñ5 functional requirements ó plain language, one line each]
 
 **Open items carried forward:**
-[CONTENT: High and Medium materiality open questions ‚Äî brief list, or "None" if resolved]
+[CONTENT: High and Medium materiality open questions ó brief list, or "None" if resolved]
 
 [If BAU/CR = Yes:] Moving to Ready for Scheduling (BAU/CR fast-track).
 [If BAU/CR = No:] Moving to CoE Pass 2.
@@ -354,25 +354,25 @@ Requirements reviewed and approved.
 
 ---
 
-### T-14 ‚Äî BAU/CR Classification Gate
+### T-14 ó BAU/CR Classification Gate
 
-**When posted:** Orchestrator has identified BAU/CR signal ‚Äî confirming with Head of Product.
+**When posted:** Orchestrator has identified BAU/CR signal ó confirming with Product Manager.
 **Tags added:** `human-review-required`
 
 ```
-ü§ñ **PDLC Orchestrator** | BAU/CR Classification ‚Äî Confirmation Required | [DATE]
+?? **PDLC Orchestrator** | BAU/CR Classification ó Confirmation Required | [DATE]
 
 Based on the requirements assessment, this ticket appears to qualify for the BAU/CR fast-track.
 
-**Classification rationale:** [CONTENT: why Orchestrator flagged as BAU/CR ‚Äî scope, estimated size, no new architecture]
+**Classification rationale:** [CONTENT: why Orchestrator flagged as BAU/CR ó scope, estimated size, no new architecture]
 
 If confirmed, this ticket will skip CoE Pass 2 and Solution Shaping and proceed directly to Ready for Scheduling.
 
-**Decision required from Head of Product:**
-- Confirm BAU/CR ‚Äî proceed to Ready for Scheduling
-- Reject classification ‚Äî treat as strategic, proceed to CoE Pass 2
+**Decision required from Product Manager:**
+- Confirm BAU/CR ó proceed to Ready for Scheduling
+- Reject classification ó treat as strategic, proceed to CoE Pass 2
 
-‚è∏Ô∏è *On hold pending decision.*
+?? *On hold pending decision.*
 ```
 
 ---
@@ -381,63 +381,63 @@ If confirmed, this ticket will skip CoE Pass 2 and Solution Shaping and proceed 
 
 ---
 
-### T-15 ‚Äî Ready for Scheduling Gate
+### T-15 ó Ready for Scheduling Gate
 
-**When posted:** All upstream stages complete ‚Äî presenting for final Head of Product approval.
+**When posted:** All upstream stages complete ó presenting for final Product Manager approval.
 **Status after posting:** Ready for Scheduling
 **Tags added:** `human-review-required`
 
 ```
-ü§ñ **PDLC Orchestrator** | Ready for Scheduling ‚Äî Approval Required | [DATE]
+?? **PDLC Orchestrator** | Ready for Scheduling ó Approval Required | [DATE]
 
 This ticket has completed all PDLC stages and is ready for scheduling.
 
 **Delivery Readiness:** Pass
 
 **Completed stages:**
-[CONTENT: checklist of completed stages ‚Äî e.g. ‚úÖ Intake ‚úÖ Demand Signal ‚úÖ CoE Pass 1 ‚úÖ Requirements ‚úÖ CoE Pass 2]
+[CONTENT: checklist of completed stages ó e.g. ? Intake ? Demand Signal ? CoE Pass 1 ? Requirements ? CoE Pass 2]
 
 **Caveats / open items:**
-[CONTENT: any assumptions or open items that remain active ‚Äî or "None"]
+[CONTENT: any assumptions or open items that remain active ó or "None"]
 
 **BAU/CR:** [Yes / No]
 
-**Decision required from Head of Product:**
-- Approve ‚Äî move to Scheduled
-- Hold ‚Äî not ready to schedule (state reason)
-- Reject ‚Äî close ticket
+**Decision required from Product Manager:**
+- Approve ó move to Scheduled
+- Hold ó not ready to schedule (state reason)
+- Reject ó close ticket
 
-‚è∏Ô∏è *On hold pending decision.*
+?? *On hold pending decision.*
 ```
 
 ---
 
-### T-16 ‚Äî Ticket Closed (General)
+### T-16 ó Ticket Closed (General)
 
 **When posted:** Ticket is being closed for any reason other than CoE Pass 1 No-Go.
 **Status after posting:** Status unchanged; `closed` tag added
 
 ```
-ü§ñ **PDLC Orchestrator** | Ticket Closed | [DATE]
+?? **PDLC Orchestrator** | Ticket Closed | [DATE]
 
 *Ticket remains at its current status; closure is recorded via the `closed` tag.*
 
-**Reason for closure:** [CONTENT: one of ‚Äî No submitter response (9 working days) / Rejected at [stage] / Confirmed duplicate of [ticket ID] / Merged into [ticket ID] / Insufficient demand evidence / Head of Product decision]
+**Reason for closure:** [CONTENT: one of ó No submitter response (9 working days) / Rejected at [stage] / Confirmed duplicate of [ticket ID] / Merged into [ticket ID] / Insufficient demand evidence / Product Manager decision]
 
-[CONTENT: 1‚Äì2 sentences of additional context if relevant]
+[CONTENT: 1ñ2 sentences of additional context if relevant]
 
-No further action. Ticket can be reopened by the Head of Product if circumstances change.
+No further action. Ticket can be reopened by the Product Manager if circumstances change.
 ```
 
 ---
 
-### T-17 ‚Äî Conflicting Evidence Gate
+### T-17 ó Conflicting Evidence Gate
 
 **When posted:** Conflicting evidence surfaces at any stage.
 **Tags added:** `human-review-required`
 
 ```
-ü§ñ **PDLC Orchestrator** | Conflicting Evidence ‚Äî Decision Required | [DATE]
+?? **PDLC Orchestrator** | Conflicting Evidence ó Decision Required | [DATE]
 
 We've identified a conflict in the evidence base that needs a decision before we can proceed.
 
@@ -445,25 +445,25 @@ We've identified a conflict in the evidence base that needs a decision before we
 **Source B:** [CONTENT: what it says, where it comes from]
 **Nature of conflict:** [CONTENT: why these cannot both be true, or why they pull in different directions]
 
-**Decision required from Head of Product:**
+**Decision required from Product Manager:**
 - Accept Source A (discard Source B)
 - Accept Source B (discard Source A)
 - Request further investigation
 - Accept the ambiguity and proceed
 - Reject ticket
 
-‚è∏Ô∏è *On hold pending decision.*
+?? *On hold pending decision.*
 ```
 
 ---
 
-### T-18 ‚Äî Agent Failure Gate
+### T-18 ó Agent Failure Gate
 
 **When posted:** Agent failure is critical and cannot be self-resolved.
 **Tags added:** `human-review-required`
 
 ```
-ü§ñ **PDLC Orchestrator** | Agent Issue ‚Äî Direction Required | [DATE]
+?? **PDLC Orchestrator** | Agent Issue ó Direction Required | [DATE]
 
 The [AGENT_NAME] has returned an issue that needs your input before we can continue.
 
@@ -471,29 +471,29 @@ The [AGENT_NAME] has returned an issue that needs your input before we can conti
 **What's missing or uncertain:** [CONTENT: specific description]
 **What's been attempted:** [CONTENT: any re-run or narrowing attempted, or "Nothing attempted yet"]
 
-**Decision required from Head of Product:**
+**Decision required from Product Manager:**
 - Re-run with a different or narrower prompt
 - Proceed without this agent's output (gap will be noted)
 - Halt ticket at this stage
 - Reject ticket
 
-‚è∏Ô∏è *On hold pending decision.*
+?? *On hold pending decision.*
 ```
 
 ---
 
-### T-19 ‚Äî Human Gate Reminder
+### T-19 ó Human Gate Reminder
 
 **When posted:** `human-review-required` has been active for 3 working days with no response.
 
 ```
-ü§ñ **PDLC Orchestrator** | Reminder ‚Äî Decision Still Required | [DATE]
+?? **PDLC Orchestrator** | Reminder ó Decision Still Required | [DATE]
 
-A reminder that this ticket is on hold, waiting for a decision from the Head of Product.
+A reminder that this ticket is on hold, waiting for a decision from the Product Manager.
 
 **Gate:** [CONTENT: gate name]
 **Active since:** [CONTENT: date gate was activated]
-**Decision required:** [CONTENT: brief restatement of what is needed ‚Äî 1‚Äì2 sentences]
+**Decision required:** [CONTENT: brief restatement of what is needed ó 1ñ2 sentences]
 
 No action will be taken until a decision is received.
 ```
@@ -502,11 +502,11 @@ No action will be taken until a decision is received.
 
 ## 9. Comment discipline rules
 
-1. **Always include the ü§ñ PDLC Orchestrator attribution header.** Loop prevention depends on this.
-2. **Never post raw agent output.** Summaries only, after Head of Product review where required.
+1. **Always include the ?? PDLC Orchestrator attribution header.** Loop prevention depends on this.
+2. **Never post raw agent output.** Summaries only, after Product Manager review where required.
 3. **Never post Low-grade demand evidence.** Discarded items are not written to ClickUp.
 4. **Never repeat information already visible in the ticket.** Reference it briefly rather than reposting.
 5. **Keep gate comments actionable.** Every gate comment must state clearly what decision is required and what the options are.
 6. **One comment per trigger per day.** Check the most recent Orchestrator comment before posting. If the same action was taken today, do not repeat.
 7. **Plain language.** Comments are read by submitters who may not be technical.
-8. **Status references must match.** Use only these status names: Submitted, Triage, Validation, COE Review, Define & Design, Ready for Scheduling, Scheduled. There is no Closed status ‚Äî use the `closed` tag and state the closure reason in the comment; do not reference a status change on closure.
+8. **Status references must match.** Use only these status names: Submitted, Triage, Validation, COE Review, Define & Design, Ready for Scheduling, Scheduled. There is no Closed status ó use the `closed` tag and state the closure reason in the comment; do not reference a status change on closure.

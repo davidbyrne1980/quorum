@@ -1,28 +1,28 @@
 # Solution Design
 
 ## Decision ID
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Summary
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Proposed Behaviour
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Technical Approach
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Files / Areas Expected To Change
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Data / API Impact
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Test Approach
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Risks
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Human Approval Options
-[TBC - Head of Product]
+[TBC - Product Manager]

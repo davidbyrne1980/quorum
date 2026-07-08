@@ -1,22 +1,22 @@
 # Clarification Questions
 
 ## Purpose
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Questions
-1. [TBC - Head of Product]
-2. [TBC - Head of Product]
-3. [TBC - Head of Product]
-4. [TBC - Head of Product]
-5. [TBC - Head of Product]
-6. [TBC - Head of Product]
-7. [TBC - Head of Product]
-8. [TBC - Head of Product]
-9. [TBC - Head of Product]
-10. [TBC - Head of Product]
+1. [TBC - Product Manager]
+2. [TBC - Product Manager]
+3. [TBC - Product Manager]
+4. [TBC - Product Manager]
+5. [TBC - Product Manager]
+6. [TBC - Product Manager]
+7. [TBC - Product Manager]
+8. [TBC - Product Manager]
+9. [TBC - Product Manager]
+10. [TBC - Product Manager]
 
 ## Suggested Defaults
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Decision Needed
-[TBC - Head of Product]
+[TBC - Product Manager]

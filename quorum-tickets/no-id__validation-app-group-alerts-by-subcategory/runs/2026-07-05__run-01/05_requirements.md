@@ -20,7 +20,7 @@ Key findings:
 ## In Scope
 - Add product sub-category as an alert-list grouping option.
 - Use existing `Alert.subcategory` as the grouping field.
-- Preserve the current default grouping by rank unless Head of Product decides otherwise.
+- Preserve the current default grouping by rank unless Product Manager decides otherwise.
 - Keep groups expanded by default, matching current group rendering.
 - Show group heading label and alert count, matching current grouped modes.
 - Sort sub-category groups alphabetically, matching current grouped modes.

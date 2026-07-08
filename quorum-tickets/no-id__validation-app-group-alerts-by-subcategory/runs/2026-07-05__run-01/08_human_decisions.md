@@ -8,7 +8,7 @@
 - Status: resolved
 - Requested at: 2026-07-05
 - Resolved at: 2026-07-05
-- Decided by: Head of Product
+- Decided by: Product Manager
 
 ## Options Presented
 
@@ -39,7 +39,7 @@ The run may resume to requirements and solution design when explicitly instructe
 
 - Event type: gate_resolved
 - Decision: option_2_simplified_path_with_data_api_reviewer
-- Notes: D01 resolved by Head of Product in chat. No downstream artefacts produced in this step.
+- Notes: D01 resolved by Product Manager in chat. No downstream artefacts produced in this step.
 
 ---
 
@@ -51,7 +51,7 @@ The run may resume to requirements and solution design when explicitly instructe
 - Status: resolved
 - Requested at: 2026-07-05
 - Resolved at: 2026-07-05
-- Decided by: Head of Product
+- Decided by: Product Manager
 
 ## Rationale
 
@@ -82,7 +82,7 @@ Produced `07_test_plan.md` and `09_implementation_handoff.md`. Opened D03 implem
 
 - Event type: gate_resolved
 - Decision: option_1_approve_solution_design
-- Notes: D02 resolved by Head of Product in chat. Test plan and implementation handoff produced.
+- Notes: D02 resolved by Product Manager in chat. Test plan and implementation handoff produced.
 
 ---
 
@@ -93,8 +93,8 @@ Produced `07_test_plan.md` and `09_implementation_handoff.md`. Opened D03 implem
 - Type: Hard gate
 - Status: pending
 - Requested at: 2026-07-05
-- Resolved at: [TBC - Head of Product]
-- Decided by: Head of Product
+- Resolved at: [TBC - Product Manager]
+- Decided by: Product Manager
 
 ## Rationale
 
@@ -111,15 +111,15 @@ Implementation must not begin until this hard gate is explicitly approved.
 
 ## Human Response
 
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Recorded Decision
 
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Recorded Action
 
-Awaiting Head of Product decision. Do not implement, write to ClickUp, write to Supabase, or produce `10_clickup_summary.md` until D03 is resolved.
+Awaiting Product Manager decision. Do not implement, write to ClickUp, write to Supabase, or produce `10_clickup_summary.md` until D03 is resolved.
 
 ## Audit Event
 

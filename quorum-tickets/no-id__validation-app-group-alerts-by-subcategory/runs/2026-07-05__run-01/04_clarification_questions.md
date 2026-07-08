@@ -28,4 +28,4 @@ Capture missing implementation-shaping requirements before requirements and solu
 - Existing validation workflow must remain unchanged.
 
 ## Decision Needed
-These questions are prepared for the requirements stage, but the run is currently stopped at D01. Do not proceed until the Head of Product approves the persona/workflow path.
+These questions are prepared for the requirements stage, but the run is currently stopped at D01. Do not proceed until the Product Manager approves the persona/workflow path.

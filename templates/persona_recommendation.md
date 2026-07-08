@@ -1,29 +1,29 @@
 # Persona Recommendation
 
 ## Decision ID
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Recommendation
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Rationale
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Proposed Workflow Path
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Proposed Personas / Reviewers
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## CoE Pass 2 Applicability
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Hard Rules Checked
-- Contrarian last: [TBC - Head of Product]
-- Minimum roster size if CoE Pass 2 applies: [TBC - Head of Product]
-- Architecture/API/schema/data model signal: [TBC - Head of Product]
-- Decision Science signal: [TBC - Head of Product]
-- Analyst mandatory signal: [TBC - Head of Product]
+- Contrarian last: [TBC - Product Manager]
+- Minimum roster size if CoE Pass 2 applies: [TBC - Product Manager]
+- Architecture/API/schema/data model signal: [TBC - Product Manager]
+- Decision Science signal: [TBC - Product Manager]
+- Analyst mandatory signal: [TBC - Product Manager]
 
 ## Numbered Options
-[TBC - Head of Product]
+[TBC - Product Manager]

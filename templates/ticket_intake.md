@@ -1,31 +1,31 @@
 # Ticket Intake
 
 ## Ticket Title
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Ticket URL
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Raw Request
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Product Area
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## User / Persona
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Problem Statement
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Initial Interpretation
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Assumptions
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Missing Information
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Recommended Next Step
-[TBC - Head of Product]
+[TBC - Product Manager]

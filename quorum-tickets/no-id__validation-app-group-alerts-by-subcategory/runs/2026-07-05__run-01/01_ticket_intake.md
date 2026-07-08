@@ -4,7 +4,7 @@
 Group validation app alerts by product sub-category.
 
 ## Ticket URL
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Raw Request
 Group validation app alerts by product sub-category.
@@ -13,7 +13,7 @@ Group validation app alerts by product sub-category.
 Validation app / alert review workflow.
 
 ## User / Persona
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Problem Statement
 The validation app currently presents alerts without grouping by product sub-category. The requested behaviour is to show alerts grouped by product sub-category so users can scan related alerts together.
@@ -35,4 +35,4 @@ This appears to be a narrow UI/API shaping change unless Context Discovery finds
 - Whether grouping affects exports/results or only the analyst alert list.
 
 ## Recommended Next Step
-Ask the Head of Product to approve the D01 persona/workflow path before producing requirements or solution design.
+Ask the Product Manager to approve the D01 persona/workflow path before producing requirements or solution design.

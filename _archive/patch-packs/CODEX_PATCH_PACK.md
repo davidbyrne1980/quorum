@@ -16,15 +16,15 @@ This file predates the v2 state model. Apply these global replacements:
 5. §2.1 outcome table, row "Park ticket": replace action text with: "Move status to `7. Closed`. Post T-16 closure comment (reason: no submitter response, 9 working days). Remove `awaiting-info`, `stalled`, `human-review-required`."
 6. §2.3 outcome table, rows "Confirmed duplicate — close" and "— merge": destination status is `7. Closed` (aligning with HUMAN_GATE_MODEL Gate 1), posting T-16 referencing the canonical ticket.
 7. §2.1/2.3/2.4/2.5 inline comment strings (e.g. "Duplicate suspected — gate active — [date]") — append a note at the top of §2: "All comments in this document are posted using the templates in CLICKUP_COMMENT_TEMPLATES.md with the 🤖 PDLC Orchestrator header; the inline strings below are audit-log summaries, not literal comment bodies."
-8. §2.10: leave the WasteInsight scope statement but add: "⚠️ OPEN — conflicts with PDLC_ORCHESTRATOR_INSTRUCTIONS.md §2 which lists WasteInsight in scope. Pending Head of Product decision D3 (see QUORUM_DISTILLATION.md)."
+8. §2.10: leave the WasteInsight scope statement but add: "⚠️ OPEN — conflicts with PDLC_ORCHESTRATOR_INSTRUCTIONS.md §2 which lists WasteInsight in scope. Pending Product Manager decision D3 (see QUORUM_DISTILLATION.md)."
 
 ---
 
 ## PATCH 2 — COE_AGENT.md (invocation stage)
 
-**Find:** `**Pass 1** is invoked by the PDLC Orchestrator at ``CoE Review`` stage, after the Demand Signal gate has been resolved by the Head of Product.`
+**Find:** `**Pass 1** is invoked by the PDLC Orchestrator at ``CoE Review`` stage, after the Demand Signal gate has been resolved by the Product Manager.`
 
-**Replace with:** `**Pass 1** is invoked by the PDLC Orchestrator while the ticket is at status ``2. Validation``, after the Demand Signal review gate (Gate 2/3) has been resolved by the Head of Product. On Pass 1 completion the Orchestrator moves the ticket to ``3. Product Review``.`
+**Replace with:** `**Pass 1** is invoked by the PDLC Orchestrator while the ticket is at status ``2. Validation``, after the Demand Signal review gate (Gate 2/3) has been resolved by the Product Manager. On Pass 1 completion the Orchestrator moves the ticket to ``3. Product Review``.`
 
 ---
 
@@ -32,17 +32,17 @@ This file predates the v2 state model. Apply these global replacements:
 
 ### 3a — Pre-approval write-back (§3, Path A)
 **Find:** `Add ``human-review-required``. Post T-07 gate comment (demand signal awaiting review).`
-**Replace with:** `Add ``human-review-required``. Phase 1: present the full graded output in chat for Head of Product review — post nothing to ClickUp yet. Phase 2+: post a content-free gate notification (T-00 pattern) only. The T-07 content comment posts only after approval (Path B).`
+**Replace with:** `Add ``human-review-required``. Phase 1: present the full graded output in chat for Product Manager review — post nothing to ClickUp yet. Phase 2+: post a content-free gate notification (T-00 pattern) only. The T-07 content comment posts only after approval (Path B).`
 
 ### 3b — Demand Signal channels (§3, Path A)
 **Find:** `Agent searches: ClickUp, Confluence, Slack, HubSpot.`
 **Replace with:** `Agent searches: ClickUp, Confluence, Slack, Jira, HubSpot.`
 
 ### 3c — Gate decision grammar (§3, Status: Product Review)
-**Find:** `**If ``human-review-required`` removed:** Head of Product has decided.`
-**Replace with:** `**Decision received:** The Head of Product transmits the decision explicitly — in chat or via ``/gate [ticket-url] [decision]`` (Phase 1), or via a ``gate_decisions`` record (Phase 2+). Tag removal is never itself the decision signal; the Orchestrator removes ``human-review-required`` only after recording and acting on the explicit decision.`
+**Find:** `**If ``human-review-required`` removed:** Product Manager has decided.`
+**Replace with:** `**Decision received:** The Product Manager transmits the decision explicitly — in chat or via ``/gate [ticket-url] [decision]`` (Phase 1), or via a ``gate_decisions`` record (Phase 2+). Tag removal is never itself the decision signal; the Orchestrator removes ``human-review-required`` only after recording and acting on the explicit decision.`
 
-Apply the same replacement pattern to the equivalent line in **Status: Delivery Ready** (`**If ``human-review-required`` removed:**` → decision-received wording) and in the Define & Design sections where "`human-review-required` removed" is used as a trigger: in each case, the trigger becomes "explicit Head of Product decision recorded; `human-review-required` subsequently removed by the Orchestrator".
+Apply the same replacement pattern to the equivalent line in **Status: Delivery Ready** (`**If ``human-review-required`` removed:**` → decision-received wording) and in the Define & Design sections where "`human-review-required` removed" is used as a trigger: in each case, the trigger becomes "explicit Product Manager decision recorded; `human-review-required` subsequently removed by the Orchestrator".
 
 ### 3d — bau-cr signal/confirm split (§5)
 **Find:** `**If BAU/CR signal present:**
@@ -71,8 +71,8 @@ Remove ``bau-cr-signal``. Do NOT add ``bau-cr``. Continue standard path to CoE P
 
 **If ``bau-cr-signal`` present:**`
 
-**Find:** `**If ``bau-cr`` confirmed by Head of Product:**`
-**Replace with:** `**If BAU/CR confirmed by Head of Product (``bau-cr-signal`` swapped for ``bau-cr``):**`
+**Find:** `**If ``bau-cr`` confirmed by Product Manager:**`
+**Replace with:** `**If BAU/CR confirmed by Product Manager (``bau-cr-signal`` swapped for ``bau-cr``):**`
 
 **Find:** `**If not ``bau-cr``:**`
 **Replace with:** `**If ``bau-cr-signal`` absent:**`
@@ -83,9 +83,9 @@ Remove ``bau-cr-signal``. Do NOT add ``bau-cr``. Continue standard path to CoE P
 
 ### 4a — Add bau-cr-signal to tags (§2)
 In the **State tags** table, add row:
-`| ``bau-cr-signal`` | Orchestrator identifies BAU/CR signal from Requirements output | Head of Product confirms (→ swap to ``bau-cr``) or rejects (tag removed, standard path) |`
+`| ``bau-cr-signal`` | Orchestrator identifies BAU/CR signal from Requirements output | Product Manager confirms (→ swap to ``bau-cr``) or rejects (tag removed, standard path) |`
 
-In the **Progress tags** table, change the `bau-cr` row "Added when" cell to: `Head of Product confirms BAU/CR classification at Gate 6a`.
+In the **Progress tags** table, change the `bau-cr` row "Added when" cell to: `Product Manager confirms BAU/CR classification at Gate 6a`.
 
 ### 4b — Routing block (§4, Define & Design)
 **Find:** `  → Check bau-cr tag
@@ -99,7 +99,7 @@ In the **Progress tags** table, change the `bau-cr` row "Added when" cell to: `H
 
 ### 4c — Decision grammar note (§4, after the Validation block intro)
 Insert after the line "The daily Routine loops through all open tickets and applies this logic per ticket.":
-`**Decision grammar:** wherever this document says "human-review-required removed", the operative trigger is an explicit Head of Product decision (chat / /gate command in Phase 1; gate_decisions record in Phase 2+). The Orchestrator removes the tag as a consequence of acting on the decision — tag absence alone never encodes which option was chosen.`
+`**Decision grammar:** wherever this document says "human-review-required removed", the operative trigger is an explicit Product Manager decision (chat / /gate command in Phase 1; gate_decisions record in Phase 2+). The Orchestrator removes the tag as a consequence of acting on the decision — tag absence alone never encodes which option was chosen.`
 
 ### 4d — Pre-flight checklist (§9)
 In the tag-creation checklist item, add `` `bau-cr-signal` `` to the tag list, and add two new checklist items:
@@ -114,24 +114,24 @@ In the tag-creation checklist item, add `` `bau-cr-signal` `` to the tag list, a
 **Find:** `Demand Signal not yet run:
   → Invoke Demand Signal Agent
   → Store output in Supabase
-  → Add human-review-required (Head of Product grades evidence)
+  → Add human-review-required (Product Manager grades evidence)
   → If grade Low: post T-08, hard gate`
 **Replace with:** `Demand Signal not yet run:
   → Invoke Demand Signal Agent (searches ClickUp, Confluence, Slack, Jira, HubSpot)
   → Store output in Supabase — nothing posts to ClickUp pre-approval
   → Add human-review-required; present graded output in chat (Phase 1)
-  → If overall grade Low: hard gate (Gate 3) — T-08 posts only with Head of Product awareness`
+  → If overall grade Low: hard gate (Gate 3) — T-08 posts only with Product Manager awareness`
 
 ### 5b — §6/§8 bau-cr: replace signal-stage `bau-cr` with `bau-cr-signal` exactly as in Patch 3d/3e. In §7 Tags Reference, mirror Patch 4a (add `bau-cr-signal` to state tags; `bau-cr` set only on confirmation).
 
-### 5c — §6: insert the same decision-grammar note as Patch 4c at the top of the Tag-Driven Routing section, and reword every "human-review-required removed:" trigger to "Explicit Head of Product decision recorded:".
+### 5c — §6: insert the same decision-grammar note as Patch 4c at the top of the Tag-Driven Routing section, and reword every "human-review-required removed:" trigger to "Explicit Product Manager decision recorded:".
 
 ### 5d — §10 Human Gate Protocol
-**Find:** `**When the Head of Product responds:**
+**Find:** `**When the Product Manager responds:**
 1. Remove ``human-review-required``.
 2. Record the decision.
 3. Route accordingly.`
-**Replace with:** `**When the Head of Product responds:**
+**Replace with:** `**When the Product Manager responds:**
 1. Record the explicit decision (chat / /gate command; Phase 2+: gate_decisions record) — the decision value, not tag state, determines routing.
 2. Take the action mapped to that decision.
 3. Remove ``human-review-required`` last, as confirmation the decision was actioned.`
@@ -173,7 +173,7 @@ In §5, add three test scenarios:
 
 ## PATCH 9 — CLICKUP_COMMENT_TEMPLATES.md (T-07 timing note)
 
-In the T-07 header block, change **When posted:** to: `After the Head of Product approves the filtered demand signal write-back at Gate 2. Never posted at gate-open — pre-approval, output lives in Supabase/chat only.`
+In the T-07 header block, change **When posted:** to: `After the Product Manager approves the filtered demand signal write-back at Gate 2. Never posted at gate-open — pre-approval, output lives in Supabase/chat only.`
 
 ---
 

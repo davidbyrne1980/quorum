@@ -144,7 +144,7 @@ When a ticket is approved at Gate 8 (or confirmed BAU/CR at Gate 6a), Quorum may
 2. **Solution Design** → soft gate (decision_type 'solution_design_approval').
 3. **Test Plan** → produced alongside design.
 4. **Implementation Handoff** → hard gate (decision_type 'implementation_handoff_approval') before anything is passed to Codex. Codex implements only the approved handoff — it never decides product behaviour.
-5. **ClickUp summary** → posted after Head of Product approval, standard write-back rules apply.
+5. **ClickUp summary** → posted after Product Manager approval, standard write-back rules apply.
 
 All artefacts are written to a run folder (quorum-runs/{run_slug}/) and versioned in output_artefacts. All decisions go through gate_decisions with the explicit decision grammar (§6). Existing hard-gate rules apply unchanged: no gate is bypassed, no code changes occur pre-approval.`
 

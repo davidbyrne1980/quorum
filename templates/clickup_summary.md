@@ -1,16 +1,16 @@
 # ClickUp Summary
 
 ## Ticket
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Summary To Post
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Decision Trail
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Artefacts Produced
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Remaining Follow-Up
-[TBC - Head of Product]
+[TBC - Product Manager]

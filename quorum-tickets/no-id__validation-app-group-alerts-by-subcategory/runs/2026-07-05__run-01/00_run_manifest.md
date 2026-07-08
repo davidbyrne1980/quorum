@@ -6,10 +6,10 @@
 2026-07-05-validation-app-group-alerts-by-subcategory
 
 ## Source Ticket
-- Ticket ID: [TBC - Head of Product]
-- Ticket URL: [TBC - Head of Product]
-- Live ClickUp status: Validation [TBC - Head of Product to confirm]
-- Active tags: [TBC - Head of Product]
+- Ticket ID: [TBC - Product Manager]
+- Ticket URL: [TBC - Product Manager]
+- Live ClickUp status: Validation [TBC - Product Manager to confirm]
+- Active tags: [TBC - Product Manager]
 
 ## Objective
 Group validation app alerts by product sub-category.
@@ -76,5 +76,5 @@ Options:
 4. Cancel implementation for this run.
 
 ## Links
-- Ticket: [TBC - Head of Product]
-- Supabase workflow_run_id: [TBC - Head of Product]
+- Ticket: [TBC - Product Manager]
+- Supabase workflow_run_id: [TBC - Product Manager]

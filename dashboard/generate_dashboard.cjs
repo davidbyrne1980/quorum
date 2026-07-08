@@ -575,7 +575,7 @@ function hasTag(ticket, tag) {
 }
 
 function deriveNextStep(ticket) {
-  if (ticket.category === 'closed') return 'Stopped. Reopening requires the Head of Product to remove the closed tag.';
+  if (ticket.category === 'closed') return 'Stopped. Reopening requires the Product Manager to remove the closed tag.';
   if (ticket.pendingGate) {
     return `Review ${ticket.currentGate || 'the open gate'} and record the decision in Claude Code.`;
   }

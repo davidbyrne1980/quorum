@@ -37,7 +37,7 @@ CREATE TABLE agent_prompt_versions (
   created_from_feedback_ids   JSONB,
   active                      BOOLEAN NOT NULL DEFAULT FALSE,
   activated_at                TIMESTAMPTZ,
-  activated_by                TEXT DEFAULT 'Head of Product',
+  activated_by                TEXT DEFAULT 'Product Manager',
   created_at                  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   UNIQUE (agent_name, version)
 );
@@ -56,7 +56,7 @@ CREATE TABLE agent_runs (
   raw_output          JSONB,
   approved_summary    TEXT,
   approved_at         TIMESTAMPTZ,
-  approved_by         TEXT DEFAULT 'Head of Product',
+  approved_by         TEXT DEFAULT 'Product Manager',
   confidence_level    TEXT,
   confidence_notes    TEXT,
   output_quality      TEXT,
@@ -80,7 +80,7 @@ CREATE TABLE gate_decisions (
   resolved_at           TIMESTAMPTZ,
   decision              TEXT,
   decision_rationale    TEXT,
-  decided_by            TEXT DEFAULT 'Head of Product',
+  decided_by            TEXT DEFAULT 'Product Manager',
   status                TEXT NOT NULL DEFAULT 'pending',
   human_response        TEXT,
   human_response_source TEXT,
@@ -185,7 +185,7 @@ CREATE TABLE intake_question_feedback (
   feedback          TEXT NOT NULL,
   feedback_source   TEXT NOT NULL DEFAULT 'head_of_product',
   outcome           TEXT,
-  provided_by       TEXT NOT NULL DEFAULT 'Head of Product',
+  provided_by       TEXT NOT NULL DEFAULT 'Product Manager',
   created_at        TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
@@ -197,7 +197,7 @@ CREATE TABLE agent_feedback (
   feedback_type     TEXT NOT NULL,
   feedback_detail   TEXT,
   affected_item     TEXT,
-  provided_by       TEXT NOT NULL DEFAULT 'Head of Product',
+  provided_by       TEXT NOT NULL DEFAULT 'Product Manager',
   created_at        TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
@@ -211,7 +211,7 @@ CREATE TABLE ticket_outcomes (
   which_demand_signals_proved_accurate  TEXT,
   bau_cr_classification_was_correct     BOOLEAN,
   readiness_rating_was_accurate         BOOLEAN,
-  recorded_by                           TEXT DEFAULT 'Head of Product',
+  recorded_by                           TEXT DEFAULT 'Product Manager',
   recorded_at                           TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 

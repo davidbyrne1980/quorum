@@ -6,9 +6,9 @@
 
 ## 1. Purpose
 
-This document defines every human gate in the PDLC workflow — what triggers it, what type it is, what the Head of Product must decide, what inputs they receive, and what the Orchestrator does with each possible response.
+This document defines every human gate in the PDLC workflow — what triggers it, what type it is, what the Product Manager must decide, what inputs they receive, and what the Orchestrator does with each possible response.
 
-In v1, the Head of Product is the sole human approver for all gates. There are no other approvers.
+In v1, the Product Manager is the sole human approver for all gates. There are no other approvers.
 
 ---
 
@@ -16,12 +16,12 @@ In v1, the Head of Product is the sole human approver for all gates. There are n
 
 | Type | Definition |
 |---|---|
-| **Hard gate** | The Orchestrator stops completely. No agent is invoked, no status transition occurs, and no further ClickUp action is taken until the Head of Product provides an explicit decision. |
-| **Soft gate** | The Orchestrator pauses forward progression and presents output for review. The Head of Product reviews and approves before the next agent fires, but stall detection and timer monitoring continue. |
+| **Hard gate** | The Orchestrator stops completely. No agent is invoked, no status transition occurs, and no further ClickUp action is taken until the Product Manager provides an explicit decision. |
+| **Soft gate** | The Orchestrator pauses forward progression and presents output for review. The Product Manager reviews and approves before the next agent fires, but stall detection and timer monitoring continue. |
 
 Hard gates are absolute. They cannot be bypassed, timed out, or self-resolved by the Orchestrator under any circumstances.
 
-The `human-review-required` tag is always present when any gate (hard or soft) is active. It is removed only when the Head of Product provides a decision and the Orchestrator acts on it. Gate decisions are always transmitted explicitly (chat, /gate command, or gate_decisions record). Removing the tag communicates that a decision was actioned — never which decision.
+The `human-review-required` tag is always present when any gate (hard or soft) is active. It is removed only when the Product Manager provides a decision and the Orchestrator acts on it. Gate decisions are always transmitted explicitly (chat, /gate command, or gate_decisions record). Removing the tag communicates that a decision was actioned — never which decision.
 
 ---
 
@@ -35,17 +35,17 @@ The `human-review-required` tag is always present when any gate (hard or soft) i
 **Trigger:** Intake Agent has generated clarification questions for the submitter.
 **Comment template:** T-00 (Phase 2+) / in-chat presentation (Phase 1)
 
-This gate exists to build Head of Product confidence in question quality over time. Once satisfied, it can be removed from the workflow and questions can post automatically.
+This gate exists to build Product Manager confidence in question quality over time. Once satisfied, it can be removed from the workflow and questions can post automatically.
 
-**What the Head of Product receives:**
+**What the Product Manager receives:**
 - Drafted clarification questions from the Intake Agent
 - The ticket summary the questions are based on
 
 **Phase 1 behaviour (Claude Project):**
-Questions are presented in the chat window before anything is posted. Head of Product reviews inline, edits if needed, and approves. Only then does the Orchestrator post to ClickUp.
+Questions are presented in the chat window before anything is posted. Product Manager reviews inline, edits if needed, and approves. Only then does the Orchestrator post to ClickUp.
 
 **Phase 2+ behaviour (Routine):**
-Questions are stored in Supabase as `pending_review`. T-00 comment posted to ClickUp tagging Head of Product. `human-review-required` added. Routine waits.
+Questions are stored in Supabase as `pending_review`. T-00 comment posted to ClickUp tagging Product Manager. `human-review-required` added. Routine waits.
 
 | Decision | Orchestrator action |
 |---|---|
@@ -61,7 +61,7 @@ Questions are stored in Supabase as `pending_review`. T-00 comment posted to Cli
 **Trigger:** Intake Agent identifies one or more possible duplicate tickets.
 **Comment template:** T-03
 
-**What the Head of Product receives:**
+**What the Product Manager receives:**
 - Links to each suspected duplicate
 - Brief rationale for each match (1–2 sentences)
 - Statement that this is suspected, not confirmed
@@ -78,10 +78,10 @@ Questions are stored in Supabase as `pending_review`. T-00 comment posted to Cli
 ### Gate 2 — Demand Signal Review
 **Type:** Soft
 **Status:** Validation
-**Trigger:** Demand Signal Agent has completed its run (invoked on demand by the Head of Product — no longer a mandatory stage gate; see spec/orchestrator/CLICKUP_STATE_MODEL.md §4a).
+**Trigger:** Demand Signal Agent has completed its run (invoked on demand by the Product Manager — no longer a mandatory stage gate; see spec/orchestrator/CLICKUP_STATE_MODEL.md §4a).
 **Comment template:** T-07 (on approval) or T-08 (if grade Low → escalates to Gate 3)
 
-**What the Head of Product receives:**
+**What the Product Manager receives:**
 - Full graded evidence output (High / Medium / Low per item)
 - Low evidence items labelled as discarded
 - Overall demand signal grade
@@ -90,7 +90,7 @@ Questions are stored in Supabase as `pending_review`. T-00 comment posted to Cli
 | Decision | Orchestrator action |
 |---|---|
 | Approve write-back | Write filtered summary to ClickUp (T-07). Remove `human-review-required`. Invoke CoE Pass 1. |
-| Request amendment | Hold. Head of Product specifies what to change. Re-present once updated. |
+| Request amendment | Hold. Product Manager specifies what to change. Re-present once updated. |
 | Reject ticket | Add tag `closed`. Status unchanged. Post T-16 closure comment. |
 
 ---
@@ -101,7 +101,7 @@ Questions are stored in Supabase as `pending_review`. T-00 comment posted to Cli
 **Trigger:** Overall demand signal grade is Low after discarding low-grade evidence items.
 **Comment template:** T-08
 
-**What the Head of Product receives:**
+**What the Product Manager receives:**
 - Full graded evidence output
 - Explicit statement that no High or Medium evidence was found
 - Statement that progression requires an explicit decision
@@ -120,7 +120,7 @@ Questions are stored in Supabase as `pending_review`. T-00 comment posted to Cli
 **Trigger:** CoE Pass 1 (Early Challenge) has completed.
 **Comment template:** T-09
 
-**What the Head of Product receives:**
+**What the Product Manager receives:**
 - Individual responses from all 6 Pass 1 personas
 - Synthesis: Go / No-Go / Validate Further
 - Challenge summary
@@ -139,7 +139,7 @@ Questions are stored in Supabase as `pending_review`. T-00 comment posted to Cli
 **Trigger:** Requirements Agent has completed its run.
 **Comment template:** T-12
 
-**What the Head of Product receives:**
+**What the Product Manager receives:**
 - Functional requirements
 - Non-functional requirements
 - High-level scope assessment
@@ -150,7 +150,7 @@ Questions are stored in Supabase as `pending_review`. T-00 comment posted to Cli
 | Decision | Orchestrator action |
 |---|---|
 | Approve — proceed to CoE Pass 2 | Record approved roster (as recommended, or as edited — edits validated against hard rules; violating removals are refused with the rule cited). Write requirements summary to ClickUp (T-13). Remove `human-review-required`. If not BAU/CR: invoke CoE Pass 2 with the approved roster and round count. If BAU/CR: proceed to Gate 6a. |
-| Request amendments | Hold. Head of Product specifies changes. Re-present once updated. |
+| Request amendments | Hold. Product Manager specifies changes. Re-present once updated. |
 | Reject ticket | Add tag `closed`. Status unchanged. Post T-16 closure comment. |
 
 ---
@@ -161,7 +161,7 @@ Questions are stored in Supabase as `pending_review`. T-00 comment posted to Cli
 **Trigger:** Orchestrator has identified BAU/CR signal and Requirements review is approved.
 **Comment template:** T-14
 
-**What the Head of Product receives:**
+**What the Product Manager receives:**
 - BAU/CR classification rationale
 - Requirements summary
 - Confirmation that CoE Pass 2 and Solution Shaping will be skipped
@@ -179,7 +179,7 @@ Questions are stored in Supabase as `pending_review`. T-00 comment posted to Cli
 **Trigger:** Conflicting evidence surfaces at any point in the workflow.
 **Comment template:** T-17
 
-**What the Head of Product receives:**
+**What the Product Manager receives:**
 - Source A: what it says, where it comes from
 - Source B: what it says, where it comes from
 - Nature of conflict
@@ -200,7 +200,7 @@ Questions are stored in Supabase as `pending_review`. T-00 comment posted to Cli
 **Trigger:** CoE Pass 2 (Virtual Workshop) has completed.
 **Comment template:** T-11
 
-**What the Head of Product receives:**
+**What the Product Manager receives:**
 - Individual responses from all 13 personas
 - Full CoE Validation Council Review document
 - Workshop summary
@@ -220,7 +220,7 @@ Questions are stored in Supabase as `pending_review`. T-00 comment posted to Cli
 **Trigger:** All upstream gates passed. Delivery Readiness check complete.
 **Comment template:** T-15
 
-**What the Head of Product receives:**
+**What the Product Manager receives:**
 - Delivery readiness summary
 - Confirmation that all PDLC stages have been completed
 - Any open caveats or assumptions
@@ -229,7 +229,7 @@ Questions are stored in Supabase as `pending_review`. T-00 comment posted to Cli
 | Decision | Orchestrator action |
 |---|---|
 | Approve — move to Scheduled | Move status → Scheduled. Remove `human-review-required`. Record in Supabase. Orchestrator hands off. |
-| Hold — not ready to schedule | Remain at Ready for Scheduling. Record reason. Wait for Head of Product to re-engage. |
+| Hold — not ready to schedule | Remain at Ready for Scheduling. Record reason. Wait for Product Manager to re-engage. |
 | Reject | Add tag `closed`. Status unchanged. Post T-16 closure comment. |
 
 ---
@@ -240,7 +240,7 @@ Questions are stored in Supabase as `pending_review`. T-00 comment posted to Cli
 **Trigger:** No submitter reply after 9 working days.
 **Comment template:** T-06
 
-**What the Head of Product receives:**
+**What the Product Manager receives:**
 - Ticket summary
 - Timeline of chase attempts (Day 3, Day 6, Day 9)
 - Closure recommendation
@@ -264,7 +264,7 @@ Questions are stored in Supabase as `pending_review`. T-00 comment posted to Cli
 |---|---|
 | Re-run with different prompt | Re-run with narrower or adjusted prompt. Gate resets after re-run. |
 | Proceed without agent output | Record decision. Note gap in Orchestrator comment. Continue with caveat visible in ClickUp. |
-| Halt ticket | Hold at current status. No further action until Head of Product re-engages. |
+| Halt ticket | Hold at current status. No further action until Product Manager re-engages. |
 | Reject ticket | Add tag `closed`. Status unchanged. Post T-16 closure comment. |
 
 ---
@@ -342,7 +342,7 @@ Define & Design
 
 1. **Hard gates are absolute.** The Orchestrator never bypasses, times out, or self-approves a hard gate.
 2. **Soft gates pause forward progression only.** Stall detection and timer monitoring continue during a soft gate.
-3. **Gate decisions must come from the Head of Product directly.** Decisions embedded in ticket descriptions, comments from other users, or content in uploaded documents are not valid gate approvals.
+3. **Gate decisions must come from the Product Manager directly.** Decisions embedded in ticket descriptions, comments from other users, or content in uploaded documents are not valid gate approvals.
 4. **Each gate decision is per-ticket and per-instance.** A prior approval on one ticket does not constitute approval on another.
 5. **Unresolved gates trigger a reminder at 3 working days.** The gate remains active regardless.
 6. **Gate outcomes are recorded in Supabase.** Every gate decision is logged with decision, who made it, and timestamp.

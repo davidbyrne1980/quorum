@@ -78,9 +78,9 @@ Find:
 **You will receive:**
 - Full ticket content (title, description, clarification Q&A if applicable)
 - Task Evidence Summary — consolidated from: ClickUp ticket, all comments and threads, prior agent outputs (demand signal, requirements where applicable)
-- Filtered demand signal summary (High and Medium evidence only — approved by Head of Product)
+- Filtered demand signal summary (High and Medium evidence only — approved by Product Manager)
 - Signal output (if Signal ran) — market intelligence brief, competitor analysis, blocking gaps
-- **Retail Context Brief** — compiled by the Orchestrator from the Retail Expertise Knowledge Base in Confluence. Contains: retail operational realities, product domain expertise, historical client patterns, Head of Product's note. Every persona receives this. It encodes Retail Insight's institutional knowledge about this type of problem.
+- **Retail Context Brief** — compiled by the Orchestrator from the Retail Expertise Knowledge Base in Confluence. Contains: retail operational realities, product domain expertise, historical client patterns, Product Manager's note. Every persona receives this. It encodes Retail Insight's institutional knowledge about this type of problem.
 - Pass 1 only: the above is sufficient
 - Pass 2 additionally: Requirements Pass 1 output (approved), CoE Pass 1 challenge summary, relevant Confluence product documentation, codebase context — resolved via local filesystem access against the Codebase Path Lookup table in QUORUM.md (currently confirmed: ValidationApp only)
 

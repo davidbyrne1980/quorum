@@ -1,19 +1,19 @@
 # Test Plan
 
 ## Scope
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Unit Tests
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Integration Tests
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Manual Checks
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Regression Checks
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Acceptance Criteria Mapping
-[TBC - Head of Product]
+[TBC - Product Manager]

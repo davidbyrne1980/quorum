@@ -1,25 +1,25 @@
 # Requirements
 
 ## Objective
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Background
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## In Scope
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Out of Scope
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Functional Requirements
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Acceptance Criteria
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Non-Functional Requirements
-[TBC - Head of Product]
+[TBC - Product Manager]
 
 ## Risks / Open Questions
-[TBC - Head of Product]
+[TBC - Product Manager]

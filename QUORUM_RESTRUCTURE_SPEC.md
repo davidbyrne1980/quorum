@@ -1,6 +1,6 @@
 # Quorum Run-Folder Restructure — Implementation Spec (for Codex)
 
-**Owner:** Head of Product (Dave)
+**Owner:** Product Manager (Dave)
 **Author:** Claude (Orchestrator)
 **Status:** Ready to implement
 **Repo:** `PDLC IN CLAUDE` (this repo — Codex has access)
@@ -39,7 +39,7 @@ Known real contents today (only two tickets exist — migrate both):
 
 | Current folder | Contents | ClickUp Ticket ID |
 |---|---|---|
-| `quorum-runs/2026-07-05-validation-app-group-alerts-by-subcategory/` | `00_…`–`09_…` (no `10_`) | **TBC / unknown** (manifest says `[TBC - Head of Product]`) |
+| `quorum-runs/2026-07-05-validation-app-group-alerts-by-subcategory/` | `00_…`–`09_…` (no `10_`) | **TBC / unknown** (manifest says `[TBC - Product Manager]`) |
 | `quorum-context/2026-07-05-validation-app-group-alerts-by-subcategory.md` | context journal for the above | — |
 | `quorum-runs/2026-07-07-storeinsight-v1-eoe-pilot/` | `QUIP_score_v1.md`, `QUIP_score_v2.md` **only** (no run artefacts) | **869ayynqb** |
 

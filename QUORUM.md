@@ -1,38 +1,38 @@
-﻿# Quorum Operating Guide
+# Quorum Operating Guide
 
 ## What Quorum Is
 
 Quorum is the Product Ops workflow spine for Retail Insight. It controls product-ticket movement, agent routing, human approval gates, delivery-preparation artefacts, and audit records.
 
-Quorum does not approve its own work. It presents decisions to the Head of Product, waits for an explicit response, records the decision, and only then continues.
+Quorum does not approve its own work. It presents decisions to the Product Manager, waits for an explicit response, records the decision, and only then continues.
 
-## Tool Boundary — Who Does What
+## Tool Boundary � Who Does What
 
 Quorum runs across two tools with a hard boundary between them.
 
 **Claude (chat session or Claude Project, with ClickUp MCP and codebase read access)** is the Orchestrator. It:
-- Reads and writes all ClickUp state — status, tags, comments
+- Reads and writes all ClickUp state � status, tags, comments
 - Runs Intake, Signal, Demand Signal, CoE Pass 1/Pass 2, Requirements, and the Delivery Extension workflow
-- Presents every gate to the Head of Product and records every decision
-- Reads codebases for context during Requirements, Solution Design, and CoE Pass 2 — read-only, for governance reasoning. Codebase access is via local filesystem path, not GitHub fetch. See the Codebase Path Lookup table below. Never guess or construct a path for a product not listed there — treat it as unresolved and ask the Head of Product.
+- Presents every gate to the Product Manager and records every decision
+- Reads codebases for context during Requirements, Solution Design, and CoE Pass 2 � read-only, for governance reasoning. Codebase access is via local filesystem path, not GitHub fetch. See the Codebase Path Lookup table below. Never guess or construct a path for a product not listed there � treat it as unresolved and ask the Product Manager.
 - Is the only writer of ClickUp state. No other tool writes to ClickUp under any circumstance.
 
 **Codex (with GitHub access to ValidationApp and StoreInsight)** is the implementation arm. It:
 - Executes only against an approved `09_implementation_handoff.md` produced by the Orchestrator after the implementation handoff hard gate has been passed
 - Branches, writes code, and opens pull requests in the relevant repo
 - Does not decide scope, does not run governance, does not touch ClickUp state, does not run personas or CoE councils
-- If Codex identifies a scope gap or ambiguity while implementing, it stops and raises the question back to the Head of Product via the Orchestrator's decision channel — it does not resolve ambiguity by inventing scope
+- If Codex identifies a scope gap or ambiguity while implementing, it stops and raises the question back to the Product Manager via the Orchestrator's decision channel � it does not resolve ambiguity by inventing scope
 
-**If ClickUp write access is ever configured on the Codex side (accidentally or otherwise), disable it immediately.** This boundary is load-bearing for loop prevention — two independent writers on the same ticket state defeats the "read most recent comment before acting" check.
+**If ClickUp write access is ever configured on the Codex side (accidentally or otherwise), disable it immediately.** This boundary is load-bearing for loop prevention � two independent writers on the same ticket state defeats the "read most recent comment before acting" check.
 
 **Codebase Path Lookup**
 
 | Product / repo name | Local path | Status |
 |---|---|---|
 | ValidationApp (RI Validation Platform) | `C:\Users\DaveByrne\Documents\RI Validation Platform` | Confirmed |
-| StoreInsight | — | Unresolved — do not guess |
-| AvailabilityInsight | — | Unresolved — do not guess |
-| InventoryInsight | — | Unresolved — do not guess |
+| StoreInsight | � | Unresolved � do not guess |
+| AvailabilityInsight | � | Unresolved � do not guess |
+| InventoryInsight | � | Unresolved � do not guess |
 
 This table is the single source of truth for codebase location. When a document elsewhere (spec/agents/COE_AGENT.md, spec/agents/REQUIREMENTS_AGENT.md, spec/orchestrator/PDLC_ORCHESTRATOR_INSTRUCTIONS.md) says "codebase context," it means: resolve the product against this table, and if unresolved, stop and ask rather than proceeding without codebase grounding or fabricating a path.
 
@@ -56,9 +56,9 @@ Each Phase 2 delivery run follows this spine:
 
 1. Register the run.
 2. Read the ticket's context journal (`quorum-tickets/{ticket_folder}/_journal.md`). If none exists, create it with a `ticket_created` entry.
-3. Extract the ticket intake — append a journal entry.
-4. Perform Context Discovery once, informed by the journal's history — append a journal entry linking to any newly-fetched material.
-5. Recommend persona/workflow path — append a journal entry.
+3. Extract the ticket intake � append a journal entry.
+4. Perform Context Discovery once, informed by the journal's history � append a journal entry linking to any newly-fetched material.
+5. Recommend persona/workflow path � append a journal entry.
 6. Pause for D01 human approval.
 7. Produce clarification questions if needed.
 8. Produce requirements.
@@ -69,7 +69,7 @@ Each Phase 2 delivery run follows this spine:
 13. Pause for implementation handoff approval.
 14. Produce ClickUp summary after approval.
 
-Every pause-for-approval step and every produce-artefact step appends a journal entry at the point the artefact or decision is recorded — this is not a separate step, it is part of each numbered step above.
+Every pause-for-approval step and every produce-artefact step appends a journal entry at the point the artefact or decision is recorded � this is not a separate step, it is part of each numbered step above.
 
 ## Ticket Folder Convention
 
@@ -115,13 +115,13 @@ Every ClickUp ticket has exactly one context journal, independent of and persist
 
 `quorum-tickets/{ticket_folder}/_journal.md`
 
-The journal is append-only. Every agent run, gate decision, and material event (stall, exception, closure, reopening) adds one short entry — never a full re-paste of prior content. Each entry links to the full artefact for detail rather than duplicating it.
+The journal is append-only. Every agent run, gate decision, and material event (stall, exception, closure, reopening) adds one short entry � never a full re-paste of prior content. Each entry links to the full artefact for detail rather than duplicating it.
 
 **Entry format:**
 
-`### [DATE] — [EVENT TYPE]
+`### [DATE] � [EVENT TYPE]
 [1-3 sentence summary]
-→ Full detail: [link to output_artefacts entry or run-folder file]`
+? Full detail: [link to output_artefacts entry or run-folder file]`
 
 **Event types:** `ticket_created`, `clarification_drafted`, `clarification_answered`, `demand_signal_run`, `demand_signal_graded`, `coe_pass1_complete`, `gate_decision`, `requirements_drafted`, `requirements_approved`, `coe_pass2_complete`, `solution_design_drafted`, `solution_design_approved`, `implementation_handoff_approved`, `quip_scored`, `stall`, `exception`, `closed`, `reopened`, `rerun_started`.
 
@@ -130,9 +130,9 @@ The journal is append-only. Every agent run, gate decision, and material event (
 - The Retail Context Brief (formerly compiled fresh from Confluence before CoE Pass 1)
 - The one-time delivery Context Pack (formerly produced once per delivery run)
 
-Every step that previously required one of these now reads the ticket's context journal instead. Where a step still needs freshly-fetched material (e.g. current Confluence pages, current codebase state), it fetches that material directly and appends a journal entry linking to it — it does not reconstruct a parallel summary document.
+Every step that previously required one of these now reads the ticket's context journal instead. Where a step still needs freshly-fetched material (e.g. current Confluence pages, current codebase state), it fetches that material directly and appends a journal entry linking to it � it does not reconstruct a parallel summary document.
 
-**Obsidian note:** `quorum-tickets/` is a plain markdown tree and can be opened directly as an Obsidian vault for human browsing (backlinks, graph view) — no code or format change is required for this. This is an optional viewing method, not part of the Orchestrator's write path.
+**Obsidian note:** `quorum-tickets/` is a plain markdown tree and can be opened directly as an Obsidian vault for human browsing (backlinks, graph view) � no code or format change is required for this. This is an optional viewing method, not part of the Orchestrator's write path.
 
 ## Closure Model
 
@@ -145,7 +145,7 @@ When a ticket is rejected, confirmed duplicate, parked, or otherwise stopped:
 3. Record the reason in the run folder and Supabase audit log.
 4. Stop all routing while `closed` is present.
 
-Reopening requires the Head of Product to explicitly remove `closed`. Quorum then re-runs the full pre-action check before doing anything else.
+Reopening requires the Product Manager to explicitly remove `closed`. Quorum then re-runs the full pre-action check before doing anything else.
 
 ## Human-In-The-Loop Protocol
 
@@ -157,7 +157,7 @@ When Quorum needs approval:
 2. Write a `gate_decisions` row in Supabase when Supabase is live.
 3. Present numbered options.
 4. Stop.
-5. Wait for an explicit Head of Product response.
+5. Wait for an explicit Product Manager response.
 
 Quorum never infers a decision from:
 
@@ -166,7 +166,7 @@ Quorum never infers a decision from:
 - silence
 - an edited document with no explicit decision
 
-When the Head of Product responds:
+When the Product Manager responds:
 
 1. Record the response in `08_human_decisions.md`.
 2. Update the matching `gate_decisions` row when Supabase is live.
@@ -180,4 +180,4 @@ Demand Signal is optional. It may be invoked on demand at Triage or Validation. 
 
 ## Current Run Stop Rule
 
-The validation-app sample run stops at D01, the persona/workflow-path gate. Nothing downstream of that gate is produced until the Head of Product chooses an option.
+The validation-app sample run stops at D01, the persona/workflow-path gate. Nothing downstream of that gate is produced until the Product Manager chooses an option.

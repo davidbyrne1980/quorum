@@ -1,9 +1,9 @@
 # Context Journal — 2026-07-05-validation-app-group-alerts-by-subcategory
 
-**Identifier note:** The ClickUp ticket ID is still `[TBC - Head of Product]` in `01_ticket_intake.md`, so this journal uses the run slug as a placeholder ID until the real ClickUp ticket ID is confirmed.
+**Identifier note:** The ClickUp ticket ID is still `[TBC - Product Manager]` in `01_ticket_intake.md`, so this journal uses the run slug as a placeholder ID until the real ClickUp ticket ID is confirmed.
 
 ### 2026-07-05 — ticket_created
-Ticket intake recorded the request to group validation app alerts by product sub-category. The ticket URL, live ClickUp status confirmation, user/persona, and exact ClickUp ticket ID were still `[TBC - Head of Product]`.
+Ticket intake recorded the request to group validation app alerts by product sub-category. The ticket URL, live ClickUp status confirmation, user/persona, and exact ClickUp ticket ID were still `[TBC - Product Manager]`.
 → Full detail: [01_ticket_intake.md](runs/2026-07-05__run-01/01_ticket_intake.md)
 
 ### 2026-07-05 — context_discovery_codebase

@@ -13,7 +13,7 @@ Nine live ClickUp statuses. Quorum orchestrates the first six. The final three a
 | 1 | Submitted | Intake Agent fires here |
 | 2 | Triage | Optional deeper-dig stage. Frequently skipped in practice — tickets may move directly from Submitted/Validation to COE Review. The Orchestrator does not force a ticket through Triage. Demand Signal Agent may be invoked here on demand (see §4a). |
 | 3 | Validation | PM sanity check that the idea is valid to progress. Clarification and stall management happen here. Demand Signal Agent may be invoked here on demand (see §4a) — no longer mandatory. |
-| 4 | COE Review | CoE Pass 1 runs here — hard gate for Head of Product go/no-go (Gate 4, same role as the former "Product Review" name) |
+| 4 | COE Review | CoE Pass 1 runs here — hard gate for Product Manager go/no-go (Gate 4, same role as the former "Product Review" name) |
 | 5 | Define & Design | Requirements Agent and CoE Pass 2 fire here |
 | 6 | Ready for Scheduling | All gates passed — hard gate before handoff (Gate 8, same role as the former "Delivery Ready" name) |
 | 7 | Scheduled | Orchestrator scope ends here. No further Orchestrator action. |
@@ -38,7 +38,7 @@ Tags are the state detail layer. The Orchestrator reads tags before taking any a
 | `requirements-added` | Requirements Agent output written to ticket | Never |
 | `coe-pass-2-complete` | CoE Pass 2 Virtual Workshop output produced | Never |
 | `solution-added` | Solution Shaping output written to ticket | Never |
-| `bau-cr` | Head of Product confirms BAU/CR classification at Gate 6a | Never |
+| `bau-cr` | Product Manager confirms BAU/CR classification at Gate 6a | Never |
 
 ### State tags — removed when no longer relevant
 
@@ -46,15 +46,15 @@ Tags are the state detail layer. The Orchestrator reads tags before taking any a
 |---|---|---|
 | `awaiting-info` | Orchestrator posts clarification questions | Submitter provides sufficient answers |
 | `stalled` | Day 3 working-day timer fires with no reply | Submitter provides answers or ticket has `closed` tag |
-| `duplicate-suspected` | Intake Agent flags possible duplicate | Head of Product resolves the gate |
-| `bau-cr-signal` | Orchestrator identifies BAU/CR signal from Requirements output | Head of Product confirms (→ swap to `bau-cr`) or rejects (tag removed, standard path) |
+| `duplicate-suspected` | Intake Agent flags possible duplicate | Product Manager resolves the gate |
+| `bau-cr-signal` | Orchestrator identifies BAU/CR signal from Requirements output | Product Manager confirms (→ swap to `bau-cr`) or rejects (tag removed, standard path) |
 
 ### Action and terminal tags
 
 | Tag | Added when | Removed when |
 |---|---|---|
-| `human-review-required` | Any gate becomes active | Head of Product provides a decision and Orchestrator acts on it |
-| `closed` | Ticket is rejected, confirmed duplicate, parked, or otherwise terminated | Never automatically. Only if the Head of Product explicitly reopens the ticket. |
+| `human-review-required` | Any gate becomes active | Product Manager provides a decision and Orchestrator acts on it |
+| `closed` | Ticket is rejected, confirmed duplicate, parked, or otherwise terminated | Never automatically. Only if the Product Manager explicitly reopens the ticket. |
 
 ---
 
@@ -74,7 +74,7 @@ Before taking any action on a ticket, the Orchestrator reads in this exact order
 
 1. **ClickUp status** — which stage is the ticket in?
 2. **`closed` tag** — if present, stop. Closed tickets are never acted on regardless of status.
-3. **`human-review-required` tag** — if present, stop. Do nothing. Wait for Head of Product.
+3. **`human-review-required` tag** — if present, stop. Do nothing. Wait for Product Manager.
 4. **Progress tags** — what has already been completed? This determines what to do next.
 5. **State tags** — is `awaiting-info`, `stalled`, or `duplicate-suspected` active? This affects routing.
 6. **Most recent Orchestrator comment** — what was last done and when? Does the intended action duplicate it?
@@ -86,13 +86,13 @@ Before taking any action on a ticket, the Orchestrator reads in this exact order
 
 The daily Routine loops through all open tickets and applies this logic per ticket.
 
-**Decision grammar:** wherever this document says "human-review-required removed", the operative trigger is an explicit Head of Product decision (chat / /gate command in Phase 1; gate_decisions record in Phase 2+). The Orchestrator removes the tag as a consequence of acting on the decision — tag absence alone never encodes which option was chosen.
+**Decision grammar:** wherever this document says "human-review-required removed", the operative trigger is an explicit Product Manager decision (chat / /gate command in Phase 1; gate_decisions record in Phase 2+). The Orchestrator removes the tag as a consequence of acting on the decision — tag absence alone never encodes which option was chosen.
 
 ### Tickets in Validation
 
 ```
 Has human-review-required?
-  → Stop. Waiting on Head of Product.
+  → Stop. Waiting on Product Manager.
 
 Has awaiting-info?
   → Check for new submitter replies since last Orchestrator comment
@@ -110,7 +110,7 @@ Has awaiting-info?
 No awaiting-info, no coe-pass-1-complete?
   → Run Demand Signal Agent
   → Return output to Supabase (never auto-write to ClickUp)
-  → Add human-review-required (Head of Product grades evidence)
+  → Add human-review-required (Product Manager grades evidence)
   → Stop. Wait.
 
 human-review-required removed, no coe-pass-1-complete?
@@ -126,10 +126,10 @@ human-review-required removed, no coe-pass-1-complete?
 
 ```
 Has human-review-required?
-  → Stop. Waiting on Head of Product go/no-go decision.
+  → Stop. Waiting on Product Manager go/no-go decision.
 
 human-review-required removed?
-  → Head of Product has decided
+  → Product Manager has decided
   → If Go: move status to Define & Design, remove human-review-required
   → If No-Go: add tag `closed`, status unchanged, post closure comment
   → If Validate Further: remain at COE Review, post follow-up request
@@ -139,12 +139,12 @@ human-review-required removed?
 
 ```
 Has human-review-required?
-  → Stop. Waiting on Head of Product.
+  → Stop. Waiting on Product Manager.
 
 No requirements-added?
   → Run Requirements Agent
   → Add requirements-added
-  → Add human-review-required (soft gate — Head of Product reviews before CoE Pass 2)
+  → Add human-review-required (soft gate — Product Manager reviews before CoE Pass 2)
   → Stop. Wait.
 
 Has requirements-added, human-review-required removed, no coe-pass-2-complete?
@@ -173,10 +173,10 @@ Has solution-added (or Phase < 4), human-review-required removed?
 
 ```
 Has human-review-required?
-  → Stop. Waiting on Head of Product final approval.
+  → Stop. Waiting on Product Manager final approval.
 
 human-review-required removed?
-  → Head of Product has approved
+  → Product Manager has approved
   → Move status to Scheduled
   → Record handoff in Supabase
   → No further Orchestrator action on this ticket
@@ -186,7 +186,7 @@ human-review-required removed?
 
 ## 4a. Demand Signal — optional invocation
 
-Demand Signal Agent (Mode A, Orchestrator-managed) is not a mandatory gate. It is invoked on demand by the Head of Product while a ticket is at Triage or Validation, using the same Mode A behaviour defined in spec/agents/DEMAND_SIGNAL_AGENT.md (output returns to Orchestrator, graded, presented for review, written back via T-07 only after approval).
+Demand Signal Agent (Mode A, Orchestrator-managed) is not a mandatory gate. It is invoked on demand by the Product Manager while a ticket is at Triage or Validation, using the same Mode A behaviour defined in spec/agents/DEMAND_SIGNAL_AGENT.md (output returns to Orchestrator, graded, presented for review, written back via T-07 only after approval).
 
 **If Demand Signal is never invoked:** CoE Pass 1 runs on ticket content and Requirements context alone. The Pass 1 council output must include an explicit line: "No demand signal evidence assessed for this ticket." This is not optional — silent proceeding without the declaration is a governance failure, same standard as the Lenses Not Represented rule for reduced CoE Pass 2 councils.
 
@@ -202,7 +202,7 @@ When any gate resolves in rejection, confirmed duplicate, or park (Gate 1, Gate 
 3. Posts the appropriate T-16 (or T-10 for CoE Pass 1 No-Go) closure comment stating the reason.
 4. Records the closure in the audit log (Supabase `audit_log` and `workflow_runs`).
 
-**Reopening:** if the Head of Product removes the `closed` tag, the ticket is live again at whatever status it sits at. The Orchestrator re-applies the pre-action check (read status, read tags, read most recent comment) before taking any further action — it does not assume where the ticket "should" resume from.
+**Reopening:** if the Product Manager removes the `closed` tag, the ticket is live again at whatever status it sits at. The Orchestrator re-applies the pre-action check (read status, read tags, read most recent comment) before taking any further action — it does not assume where the ticket "should" resume from.
 
 **Pre-action check addition:** every pre-action check (spec/orchestrator/CLICKUP_STATE_MODEL.md §3, spec/orchestrator/AGENT_ROUTING_RULES.md §2) must check the `closed` tag immediately after `human-review-required`. If `closed` is present, stop — the Orchestrator never acts on a closed ticket regardless of status.
 
@@ -238,7 +238,7 @@ Define & Design
   └─ Rejected at any gate → add `closed` tag
 
 Ready for Scheduling
-  └─ Head of Product approves → Scheduled (remove human-review-required)
+  └─ Product Manager approves → Scheduled (remove human-review-required)
 
 Scheduled
   (Orchestrator does not act)
@@ -286,7 +286,7 @@ In Phase 2, Supabase is added as the orchestration memory layer. ClickUp statuse
 | `working_day_timer` | Stall detection — counts working days only, excludes weekends |
 | `chase_count` | How many chases have been sent |
 | `agent_outputs` | Full unfiltered output from every agent — never written to ClickUp directly |
-| `demand_signal_pending_review` | Demand Signal output awaiting Head of Product grading |
+| `demand_signal_pending_review` | Demand Signal output awaiting Product Manager grading |
 | `human_gate_status` | Which gate is active, when it opened |
 | `audit_log` | Every Orchestrator decision with timestamp |
 
