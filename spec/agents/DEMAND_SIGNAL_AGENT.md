@@ -288,25 +288,39 @@ If Signal did not run (BAU/CR, configuration change, or Orchestrator skipped it)
 
 ---
 
-## 13. Store Visit Notes and QBR Documents
+## 13. Store Visit Notes and QIR Documents
 
 These are the highest-quality internal evidence sources available. Treat them as **High-grade observational evidence** by default.
 
-**Where they live:** ClickUp, CS space. Scattered across individual client pages. The exact space name is to be confirmed — see outstanding items.
+**Note:** Retail Insight calls these sessions "QIR" (Quarterly Insight Review), not "QBR". Search for both terms.
+
+**Where they live:** ClickUp, "Global Customer Success" space (ID: 44443657). Two confirmed locations:
+
+**Primary — QIR Notes:**
+- Space: Global Customer Success (44443657)
+- Folder: Customer Cadences → List: Global Ceremonies (list ID: `901214185680`)
+- Document: "CEREMONIES NOTES"
+- Page structure: [Region] → [Client] → QIR [Date]
+
+**Secondary — Monthly Updates:**
+- Space: Global Customer Success (44443657)
+- Folder: Old / Archived
+- Document: "Monthly Updates"
+- Page structure: [Region] → [Client] → FY[Year] → [Month] Update
 
 **How to find them:**
-- Search ClickUp documents in the CS space using client name + product keywords
-- Look for documents with titles containing: "store visit", "site visit", "QBR", "quarterly", "business review", "client visit"
-- Retrieve and read full document content using `clickup_get_document_pages`
+- Search ClickUp documents in the CS space (44443657) using client name + product keywords
+- Search the "CEREMONIES NOTES" doc and "Monthly Updates" doc directly using `clickup_get_document_pages`
+- Also search for titles containing: "store visit", "site visit", "QIR", "QBR", "quarterly", "business review", "client visit"
 - Note the client, date, and specific observations that relate to the ticket's problem domain
 
 **Grading rules:**
-- Store visit note with direct observation of the problem: **High**
-- QBR theme matching the ticket across multiple clients: **High** (Established signal)
-- QBR theme from a single client: **Medium**
-- Passing mention in a visit note: **Low**
+- Store visit / QIR note with direct observation of the problem: **High**
+- QIR theme matching the ticket across multiple clients: **High** (Established signal)
+- QIR theme from a single client: **Medium**
+- Passing mention in a visit note or monthly update: **Low**
 
-**Outstanding:** CS space exact name to be confirmed by Product Manager before Phase 1 build begins.
+**Confirmed:** Space structure confirmed 2026-07-08 by ClickUp hierarchy search. ~~Outstanding item closed.~~
 
 ---
 
